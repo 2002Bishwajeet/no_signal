@@ -1,8 +1,8 @@
 <p  align="center">
 <a  href="https://flutter.dev"  target="_blank"><img  height="39"  src="https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png"  alt="Flutter Logo"></a> <a>&nbsp;&nbsp;&nbsp;</a>
 <a  href="https://appwrite.io"  target="_blank"><img  width="260"  height="39"  src="https://appwrite.io/images/github-logo.png"  alt="Appwrite Logo"></a>
-
 </p>
+
 # NO Signal
 
 A functional replica of Signal(Chatting App) made using Flutter and Appwrite.
