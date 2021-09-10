@@ -10,10 +10,14 @@ class NoSignalTheme {
       );
 
   static ThemeData darkTheme(BuildContext context) => ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: navyblueshade2,
-        fontFamily: GoogleFonts.ubuntu().fontFamily,
-      );
+      brightness: Brightness.dark,
+      scaffoldBackgroundColor: navyblueshade2,
+      fontFamily: GoogleFonts.ubuntu().fontFamily,
+      appBarTheme: AppBarTheme(
+        backgroundColor: navyblueshade2,
+        iconTheme: IconThemeData(color: Colors.white),
+        actionsIconTheme: IconThemeData(color: Colors.white),
+      ));
 
   //  Color Codes for Dark Theme
   static Color navyblueshade1 = HexColor('#1C223A');
