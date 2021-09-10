@@ -226,7 +226,23 @@ class _LoginPageState extends State<LoginPage> {
                             margin: const EdgeInsets.symmetric(horizontal: 16),
                             width: double.infinity,
                             child: MaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ScaffoldMessenger.of(context)
+                                    .showMaterialBanner(MaterialBanner(
+                                        backgroundColor:
+                                            NoSignalTheme.lightBlueShade,
+                                        padding: const EdgeInsets.only(top: 16),
+                                        content: Text(
+                                            'Gimme Credit Card and I will give you Google Authentication'),
+                                        actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            ScaffoldMessenger.of(context)
+                                                .clearMaterialBanners();
+                                          },
+                                          child: Text('Haha Noob Lol'))
+                                    ]));
+                              },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
