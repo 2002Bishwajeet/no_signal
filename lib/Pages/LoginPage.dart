@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:no_signal/Pages/HomePage.dart';
+import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/themes.dart';
 
 enum Status {
@@ -58,10 +60,18 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Consumer(builder: (context, watch, _) {
+          final auth = watch(authProvider);
           Future<void> _onPressedFunction() async {
             if (!_formKey.currentState!.validate()) {
               return;
             }
+            loading();
+            if (type == Status.login)
+              await auth.login(_email.text, _password.text, context);
+            else
+              await auth.signUp(_email.text, _password.text, context);
+
+            loading();
           }
 
           return Form(
@@ -96,7 +106,6 @@ class _LoginPageState extends State<LoginPage> {
                             autocorrect: true,
                             enableSuggestions: true,
                             keyboardType: TextInputType.emailAddress,
-                            onSaved: (value) {},
                             decoration: InputDecoration(
                               hintText: 'Email address',
                               hintStyle: TextStyle(

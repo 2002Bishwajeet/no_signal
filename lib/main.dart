@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:no_signal/Pages/ErrorPage.dart';
+import 'package:no_signal/Pages/HomePage.dart';
 import 'package:no_signal/Pages/LoginPage.dart';
 import 'package:no_signal/Pages/WelcomePage.dart';
+import 'package:no_signal/Pages/loadingpage.dart';
+import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/themes.dart';
 
 void main() {
@@ -9,20 +13,31 @@ void main() {
   runApp(ProviderScope(child: MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader ref) {
+    final user = ref(userProvider);
+    final auth = ref(authProvider);
     return MaterialApp(
       title: 'No Signal',
       themeMode: ThemeMode.dark,
       darkTheme: NoSignalTheme.darkTheme(context),
       theme: NoSignalTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
-      home: WelcomePage(),
+      home: user.when(
+          data: (data) {
+            if (auth.isLoggedIn)
+              return HomePage();
+            else
+              return WelcomePage();
+          },
+          loading: () => LoadingPage(),
+          error: (e, trace) => ErrorPage(error: e)),
       routes: {
         LoginPage.routename: (context) => LoginPage(),
+        HomePage.routename: (context) => HomePage(),
       },
     );
   }
