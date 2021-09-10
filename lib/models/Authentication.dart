@@ -102,10 +102,10 @@ class Authentication {
   Future<void> logout(BuildContext context) async {
     try {
       await account.deleteSession(sessionId: 'current');
-      await Navigator.of(context).pushReplacementNamed(LoginPage.routename);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Logged out Successfully"),
       ));
+      await Navigator.of(context).pushReplacementNamed(LoginPage.routename);
     } catch (e) {
       print(e);
       await showDialog(
