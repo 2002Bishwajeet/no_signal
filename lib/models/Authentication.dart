@@ -111,7 +111,7 @@ class Authentication {
       await showDialog(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-                title: Text('Error Occured'),
+                title: Text('Something went wrong'),
                 content: Text(e.toString()),
                 actions: [
                   TextButton(
