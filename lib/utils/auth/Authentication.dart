@@ -10,6 +10,7 @@ class Authentication {
   final Client client;
   late Account account;
   late bool _isLoggedIn;
+  late Database _database;
   User? _user;
 
   bool get isLoggedIn => _isLoggedIn;
@@ -19,6 +20,7 @@ class Authentication {
     this.client,
   ) {
     account = Account(client);
+    _database = Database(client);
     _isLoggedIn = false;
     checkIsLoggedIn();
   }
@@ -78,7 +80,18 @@ class Authentication {
   Future<void> signUp(
       String email, String password, BuildContext context) async {
     try {
-      final acc = await account.create(email: email, password: password);
+      final acc = await account
+          .create(email: email, password: password)
+          .whenComplete(() async {
+        await account.createSession(email: email, password: password);
+      });
+
+      User user = User.fromMap(acc.data);
+      await _database.createDocument(
+        collectionId: '613c3298e2a69',
+        data: user.toMap(),
+      );
+
       await Navigator.pushReplacementNamed(context, HomePage.routename);
       print(acc);
     } catch (e) {

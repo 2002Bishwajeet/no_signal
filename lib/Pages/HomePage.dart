@@ -53,9 +53,7 @@ class HomePage extends ConsumerWidget {
                         break;
                       case PopupItem.logout:
                         auth.logout(context);
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Logout successfully'),
-                        ));
+
                         break;
                     }
                   },
