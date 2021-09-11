@@ -19,7 +19,6 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader ref) {
     final user = ref(userProvider);
-    final auth = ref(authProvider);
     return MaterialApp(
       title: 'No Signal',
       themeMode: ThemeMode.dark,
@@ -28,7 +27,7 @@ class MainApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       home: user.when(
           data: (data) {
-            if (auth.isLoggedIn)
+            if (data == true)
               return HomePage();
             else
               return WelcomePage();

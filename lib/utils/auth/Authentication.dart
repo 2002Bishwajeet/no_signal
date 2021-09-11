@@ -1,12 +1,13 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:no_signal/Pages/HomePage.dart';
 import 'package:no_signal/Pages/LoginPage.dart';
 import 'package:no_signal/models/user.dart';
 
 class Authentication {
-  final Client client = Client();
+  final Client client;
   late Account account;
   late bool _isLoggedIn;
   User? _user;
@@ -14,17 +15,15 @@ class Authentication {
   bool get isLoggedIn => _isLoggedIn;
   User? get user => _user;
 
-  Authentication() {
-    client
-        .setEndpoint('http://192.168.1.26:5000/v1')
-        .setProject('61372edb59641')
-        .setSelfSigned(status: true);
+  Authentication(
+    this.client,
+  ) {
     account = Account(client);
     _isLoggedIn = false;
     checkIsLoggedIn();
   }
 
-  Future<void> checkIsLoggedIn() async {
+  Future<bool> checkIsLoggedIn() async {
     try {
       _user = await _getAccount();
       print(_user);
@@ -35,6 +34,7 @@ class Authentication {
     } catch (e) {
       print(e);
     }
+    return _isLoggedIn;
   }
 
   Future<User?> _getAccount() async {

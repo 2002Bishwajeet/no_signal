@@ -1,10 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:no_signal/models/Authentication.dart';
+import 'package:no_signal/models/user.dart';
+import 'package:no_signal/providers/client.dart';
+import 'package:no_signal/utils/auth/Authentication.dart';
 
 final authProvider = Provider<Authentication>((ref) {
-  return Authentication();
+  return Authentication(ref.read(clientProvider));
 });
 
-final userProvider = FutureProvider<void>((ref) async {
-  return Authentication().checkIsLoggedIn() ;
+final userProvider = FutureProvider<bool>((ref) async {
+  return Authentication(ref.read(clientProvider)).checkIsLoggedIn();
+});
+
+final userDetailsProvider = Provider<User?>((ref) {
+  return Authentication(ref.read(clientProvider)).user;
 });
