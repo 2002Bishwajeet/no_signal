@@ -1,18 +1,16 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:no_signal/Pages/HomePage.dart';
-import 'package:no_signal/Pages/LoginPage.dart';
+import 'package:no_signal/Pages/LoginPages/LoginPage.dart';
+import 'package:no_signal/Pages/LoginPages/SignUpPage.dart';
 import 'package:no_signal/models/user.dart';
 
 class Authentication {
   final Client client;
   late Account account;
   late bool _isLoggedIn;
-  late Database _database;
   User? _user;
-
   bool get isLoggedIn => _isLoggedIn;
   User? get user => _user;
 
@@ -20,7 +18,7 @@ class Authentication {
     this.client,
   ) {
     account = Account(client);
-    _database = Database(client);
+
     _isLoggedIn = false;
     checkIsLoggedIn();
   }
@@ -86,13 +84,10 @@ class Authentication {
         await account.createSession(email: email, password: password);
       });
 
-      User user = User.fromMap(acc.data);
-      await _database.createDocument(
-        collectionId: '613c3298e2a69',
-        data: user.toMap(),
-      );
+     
 
-      await Navigator.pushReplacementNamed(context, HomePage.routename);
+      await Navigator.pushReplacementNamed(
+          context, CreateAccountPage.routeName);
       print(acc);
     } catch (e) {
       print(e);

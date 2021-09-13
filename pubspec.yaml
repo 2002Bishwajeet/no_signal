@@ -31,6 +31,7 @@ dependencies:
   flutter_riverpod: ^0.14.0+3
   font_awesome_flutter: ^9.1.0
   google_fonts: ^2.1.0
+  image_picker: ^0.8.4
   introduction_screen: ^2.1.0
   lottie: ^1.1.0
 
