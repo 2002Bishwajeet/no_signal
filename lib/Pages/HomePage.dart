@@ -43,12 +43,12 @@ class HomePage extends ConsumerWidget {
                     switch (item) {
                       case PopupItem.group:
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Logout successfully'),
+                          content: Text('Wait '),
                         ));
                         break;
                       case PopupItem.settings:
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Logout successfully'),
+                          content: Text('Stfu'),
                         ));
                         break;
                       case PopupItem.logout:

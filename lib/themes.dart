@@ -13,10 +13,14 @@ class NoSignalTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: navyblueshade2,
       fontFamily: GoogleFonts.ubuntu().fontFamily,
+      iconTheme: IconThemeData(color: Colors.white),
       appBarTheme: AppBarTheme(
         backgroundColor: navyblueshade2,
         iconTheme: IconThemeData(color: Colors.white),
         actionsIconTheme: IconThemeData(color: Colors.white),
+      ),
+      bottomAppBarTheme: BottomAppBarTheme(
+        color: navyblueshade4,
       ));
 
   //  Color Codes for Dark Theme

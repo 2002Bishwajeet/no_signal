@@ -2,31 +2,39 @@ import 'dart:convert';
 
 class Chat {
   final String senderName;
-  final String receiverId;
-  final String? message;
-  final DateTime timeStamp;
+  final String senderid;
+  final String receiverid;
+  final String receiverName;
+  final String message;
+  final DateTime time;
   Chat({
     required this.senderName,
-    required this.receiverId,
-    this.message,
-    required this.timeStamp,
+    required this.senderid,
+    required this.receiverid,
+    required this.receiverName,
+    required this.message,
+    required this.time,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'senderName': senderName,
-      'receiverId': receiverId,
+      'senderid': senderid,
+      'receiverid': receiverid,
+      'receiverName': receiverName,
       'message': message,
-      'timeStamp': timeStamp.millisecondsSinceEpoch,
+      'time': time.millisecondsSinceEpoch,
     };
   }
 
   factory Chat.fromMap(Map<String, dynamic> map) {
     return Chat(
       senderName: map['senderName'],
-      receiverId: map['receiverId'],
+      senderid: map['senderid'],
+      receiverid: map['receiverid'],
+      receiverName: map['receiverName'],
       message: map['message'],
-      timeStamp: DateTime.fromMillisecondsSinceEpoch(map['timeStamp']),
+      time: DateTime.fromMillisecondsSinceEpoch(map['time']),
     );
   }
 
@@ -34,3 +42,4 @@ class Chat {
 
   factory Chat.fromJson(String source) => Chat.fromMap(json.decode(source));
 }
+

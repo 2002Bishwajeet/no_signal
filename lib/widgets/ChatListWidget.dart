@@ -13,7 +13,9 @@ class ChatTileWidget extends StatelessWidget {
       title: Text('Aishwarya'),
       subtitle: Text('Hey, how are you?'),
       trailing: Text('11:01 AM'),
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed('/chat');
+      },
       onLongPress: () {},
     );
   }

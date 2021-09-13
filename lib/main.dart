@@ -5,6 +5,7 @@ import 'package:no_signal/Pages/HomePage.dart';
 import 'package:no_signal/Pages/LoginPages/LoginPage.dart';
 import 'package:no_signal/Pages/LoginPages/SignUpPage.dart';
 import 'package:no_signal/Pages/WelcomePage.dart';
+import 'package:no_signal/Pages/chatPage.dart';
 import 'package:no_signal/Pages/loadingpage.dart';
 import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/themes.dart';
@@ -39,6 +40,7 @@ class MainApp extends ConsumerWidget {
         LoginPage.routename: (context) => LoginPage(),
         HomePage.routename: (context) => HomePage(),
         CreateAccountPage.routeName: (context) => CreateAccountPage(),
+        ChatPage.routeName: (context) => ChatPage(),
       },
     );
   }
