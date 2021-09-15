@@ -3,15 +3,11 @@ import 'dart:convert';
 class Chat {
   final String senderName;
   final String senderid;
-  final String receiverid;
-  final String receiverName;
   final String message;
   final DateTime time;
   Chat({
     required this.senderName,
     required this.senderid,
-    required this.receiverid,
-    required this.receiverName,
     required this.message,
     required this.time,
   });
@@ -20,10 +16,8 @@ class Chat {
     return {
       'senderName': senderName,
       'senderid': senderid,
-      'receiverid': receiverid,
-      'receiverName': receiverName,
       'message': message,
-      'time': time.millisecondsSinceEpoch,
+      'time': time.millisecondsSinceEpoch * 1000,
     };
   }
 
@@ -31,10 +25,8 @@ class Chat {
     return Chat(
       senderName: map['senderName'],
       senderid: map['senderid'],
-      receiverid: map['receiverid'],
-      receiverName: map['receiverName'],
       message: map['message'],
-      time: DateTime.fromMillisecondsSinceEpoch(map['time']),
+      time: DateTime.fromMillisecondsSinceEpoch(map['time'] * 1000),
     );
   }
 
@@ -42,4 +34,3 @@ class Chat {
 
   factory Chat.fromJson(String source) => Chat.fromMap(json.decode(source));
 }
-

@@ -12,6 +12,8 @@ class Authentication {
   late bool _isLoggedIn;
   User? _user;
   bool get isLoggedIn => _isLoggedIn;
+
+  // This is useless here. Will remove this in Futurw
   User? get user => _user;
 
   Authentication(
@@ -25,8 +27,8 @@ class Authentication {
 
   Future<bool> checkIsLoggedIn() async {
     try {
-      _user = await _getAccount();
-      print(_user);
+      _user = await getAccount();
+
       if (_user != null)
         _isLoggedIn = true;
       else
@@ -37,11 +39,11 @@ class Authentication {
     return _isLoggedIn;
   }
 
-  Future<User?> _getAccount() async {
+  Future<User?> getAccount() async {
     try {
       Response<dynamic> res = await account.get();
       if (res.data != null) {
-        print(res.data);
+        // print(res.data);
         return User.fromMap(res.data);
       } else {
         return null;
@@ -83,8 +85,6 @@ class Authentication {
           .whenComplete(() async {
         await account.createSession(email: email, password: password);
       });
-
-     
 
       await Navigator.pushReplacementNamed(
           context, CreateAccountPage.routeName);

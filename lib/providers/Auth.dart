@@ -4,13 +4,13 @@ import 'package:no_signal/providers/client.dart';
 import 'package:no_signal/utils/auth/Authentication.dart';
 
 final authProvider = Provider<Authentication>((ref) {
-  return Authentication(ref.read(clientProvider));
+  return Authentication(ref.watch(clientProvider));
 });
 
 final userProvider = FutureProvider<bool>((ref) async {
-  return Authentication(ref.read(clientProvider)).checkIsLoggedIn();
+  return Authentication(ref.watch(clientProvider)).checkIsLoggedIn();
 });
 
 final userDetailsProvider = Provider<User?>((ref) {
-  return Authentication(ref.read(clientProvider)).user;
+  return Authentication(ref.watch(clientProvider)).user;
 });
