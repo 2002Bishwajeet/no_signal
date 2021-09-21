@@ -26,7 +26,7 @@ class Chat {
       senderName: map['senderName'],
       senderid: map['senderid'],
       message: map['message'],
-      time: DateTime.fromMillisecondsSinceEpoch(map['time'] * 1000),
+      time: DateTime.fromMillisecondsSinceEpoch(map['time']),
     );
   }
 
