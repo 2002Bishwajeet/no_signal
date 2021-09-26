@@ -7,10 +7,14 @@ final authProvider = Provider<Authentication>((ref) {
   return Authentication(ref.watch(clientProvider));
 });
 
-final userProvider = FutureProvider<bool>((ref) async {
-  return Authentication(ref.watch(clientProvider)).checkIsLoggedIn();
+final userProvider = FutureProvider<User?>((ref) async {
+  return Authentication(ref.watch(clientProvider)).getAccount();
 });
 
-final userDetailsProvider = Provider<User?>((ref) {
-  return Authentication(ref.watch(clientProvider)).user;
+final userLoggedProvider = StateProvider<User?>((ref) {
+  return null;
+});
+
+final userLoggedInProvider = StateProvider<bool?>((ref) {
+  return null;
 });

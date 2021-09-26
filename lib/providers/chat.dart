@@ -6,11 +6,10 @@ import 'package:no_signal/utils/database/create_chats.dart';
 
 final chatProvider = Provider<Chatting>((ref) {
   return Chatting(
-      dartClient: ref.watch(dartClientProvider),
       client: ref.watch(clientProvider));
 });
 
-final chatsProvider = StreamProvider.autoDispose<RealtimeMessage?>((ref) {
+final chatsProvider = FutureProvider<RealtimeSubscription?>((ref) {
   return ref.watch(chatProvider).receiveMessage();
 });
 

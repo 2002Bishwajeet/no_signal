@@ -9,39 +9,14 @@ import 'package:no_signal/models/user.dart';
 class Authentication {
   final Client client;
   late Account account;
-  late bool _isLoggedIn;
-  User? _user;
-  bool get isLoggedIn => _isLoggedIn;
 
-  // This is useless here. Will remove this in Futurw
-  User? get user => _user;
-
-  Authentication(
-    this.client,
-  ) {
+  Authentication(this.client) {
     account = Account(client);
-
-    _isLoggedIn = false;
-    checkIsLoggedIn();
-  }
-
-  Future<bool> checkIsLoggedIn() async {
-    try {
-      _user = await getAccount();
-
-      if (_user != null)
-        _isLoggedIn = true;
-      else
-        _isLoggedIn = false;
-    } catch (e) {
-      print(e);
-    }
-    return _isLoggedIn;
   }
 
   Future<User?> getAccount() async {
     try {
-      Response<dynamic> res = await account.get();
+      var res = await account.get();
       if (res.data != null) {
         // print(res.data);
         return User.fromMap(res.data);
