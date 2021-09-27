@@ -1,6 +1,7 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:no_signal/models/user.dart';
 
+
 class UserData {
   final Client client;
   late Database database;
@@ -37,5 +38,9 @@ class UserData {
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<void> getUsersList() async {
+
   }
 }

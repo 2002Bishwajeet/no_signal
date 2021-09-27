@@ -6,6 +6,7 @@ import 'package:no_signal/Pages/LoginPages/SignUpPage.dart';
 import 'package:no_signal/Pages/WelcomePage.dart';
 import 'package:no_signal/Pages/chatPage.dart';
 import 'package:no_signal/Pages/loadingpage.dart';
+import 'package:no_signal/Pages/usersListPage.dart';
 import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/themes.dart';
 
@@ -52,6 +53,7 @@ class _MainAppState extends State<MainApp> {
         HomePage.routename: (context) => HomePage(),
         CreateAccountPage.routeName: (context) => CreateAccountPage(),
         ChatPage.routeName: (context) => ChatPage(),
+        UsersListPage.routeName: (context) => UsersListPage(),
       },
     );
   }

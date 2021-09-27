@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:no_signal/Pages/usersListPage.dart';
 import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/themes.dart';
 import 'package:no_signal/widgets/ChatListWidget.dart';
@@ -79,10 +80,15 @@ class HomePage extends ConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(UsersListPage.routeName);
+        },
         backgroundColor: NoSignalTheme.whiteShade1,
         mini: true,
-        child: FaIcon(FontAwesomeIcons.pen),
+        child: FaIcon(
+          FontAwesomeIcons.pen,
+          color: NoSignalTheme.navyblueshade4,
+        ),
       ),
     );
   }
