@@ -23,13 +23,17 @@ environment:
 
 dependencies:
   appwrite: ^1.0.2
+  cached_network_image: ^3.1.0
   cupertino_icons: ^1.0.2
+  dart_appwrite: ^1.0.1
   flutter:
     sdk: flutter
+  flutter_chat_bubble: ^2.0.0
   flutter_hex_color: ^2.0.0
   flutter_riverpod: ^0.14.0+3
   font_awesome_flutter: ^9.1.0
   google_fonts: ^2.1.0
+  image_picker: ^0.8.4
   introduction_screen: ^2.1.0
   lottie: ^1.1.0
 
