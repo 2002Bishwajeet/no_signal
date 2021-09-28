@@ -1,6 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:no_signal/models/user.dart';
-
 
 class UserData {
   final Client client;
@@ -40,7 +41,38 @@ class UserData {
     }
   }
 
-  Future<void> getUsersList() async {
+  Future<List<UserPerson>?> getUsersList() async {
+    try {
+      final response =
+          await database.listDocuments(collectionId: '613c3298e2a69');
+      final List<UserDetails> users = [];
+      final temp = response.data['documents'] as List<dynamic>;
+      final List<UserPerson> _users = [];
 
+      temp.forEach((element) {
+        users.add(UserDetails.fromMap(element));
+      });
+      users.forEach((element) async {
+        final imgurl = await getProfilePicture(element.url as String);
+        _users.add(UserPerson(
+            name: element.name,
+            bio: element.bio,
+            id: element.id,
+            email: element.email,
+            image: imgurl));
+      });
+      return _users;
+    } on AppwriteException catch (e) {
+      throw e;
+    }
+  }
+
+  Future<Uint8List> getProfilePicture(String fileId) async {
+    try {
+      final data = await storage.getFilePreview(fileId: fileId);
+      return data.data;
+    } on AppwriteException catch (e) {
+      throw e;
+    }
   }
 }
