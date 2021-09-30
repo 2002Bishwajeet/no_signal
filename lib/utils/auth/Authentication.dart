@@ -20,11 +20,9 @@ class Authentication {
       if (res.data != null) {
         // print(res.data);
         return User.fromMap(res.data);
-      } else {
-        return null;
       }
     } catch (e) {
-      throw e;
+      return null;
     }
   }
 

@@ -1,3 +1,4 @@
+
 import 'dart:typed_data';
 
 import 'package:appwrite/appwrite.dart';
@@ -71,6 +72,25 @@ class UserData {
     try {
       final data = await storage.getFilePreview(fileId: fileId);
       return data.data;
+    } on AppwriteException catch (e) {
+      throw e;
+    }
+  }
+
+  Future<Uint8List> getProfilePicturebyuserId(String id) async {
+    try {
+      final response =
+          await database.listDocuments(collectionId: '613c3298e2a69');
+       String? pictureId;
+      final temp = response.data['documents'] as List<dynamic>;
+      temp.forEach((element) {
+        if (element['id'] == id) {
+          pictureId = element['url'] ;
+          
+        }
+      });
+            final data = await storage.getFilePreview(fileId: pictureId as String);
+            return data.data;
     } on AppwriteException catch (e) {
       throw e;
     }
