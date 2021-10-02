@@ -63,6 +63,13 @@ class ChatPage extends ConsumerWidget {
         },
         child: Scaffold(
             appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  realtimeChats?.close();
+                },
+              ),
               backgroundColor: NoSignalTheme.navyblueshade4,
               leadingWidth: 20,
               elevation: 0,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:no_signal/Pages/PopupPages/settings.dart';
 import 'package:no_signal/Pages/usersListPage.dart';
 import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/providers/UserData.dart';
@@ -32,11 +33,17 @@ class HomePage extends ConsumerWidget {
             ),
             leading: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: CircleAvatar(
-                // backgroundColor: NoSignalTheme.whiteShade1,
-                backgroundImage: img != null
-                    ? MemoryImage(img) as ImageProvider
-                    : AssetImage('assets/images/avatar.png'),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(SettingsScreen.routename, arguments: img);
+                },
+                child: CircleAvatar(
+                  // backgroundColor: NoSignalTheme.whiteShade1,
+                  backgroundImage: img != null
+                      ? MemoryImage(img) as ImageProvider
+                      : AssetImage('assets/images/avatar.png'),
+                ),
               ),
             ),
             actions: [

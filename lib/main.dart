@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/Pages/HomePage.dart';
 import 'package:no_signal/Pages/LoginPages/LoginPage.dart';
 import 'package:no_signal/Pages/LoginPages/SignUpPage.dart';
+import 'package:no_signal/Pages/PopupPages/settings.dart';
 import 'package:no_signal/Pages/WelcomePage.dart';
 import 'package:no_signal/Pages/chatPage.dart';
 import 'package:no_signal/Pages/loadingpage.dart';
@@ -61,6 +62,7 @@ class _MainAppState extends State<MainApp> {
         CreateAccountPage.routeName: (context) => CreateAccountPage(),
         ChatPage.routeName: (context) => ChatPage(),
         UsersListPage.routeName: (context) => UsersListPage(),
+        SettingsScreen.routename: (context) => SettingsScreen(),
       },
     );
   }
