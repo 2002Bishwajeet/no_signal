@@ -33,12 +33,28 @@ class Authentication {
   //  Since all the functions will be asynchronous we will be using Future
   //  cause you know there is a future involved. you don't know what are you expecting
 
-  //  There isn't much difference between the two versions.
-  //  Only now instead of dynamic data you get a proper class objects
-
+  //  In older version appwrite SDK 1.0.2 , we used to get response as the output
+  //  and we had to manually add them into our custom models.
+  //  But fear not we are using the latest appwrite sdk version 2.0.2
+  //  This returns proper models so yup, it made your life a little easier.
   //  When I started this project I had manually implemented those models
+  //  But this blog uses latest version of appwrite so we are going to skip that part
 
-  Future<User?> getAccount() async => await account.get();
+//  This is a function getaccount which will return a User object containing the data
+//  of the user if the user is authenticated. Otherwise it will throw an exception
+//  SO we don't want the program to stop in between so we are returning NULL if
+//  it throws exception
+
+//  To know more about User Model Ctrl+click on User to go to the User model
+//  It's a nice practice to see these stuffs and explore them
+  Future<User?> getAccount() async {
+    try {
+      return await account.get();
+    } on AppwriteException catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
   // A function to login the user with email and password
   Future<void> login(

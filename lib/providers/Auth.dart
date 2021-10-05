@@ -7,7 +7,7 @@ import 'package:no_signal/utils/auth/Authentication.dart';
 
 //  Let's have a look at authProvider
 //  you will notice I am consuming another provider within a provider 
-//  and its totally ok, there are not performance issues to this
+//  and its totally ok, there aren't performance issues to this
 //  this authProvider provides an Object of class Authentication
 final authProvider = Provider<Authentication>((ref) {
   return Authentication(ref.watch(clientProvider));
@@ -24,6 +24,7 @@ final userProvider = FutureProvider<User?>((ref) async {
 // I would be using this provider to keep the data of the user which is logged in
 //  and I can access this data anywhere within the context. Like to show some details
 //  of the user like name and email or to access its unique Id for other purposes
+//  Keep in mind this User Class is provided by the appwrite sdk
 final userLoggedProvider = StateProvider<User?>((ref) {
   return null;
 });
