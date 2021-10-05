@@ -60,9 +60,9 @@ class HomePage extends ConsumerWidget {
                         ));
                         break;
                       case PopupItem.settings:
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Stfu'),
-                        ));
+                        Navigator.of(context).pushNamed(
+                            SettingsScreen.routename,
+                            arguments: img);
                         break;
                       case PopupItem.logout:
                         auth.logout(context);
