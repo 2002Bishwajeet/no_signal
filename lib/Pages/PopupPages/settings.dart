@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/providers/Auth.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -50,7 +51,52 @@ class SettingsScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            ListTile(
+              title: Text('Account'),
+              leading: Icon(Icons.account_circle),
+            ),
+            ListTile(
+              title: Text('Linked devices'),
+              leading: Icon(Icons.link),
+            ),
+            Divider(
+              height: 19,
+            ),
+            ListTile(
+              title: Text('Appearance'),
+              leading: Icon(Icons.color_lens),
+            ),
+            ListTile(
+              title: Text('Chats'),
+              leading: Icon(Icons.chat),
+            ),
+            ListTile(
+              title: Text('Notifications'),
+              leading: Icon(Icons.notifications),
+            ),
+            ListTile(
+              title: Text('Privacy'),
+              leading: Icon(Icons.lock),
+            ),
+            ListTile(
+              title: Text('Data and storage'),
+              leading: Icon(Icons.storage),
+            ),
+            Divider(),
+            ListTile(
+              title: Text('Help and feedback'),
+              leading: Icon(Icons.help),
+            ),
+            ListTile(
+              title: Text('Invite your friends'),
+              leading: Icon(Icons.mail),
+            ),
+            ListTile(
+              title: Text('Link to repo'),
+              trailing: Icon(Icons.link),
+              leading: FaIcon(FontAwesomeIcons.github),
+            ),
           ],
         ),
       ),
