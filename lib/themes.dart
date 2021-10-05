@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+
+// Flutter hex color is an external package for converting colors starting with #
+// to 0xFFFFFF format.
+// You need to add it to your pubspec.yaml file.
 import 'package:flutter_hex_color/flutter_hex_color.dart';
+
+// google fonts is an external package. you need to add it to your pubspec.yaml file
 import 'package:google_fonts/google_fonts.dart';
 
 class NoSignalTheme {
@@ -7,6 +13,7 @@ class NoSignalTheme {
         brightness: Brightness.light,
         fontFamily: GoogleFonts.ubuntu().fontFamily,
         //  Will Work on LightTheme in later Future
+        // Initally when thought about creating this app, I only thought about dark theme.
       );
 
   static ThemeData darkTheme(BuildContext context) => ThemeData(

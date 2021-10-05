@@ -6,12 +6,26 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/themes.dart';
 
+//  Instead of creating Two Screens, I have Added both Login and Signup Screen in one Screen
+//  Yes , I am Lazy , But I am not going to create two screens , I am going to create one screen
+
+//  So for to monitor we are in which State we are i.e Login or signUp , I have used enums here
+//  So I have created and Enum Status which contains two things Login and SignUp
+
+//  and I have made a Global Variable type of Status, to use in LoginPage
+// It's actually not recommended to use Global Variables , but I am using it here to make it simple
+
 enum Status {
   login,
   signUp,
 }
 
 Status type = Status.login;
+
+//  I have used stateful widget to use setstate functions in LoginPage
+//  we could also managed the state using Riverpod but I am not using it here
+//  Remember Stateful widgets are made for a reason. If it would be bad
+//  flutter developer would not think of it in the first place.
 
 class LoginPage extends StatefulWidget {
   static const routename = '/LoginPage';
@@ -34,12 +48,14 @@ class _LoginPageState extends State<LoginPage> {
   //  A loading variable to show the loading animation when you a function is ongoing
   bool _isLoading = false;
 
+  //  This function is used to show a spinning Indicator when the function is ongoing
   void loading() {
     setState(() {
       _isLoading = !_isLoading;
     });
   }
 
+  //  This function is used to switch type - Login or SignUp
   void _switchType() {
     if (type == Status.signUp) {
       setState(() {
@@ -59,7 +75,19 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Consumer(builder: (context, watch, _) {
+          //  Consuming a provider using watch method and storing it in a variable
+          //  Now we will use this variable to access all the functions of the
+          //  authentication
+          //  I will show these providers in the upcoming gist
+
           final auth = watch(authProvider);
+          //  The above provider is used to access authentication class
+
+          //  Instead of creating a clutter on the onPressed Function
+          //  I have decided to create a seperate function and pass them into the
+          //  respective parameters.
+          //  if you want you can write the exact code in the onPressed function
+          //  it all depends on personal preference and code readability
           Future<void> _onPressedFunction() async {
             if (!_formKey.currentState!.validate()) {
               return;
@@ -114,6 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                               alignLabelWithHint: true,
                               border: InputBorder.none,
                             ),
+                            //  Our little validator to check things out
                             validator: (value) {
                               if (value!.isEmpty || !value.contains('@')) {
                                 return 'Invalid email!';
@@ -182,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                                   : null,
                             ),
                           ),
-                        Spacer()
+                        Spacer(),
                       ],
                     ),
                   ),
@@ -232,6 +261,8 @@ class _LoginPageState extends State<LoginPage> {
                                         backgroundColor:
                                             NoSignalTheme.lightBlueShade,
                                         padding: const EdgeInsets.only(top: 16),
+                                        // Don't mind these comments,
+                                        //  I wrote them for memes
                                         content: Text(
                                             'Gimme Credit Card and I will give you Google Authentication'),
                                         actions: [
@@ -249,6 +280,10 @@ class _LoginPageState extends State<LoginPage> {
                                   //  A google icon here
                                   //  an External Package used here
                                   //  Font_awesome_flutter package used
+
+                                  //  Also Google function not implemented
+                                  //  I like to have it as a button and will
+                                  //  add someday in the future
                                   FaIcon(FontAwesomeIcons.google),
                                   Text(
                                     ' Login with Google',

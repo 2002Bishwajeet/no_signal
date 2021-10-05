@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:no_signal/models/user.dart';
 
 class UserData {
@@ -16,25 +17,25 @@ class UserData {
 
   Future<String?> addProfilePicture(String filePath, String imgName) async {
     try {
-      var result = await storage.createFile(
+      File? result = await storage.createFile(
           file: await MultipartFile.fromPath('file', filePath,
               filename: imgName));
-      return result.data['\$id'];
+      return result.$id;
     } catch (e) {
       print(e);
     }
   }
 
   Future<void> addUser(String name, String bio, String url) async {
-    Response<dynamic> res = await account.get();
-    User user = User.fromMap(res.data);
+    User res = await account.get();
+
     try {
       await database.createDocument(collectionId: '613c3298e2a69', data: {
         'name': name,
         'bio': bio,
         'url': url,
-        'email': user.email,
-        'id': user.id
+        'email': res.email,
+        'id': res.$id,
       });
     } catch (e) {
       print(e);
@@ -46,11 +47,11 @@ class UserData {
       final response =
           await database.listDocuments(collectionId: '613c3298e2a69');
       final List<UserDetails> users = [];
-      final temp = response.data['documents'] as List<dynamic>;
+      final temp = response.documents;
       final List<UserPerson> _users = [];
 
       temp.forEach((element) {
-        users.add(UserDetails.fromMap(element));
+        users.add(UserDetails.fromMap(element.data));
       });
       users.forEach((element) async {
         final imgurl = await getProfilePicture(element.url as String);
@@ -70,7 +71,25 @@ class UserData {
   Future<Uint8List> getProfilePicture(String fileId) async {
     try {
       final data = await storage.getFilePreview(fileId: fileId);
-      return data.data;
+      return data;
+    } on AppwriteException catch (e) {
+      throw e;
+    }
+  }
+
+  Future<Uint8List> getProfilePicturebyuserId(String id) async {
+    try {
+      final DocumentList response =
+          await database.listDocuments(collectionId: '613c3298e2a69');
+      String? pictureId;
+      final temp = response.documents;
+      temp.forEach((element) {
+        if (element.data['id'] == id) {
+          pictureId = element.data['url'];
+        }
+      });
+      final data = await storage.getFilePreview(fileId: pictureId as String);
+      return data;
     } on AppwriteException catch (e) {
       throw e;
     }

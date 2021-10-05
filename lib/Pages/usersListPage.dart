@@ -30,7 +30,7 @@ class UsersListPage extends ConsumerWidget {
     final curUser = watch(userLoggedProvider).state;
 
     users?.forEach((user) async {
-      if (curUser!.id != user.id) {
+      if (curUser!.$id != user.id) {
         _users.add(usersTile(
             name: user.name, bio: user.bio, imageUrl: user.image as Uint8List));
       }

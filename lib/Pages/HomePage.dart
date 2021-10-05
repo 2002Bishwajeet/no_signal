@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:no_signal/Pages/PopupPages/settings.dart';
 import 'package:no_signal/Pages/usersListPage.dart';
 import 'package:no_signal/providers/Auth.dart';
+import 'package:no_signal/providers/UserData.dart';
 import 'package:no_signal/themes.dart';
 import 'package:no_signal/widgets/ChatListWidget.dart';
 
@@ -19,6 +21,8 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader ref) {
     final auth = ref(authProvider);
+    final user = ref(userLoggedProvider).state!.$id;
+    final img = ref(imageUrlProvider(user)).data?.value;
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -29,9 +33,17 @@ class HomePage extends ConsumerWidget {
             ),
             leading: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: CircleAvatar(
-                // backgroundColor: NoSignalTheme.whiteShade1,
-                backgroundImage: AssetImage('assets/images/avatar.png'),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(SettingsScreen.routename, arguments: img);
+                },
+                child: CircleAvatar(
+                  // backgroundColor: NoSignalTheme.whiteShade1,
+                  backgroundImage: img != null
+                      ? MemoryImage(img) as ImageProvider
+                      : AssetImage('assets/images/avatar.png'),
+                ),
               ),
             ),
             actions: [
@@ -48,9 +60,9 @@ class HomePage extends ConsumerWidget {
                         ));
                         break;
                       case PopupItem.settings:
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Stfu'),
-                        ));
+                        Navigator.of(context).pushNamed(
+                            SettingsScreen.routename,
+                            arguments: img);
                         break;
                       case PopupItem.logout:
                         auth.logout(context);

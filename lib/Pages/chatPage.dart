@@ -23,18 +23,18 @@ class ChatPage extends ConsumerWidget {
     final realtimeChats = watch(chatsProvider).data?.value;
 
     oldChats?.forEach((chat) {
-      print(user!.id == chat.senderid);
+      print(user!.$id == chat.senderid);
       _chatBubbles.add(ChatBubble(
         margin: EdgeInsets.only(top: 10),
         child: Text(chat.message),
         alignment:
-            user.id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
+            user.$id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
         shadowColor: Colors.transparent,
-        backGroundColor: user.id != chat.senderid
+        backGroundColor: user.$id != chat.senderid
             ? Colors.grey
             : NoSignalTheme.lightBlueShade,
         clipper: ChatBubbleClipper1(
-            type: user.id == chat.senderid
+            type: user.$id == chat.senderid
                 ? BubbleType.sendBubble
                 : BubbleType.receiverBubble),
       ));
@@ -46,13 +46,13 @@ class ChatPage extends ConsumerWidget {
         margin: EdgeInsets.only(top: 10),
         child: Text(data.message),
         alignment:
-            user!.id == data.senderid ? Alignment.topRight : Alignment.topLeft,
+            user!.$id == data.senderid ? Alignment.topRight : Alignment.topLeft,
         shadowColor: Colors.transparent,
-        backGroundColor: user.id != data.senderid
+        backGroundColor: user.$id != data.senderid
             ? Colors.grey
             : NoSignalTheme.lightBlueShade,
         clipper: ChatBubbleClipper1(
-            type: user.id == data.senderid
+            type: user.$id == data.senderid
                 ? BubbleType.sendBubble
                 : BubbleType.receiverBubble),
       ));
@@ -63,6 +63,13 @@ class ChatPage extends ConsumerWidget {
         },
         child: Scaffold(
             appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  realtimeChats?.close();
+                },
+              ),
               backgroundColor: NoSignalTheme.navyblueshade4,
               leadingWidth: 20,
               elevation: 0,
