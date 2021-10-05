@@ -1,5 +1,5 @@
+import 'package:appwrite/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:no_signal/models/user.dart';
 import 'package:no_signal/providers/client.dart';
 import 'package:no_signal/utils/auth/Authentication.dart';
 

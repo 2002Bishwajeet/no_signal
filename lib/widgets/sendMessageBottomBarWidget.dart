@@ -25,8 +25,8 @@ class SendMessageWidget extends ConsumerWidget {
       if (message.isEmpty) return;
 
       Chat data = Chat(
-          senderName: user!.name as String,
-          senderid: user.id,
+          senderName: user!.name,
+          senderid: user.$id,
           message: message,
           time: DateTime.now());
 

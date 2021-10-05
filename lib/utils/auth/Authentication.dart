@@ -1,9 +1,9 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:no_signal/Pages/HomePage.dart';
 import 'package:no_signal/Pages/LoginPages/LoginPage.dart';
 import 'package:no_signal/Pages/LoginPages/SignUpPage.dart';
-import 'package:no_signal/models/user.dart';
 
 //  We have created a class named Authentication which contains all
 //  the methods that we need to perform the authentication process.
@@ -33,25 +33,12 @@ class Authentication {
   //  Since all the functions will be asynchronous we will be using Future
   //  cause you know there is a future involved. you don't know what are you expecting
 
-  //  Remember in this project I am using an older version of Appwrite SDK
-  // v 1.0.2
-
   //  There isn't much difference between the two versions.
   //  Only now instead of dynamic data you get a proper class objects
 
   //  When I started this project I had manually implemented those models
 
-  Future<User?> getAccount() async {
-    try {
-      var res = await account.get();
-      if (res.data != null) {
-        // print(res.data);
-        return User.fromMap(res.data);
-      }
-    } catch (e) {
-      return null;
-    }
-  }
+  Future<User?> getAccount() async => await account.get();
 
   // A function to login the user with email and password
   Future<void> login(

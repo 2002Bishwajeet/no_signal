@@ -22,7 +22,7 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  appwrite: ^1.0.2
+  appwrite: ^2.0.2
   cached_network_image: ^3.1.0
   cupertino_icons: ^1.0.2
   dart_appwrite: ^1.0.1

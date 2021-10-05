@@ -21,7 +21,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader ref) {
     final auth = ref(authProvider);
-    final user = ref(userLoggedProvider).state!.id;
+    final user = ref(userLoggedProvider).state!.$id;
     final img = ref(imageUrlProvider(user)).data?.value;
     return Scaffold(
       body: CustomScrollView(
