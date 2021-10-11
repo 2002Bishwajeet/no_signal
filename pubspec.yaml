@@ -36,6 +36,7 @@ dependencies:
   image_picker: ^0.8.4
   introduction_screen: ^2.1.0
   lottie: ^1.1.0
+  permission_handler: ^8.2.2
   url_launcher: ^6.0.12
 
 dev_dependencies:

@@ -4,10 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/providers/Auth.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final githubUrlProvider = Provider<String>((ref) {
+  return 'https://github.com/2002Bishwajeet/no_signal';
+});
 
 class SettingsScreen extends ConsumerWidget {
   static const routename = '/settings';
   const SettingsScreen({Key? key}) : super(key: key);
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -96,6 +109,7 @@ class SettingsScreen extends ConsumerWidget {
               title: Text('Link to repo'),
               trailing: Icon(Icons.link),
               leading: FaIcon(FontAwesomeIcons.github),
+              onTap: () => _launchURL(context.read(githubUrlProvider)),
             ),
           ],
         ),
