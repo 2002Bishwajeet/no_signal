@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/providers/Auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+//  Link for the GitHub repo
 final githubUrlProvider = Provider<String>((ref) {
   return 'https://github.com/2002Bishwajeet/no_signal';
 });
