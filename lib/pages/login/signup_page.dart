@@ -2,10 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:no_signal/providers/UserData.dart';
+import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
-import '../HomePage.dart';
+import '../home_page.dart';
 
 class CreateAccountPage extends StatefulWidget {
   static const routeName = '/create-account';
@@ -31,7 +31,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     setState(() {
       _image = image;
     });
-    print(_image!.path);
+    // print(_image!.path);
   }
 
   bool _isloading = false;
@@ -91,7 +91,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 child: CircleAvatar(
                                   radius: 52,
                                   backgroundImage: _image == null
-                                      ? AssetImage('assets/images/avatar.png')
+                                      ? const AssetImage(
+                                              'assets/images/avatar.png')
                                           as ImageProvider<Object>
                                       : FileImage(File(_image!.path)),
                                 )),
@@ -101,7 +102,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               child: CircleAvatar(
                                 backgroundColor: NoSignalTheme.whiteShade1,
                                 radius: 15,
-                                child: Icon(
+                                child: const Icon(
                                   Icons.add,
                                   size: 24,
                                   color: Colors.white,
@@ -124,7 +125,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       controller: _name,
                       keyboardType: TextInputType.emailAddress,
                       onSaved: (value) {},
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Name',
                         alignLabelWithHint: true,
                         // border: InputBorder.none,
@@ -154,7 +155,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       maxLength: 100,
                       keyboardType: TextInputType.emailAddress,
                       onSaved: (value) {},
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Bio',
                         alignLabelWithHint: true,
@@ -167,9 +168,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       },
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   _isloading
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : Container(
                           padding: const EdgeInsets.only(top: 48.0),
                           margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -191,7 +192,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               await Navigator.of(context)
                                   .pushReplacementNamed(HomePage.routename);
                             },
-                            child: Text(
+                            child: const Text(
                               'Create User',
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
@@ -206,7 +207,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             ),
                           ),
                         ),
-                  Spacer(
+                  const Spacer(
                     flex: 3,
                   ),
                 ],

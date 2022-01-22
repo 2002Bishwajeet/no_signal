@@ -1,9 +1,10 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
-import 'package:no_signal/Pages/HomePage.dart';
-import 'package:no_signal/Pages/LoginPages/LoginPage.dart';
-import 'package:no_signal/Pages/LoginPages/SignUpPage.dart';
+import 'package:no_signal/pages/home_page.dart';
+import 'package:no_signal/pages/login/login_page.dart';
+
+import 'package:no_signal/pages/login/signup_page.dart';
 
 //  We have created a class named Authentication which contains all
 //  the methods that we need to perform the authentication process.
@@ -50,9 +51,10 @@ class Authentication {
   Future<User?> getAccount() async {
     try {
       return await account.get();
-    } on AppwriteException catch (e) {
-      print(e);
-      return null;
+    } on AppwriteException {
+      rethrow;
+      // print(e);
+
     }
   }
 
@@ -73,18 +75,18 @@ class Authentication {
       // print(data);
       await Navigator.pushReplacementNamed(context, HomePage.routename);
     } catch (e) {
-      print(e);
+      // print(e);
       await showDialog(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-                title: Text('Error Occured'),
+                title: const Text('Error Occured'),
                 content: Text(e.toString()),
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text("Ok"))
+                      child: const Text("Ok"))
                 ],
               ));
     }
@@ -111,18 +113,18 @@ class Authentication {
       await Navigator.pushReplacementNamed(
           context, CreateAccountPage.routeName);
     } catch (e) {
-      print(e);
+      // print(e);
       await showDialog(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-                title: Text('Error Occured'),
+                title: const Text('Error Occured'),
                 content: Text(e.toString()),
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text("Ok"))
+                      child: const Text("Ok"))
                 ],
               ));
     }
@@ -135,23 +137,23 @@ class Authentication {
       //  it expects sessionID but by passing 'current' it redirects to
       //  current loggedIn user in this application
       await account.deleteSession(sessionId: 'current');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Logged out Successfully"),
       ));
       await Navigator.of(context).pushReplacementNamed(LoginPage.routename);
     } catch (e) {
-      print(e);
+      // print(e);
       await showDialog(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-                title: Text('Something went wrong'),
+                title: const Text('Something went wrong'),
                 content: Text(e.toString()),
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text("Ok"))
+                      child: const Text("Ok"))
                 ],
               ));
     }

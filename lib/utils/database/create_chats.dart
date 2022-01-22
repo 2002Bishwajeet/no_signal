@@ -24,8 +24,8 @@ class Chatting {
         write: ['*'],
         data: chat.toMap(),
       );
-    } on AppwriteException catch (e) {
-      print(e);
+    } on AppwriteException {
+      rethrow;
     }
   }
 
@@ -37,12 +37,12 @@ class Chatting {
       final List<Chat> _chats = [];
       final response = temp.documents;
       // print(response);
-      response.forEach((element) {
+      for (var element in response) {
         _chats.add(Chat.fromMap(element.data));
-      });
+      }
       return _chats;
-    } on AppwriteException catch (e) {
-      throw e;
+    } on AppwriteException {
+      rethrow;
     }
   }
 
@@ -52,9 +52,8 @@ class Chatting {
           realtime.subscribe(['collections.613f6523da871.documents']);
 
       return data;
-    } on AppwriteException catch (e) {
-      print(e);
-      throw e;
+    } on AppwriteException {
+      rethrow;
     }
   }
 }

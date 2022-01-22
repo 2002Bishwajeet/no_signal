@@ -31,7 +31,7 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Settings'),
+        title: const Text('Settings'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -47,11 +47,11 @@ class SettingsScreen extends ConsumerWidget {
                     radius: 36,
                     backgroundImage: argument != null
                         ? MemoryImage(argument) as ImageProvider
-                        : AssetImage('assets/images/avatar.png'),
+                        : const AssetImage('assets/images/avatar.png'),
                   ),
                   Expanded(
                     child: ListTile(
-                      visualDensity: VisualDensity(vertical: 2),
+                      visualDensity: const VisualDensity(vertical: 2),
                       title: Text(userData?.name ?? 'No name',
                           style: Theme.of(context).textTheme.headline5),
                       subtitle: Text(
@@ -66,50 +66,50 @@ class SettingsScreen extends ConsumerWidget {
                 ],
               ),
             ),
-            ListTile(
+            const ListTile(
               title: Text('Account'),
               leading: Icon(Icons.account_circle),
             ),
-            ListTile(
+            const ListTile(
               title: Text('Linked devices'),
               leading: Icon(Icons.link),
             ),
-            Divider(
+            const Divider(
               height: 19,
             ),
-            ListTile(
+            const ListTile(
               title: Text('Appearance'),
               leading: Icon(Icons.color_lens),
             ),
-            ListTile(
+            const ListTile(
               title: Text('Chats'),
               leading: Icon(Icons.chat),
             ),
-            ListTile(
+            const ListTile(
               title: Text('Notifications'),
               leading: Icon(Icons.notifications),
             ),
-            ListTile(
+            const ListTile(
               title: Text('Privacy'),
               leading: Icon(Icons.lock),
             ),
-            ListTile(
+            const ListTile(
               title: Text('Data and storage'),
               leading: Icon(Icons.storage),
             ),
-            Divider(),
-            ListTile(
+            const Divider(),
+            const ListTile(
               title: Text('Help and feedback'),
               leading: Icon(Icons.help),
             ),
-            ListTile(
+            const ListTile(
               title: Text('Invite your friends'),
               leading: Icon(Icons.mail),
             ),
             ListTile(
-              title: Text('Link to repo'),
-              trailing: Icon(Icons.link),
-              leading: FaIcon(FontAwesomeIcons.github),
+              title: const Text('Link to repo'),
+              trailing: const Icon(Icons.link),
+              leading: const FaIcon(FontAwesomeIcons.github),
               onTap: () => _launchURL(context.read(githubUrlProvider)),
             ),
           ],

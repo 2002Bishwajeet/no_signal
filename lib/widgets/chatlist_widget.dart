@@ -6,13 +6,13 @@ class ChatTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
+      leading: const CircleAvatar(
         backgroundImage: NetworkImage(
             'https://images.pexels.com/photos/9226510/pexels-photo-9226510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
       ),
-      title: Text('Aishwarya'),
-      subtitle: Text('Hey, how are you?'),
-      trailing: Text('11:01 AM'),
+      title: const Text('Aishwarya'),
+      subtitle: const Text('Hey, how are you?'),
+      trailing: const Text('11:01 AM'),
       onTap: () {
         Navigator.of(context).pushNamed('/chat');
       },

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:no_signal/Pages/PopupPages/settings.dart';
-import 'package:no_signal/Pages/usersListPage.dart';
+import 'package:no_signal/Pages/popup/settings.dart';
+import 'package:no_signal/Pages/userslist_page.dart';
 import 'package:no_signal/providers/Auth.dart';
-import 'package:no_signal/providers/UserData.dart';
+import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
-import 'package:no_signal/widgets/ChatListWidget.dart';
+import 'package:no_signal/widgets/chatlist_widget.dart';
 
 enum PopupItem {
   group,
@@ -27,7 +27,7 @@ class HomePage extends ConsumerWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            title: Text(
+            title: const Text(
               'No Signal',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -42,21 +42,21 @@ class HomePage extends ConsumerWidget {
                   // backgroundColor: NoSignalTheme.whiteShade1,
                   backgroundImage: img != null
                       ? MemoryImage(img) as ImageProvider
-                      : AssetImage('assets/images/avatar.png'),
+                      : const AssetImage('assets/images/avatar.png'),
                 ),
               ),
             ),
             actions: [
               IconButton(
-                icon: Icon(Icons.search),
+                icon: const Icon(Icons.search),
                 onPressed: () {},
               ),
-              
               PopupMenuButton(
                   onSelected: (PopupItem item) {
                     switch (item) {
                       case PopupItem.group:
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
                           content: Text('Wait '),
                         ));
                         break;
@@ -87,7 +87,7 @@ class HomePage extends ConsumerWidget {
                       ])
             ],
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: ChatTileWidget(),
           )
         ],

@@ -22,7 +22,8 @@ class UserData {
               filename: imgName));
       return result.$id;
     } catch (e) {
-      print(e);
+      rethrow;
+      // print(e);
     }
   }
 
@@ -38,7 +39,8 @@ class UserData {
         'id': res.$id,
       });
     } catch (e) {
-      print(e);
+      rethrow;
+      // print(e);
     }
   }
 
@@ -50,9 +52,9 @@ class UserData {
       final temp = response.documents;
       final List<UserPerson> _users = [];
 
-      temp.forEach((element) {
+      for (var element in temp) {
         users.add(UserDetails.fromMap(element.data));
-      });
+      }
       users.forEach((element) async {
         final imgurl = await getProfilePicture(element.url as String);
         _users.add(UserPerson(
@@ -63,8 +65,8 @@ class UserData {
             image: imgurl));
       });
       return _users;
-    } on AppwriteException catch (e) {
-      throw e;
+    } on AppwriteException {
+      rethrow;
     }
   }
 
@@ -72,8 +74,8 @@ class UserData {
     try {
       final data = await storage.getFilePreview(fileId: fileId);
       return data;
-    } on AppwriteException catch (e) {
-      throw e;
+    } on AppwriteException {
+      rethrow;
     }
   }
 
@@ -83,15 +85,15 @@ class UserData {
           await database.listDocuments(collectionId: '613c3298e2a69');
       String? pictureId;
       final temp = response.documents;
-      temp.forEach((element) {
+      for (var element in temp) {
         if (element.data['id'] == id) {
           pictureId = element.data['url'];
         }
-      });
+      }
       final data = await storage.getFilePreview(fileId: pictureId as String);
       return data;
-    } on AppwriteException catch (e) {
-      throw e;
+    } on AppwriteException {
+      rethrow;
     }
   }
 }

@@ -20,13 +20,13 @@ class NoSignalTheme {
         brightness: Brightness.dark,
         scaffoldBackgroundColor: navyblueshade2,
         fontFamily: GoogleFonts.ubuntu().fontFamily,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         // ignore: deprecated_member_use
         accentColor: navyblueshade3,
         appBarTheme: AppBarTheme(
           backgroundColor: navyblueshade2,
-          iconTheme: IconThemeData(color: Colors.white),
-          actionsIconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
+          actionsIconTheme: const IconThemeData(color: Colors.white),
         ),
         bottomAppBarTheme: BottomAppBarTheme(
           color: navyblueshade4,

@@ -3,11 +3,11 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/providers/Auth.dart';
-import 'package:no_signal/providers/UserData.dart';
+import 'package:no_signal/providers/user_data.dart';
 
 class UsersListPage extends ConsumerWidget {
   static const String routeName = '/usersListPage';
-  UsersListPage({Key? key}) : super(key: key);
+  const UsersListPage({Key? key}) : super(key: key);
 
   ListTile usersTile(
       {required String name,
@@ -38,11 +38,11 @@ class UsersListPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Users'),
+        title: const Text('Users'),
         centerTitle: true,
       ),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: _users,
       ),
     );

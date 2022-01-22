@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
-import 'package:no_signal/Pages/LoginPages/LoginPage.dart';
+import 'package:no_signal/Pages/login/login_page.dart';
 
  // I like to define elements and color in a seperate file so that's the custom themes file
 import 'package:no_signal/themes.dart';

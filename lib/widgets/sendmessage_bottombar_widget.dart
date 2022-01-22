@@ -34,7 +34,7 @@ class SendMessageWidget extends ConsumerWidget {
         await chat.sendMessage(data);
         _textController.clear();
       } catch (e) {
-        print(e);
+        // print(e);
       }
     }
 
@@ -44,7 +44,7 @@ class SendMessageWidget extends ConsumerWidget {
           Expanded(
             flex: 2,
             child: Container(
-              padding: EdgeInsets.only(left: 10, right: 20),
+              padding: const EdgeInsets.only(left: 10, right: 20),
               child: TextFormField(
                 controller: _textController,
                 textCapitalization: TextCapitalization.sentences,
@@ -52,7 +52,7 @@ class SendMessageWidget extends ConsumerWidget {
                 enableIMEPersonalizedLearning: true,
                 enableInteractiveSelection: true,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 10),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
                   hintText: 'Type a message',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -61,10 +61,10 @@ class SendMessageWidget extends ConsumerWidget {
                   fillColor: NoSignalTheme.whiteShade1,
                   alignLabelWithHint: true,
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(30)),
                   prefixIcon: IconButton(
-                    icon: Icon(Icons.insert_emoticon),
+                    icon: const Icon(Icons.insert_emoticon),
                     splashRadius: 10,
                     onPressed: () {},
                   ),
@@ -79,7 +79,7 @@ class SendMessageWidget extends ConsumerWidget {
             child: CircleAvatar(
                 backgroundColor: NoSignalTheme.lightBlueShade,
                 radius: 22.0,
-                child: Icon(
+                child: const Icon(
                   Icons.send,
                   color: Colors.white,
                 )),

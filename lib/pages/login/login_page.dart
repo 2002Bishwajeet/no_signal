@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
         type = Status.signUp;
       });
     }
-    print(type);
+    // print(type);
   }
 
   @override
@@ -93,10 +93,11 @@ class _LoginPageState extends State<LoginPage> {
               return;
             }
             loading();
-            if (type == Status.login)
+            if (type == Status.login) {
               await auth.login(_email.text, _password.text, context);
-            else
+            } else {
               await auth.signUp(_email.text, _password.text, context);
+            }
 
             loading();
           }
@@ -118,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                           'assets/images/logo.png',
                           height: 100,
                         )),
-                        Spacer(flex: 1),
+                        const Spacer(flex: 1),
                         Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 24, vertical: 16),
@@ -181,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         if (type == Status.signUp)
                           AnimatedContainer(
-                            duration: Duration(milliseconds: 600),
+                            duration: const Duration(milliseconds: 600),
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 8),
                             padding: const EdgeInsets.symmetric(
@@ -211,14 +212,14 @@ class _LoginPageState extends State<LoginPage> {
                                   : null,
                             ),
                           ),
-                        Spacer(),
+                        const Spacer(),
                       ],
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Container(
+                  child: SizedBox(
                       width: double.infinity,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -229,14 +230,15 @@ class _LoginPageState extends State<LoginPage> {
                             margin: const EdgeInsets.symmetric(horizontal: 16),
                             width: double.infinity,
                             child: _isLoading
-                                ? Center(child: CircularProgressIndicator())
+                                ? const Center(
+                                    child: CircularProgressIndicator())
                                 : MaterialButton(
                                     onPressed: _onPressedFunction,
                                     child: Text(
                                       type == Status.login
                                           ? 'Log in'
                                           : 'Sign up',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.w600),
                                     ),
                                     textColor: Colors.blue.shade700,
@@ -263,7 +265,7 @@ class _LoginPageState extends State<LoginPage> {
                                         padding: const EdgeInsets.only(top: 16),
                                         // Don't mind these comments,
                                         //  I wrote them for memes
-                                        content: Text(
+                                        content: const Text(
                                             'Gimme Credit Card and I will give you Google Authentication'),
                                         actions: [
                                       TextButton(
@@ -271,12 +273,12 @@ class _LoginPageState extends State<LoginPage> {
                                             ScaffoldMessenger.of(context)
                                                 .clearMaterialBanners();
                                           },
-                                          child: Text('Haha Noob Lol'))
+                                          child: const Text('Haha Noob Lol'))
                                     ]));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
+                                children: const [
                                   //  A google icon here
                                   //  an External Package used here
                                   //  Font_awesome_flutter package used
@@ -303,7 +305,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 24.0),
                             child: RichText(

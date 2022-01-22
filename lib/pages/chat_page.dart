@@ -7,12 +7,14 @@ import 'package:no_signal/models/chat.dart';
 import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/providers/chat.dart';
 import 'package:no_signal/themes.dart';
-import 'package:no_signal/widgets/sendMessageBottomBarWidget.dart';
+import 'package:no_signal/widgets/sendmessage_bottombar_widget.dart';
 
 class ChatPage extends ConsumerWidget {
   static const String routeName = '/chat';
 
   final TextEditingController _textController = TextEditingController();
+
+  ChatPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -23,12 +25,12 @@ class ChatPage extends ConsumerWidget {
     final realtimeChats = watch(chatsProvider).data?.value;
 
     oldChats?.forEach((chat) {
-      print(user!.$id == chat.senderid);
+      // print(user!.$id == chat.senderid);
       _chatBubbles.add(ChatBubble(
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         child: Text(chat.message),
         alignment:
-            user.$id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
+            user!.$id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
         shadowColor: Colors.transparent,
         backGroundColor: user.$id != chat.senderid
             ? Colors.grey
@@ -43,7 +45,7 @@ class ChatPage extends ConsumerWidget {
     realtimeChats?.stream.listen((chat) {
       Chat data = Chat.fromMap(chat.payload);
       _chatBubbles.add(ChatBubble(
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         child: Text(data.message),
         alignment:
             user!.$id == data.senderid ? Alignment.topRight : Alignment.topLeft,
@@ -64,7 +66,7 @@ class ChatPage extends ConsumerWidget {
         child: Scaffold(
             appBar: AppBar(
               leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   Navigator.of(context).pop();
                   realtimeChats?.close();
@@ -73,7 +75,7 @@ class ChatPage extends ConsumerWidget {
               backgroundColor: NoSignalTheme.navyblueshade4,
               leadingWidth: 20,
               elevation: 0,
-              title: ListTile(
+              title: const ListTile(
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage(
                     'https://images.pexels.com/photos/9226510/pexels-photo-9226510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
@@ -84,7 +86,7 @@ class ChatPage extends ConsumerWidget {
               ),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.more_vert),
+                  icon: const Icon(Icons.more_vert),
                   onPressed: () {},
                 )
               ],

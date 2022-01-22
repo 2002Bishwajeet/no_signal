@@ -30,6 +30,7 @@ dependencies:
     sdk: flutter
   flutter_chat_bubble: ^2.0.0
   flutter_hex_color: ^2.0.0
+  flutter_lints: ^1.0.4
   flutter_riverpod: ^0.14.0+3
   font_awesome_flutter: ^9.1.0
   google_fonts: ^2.1.0

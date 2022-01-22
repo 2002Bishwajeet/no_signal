@@ -31,12 +31,12 @@ class ServerApi {
       final List<UserDetails> users = [];
       final temp = response.data['documents'] as List<dynamic>;
 
-      temp.forEach((element) {
+      for (var element in temp) {
         users.add(UserDetails.fromMap(element));
-      });
+      }
       return users;
-    } on AppwriteException catch (e) {
-      throw e;
+    } on AppwriteException {
+      rethrow;
     }
   }
 }
