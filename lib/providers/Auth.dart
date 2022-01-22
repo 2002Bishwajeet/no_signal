@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/providers/client.dart';
 import 'package:no_signal/utils/auth/authentication.dart';
 
-//  So this is where we defined auth providers 
+//  So this is where we defined auth providers
 
 //  Let's have a look at authProvider
-//  you will notice I am consuming another provider within a provider 
+//  you will notice I am consuming another provider within a provider
 //  and its totally ok, there aren't performance issues to this
 //  this authProvider provides an Object of class Authentication
 final authProvider = Provider<Authentication>((ref) {
@@ -29,9 +29,8 @@ final userLoggedProvider = StateProvider<User?>((ref) {
   return null;
 });
 
-
 //  This is also another state provider. Pardon me for giving bad names. Couldn't think
-//  of new unique ones at that time. 
+//  of new unique ones at that time.
 //  So this  is a provider which decides which widget to show, either welcome screen
 //  or Home Screen
 //  so think of this like a switch. If the user is logged in show one screen

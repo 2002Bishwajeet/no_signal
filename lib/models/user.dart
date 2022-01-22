@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-
-
 class UserDetails {
   final String id;
   final String email;
@@ -16,7 +14,6 @@ class UserDetails {
     required this.bio,
     this.url,
   });
- 
 
   UserDetails copyWith({
     String? id,
@@ -56,7 +53,8 @@ class UserDetails {
 
   String toJson() => json.encode(toMap());
 
-  factory UserDetails.fromJson(String source) => UserDetails.fromMap(json.decode(source));
+  factory UserDetails.fromJson(String source) =>
+      UserDetails.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -66,29 +64,28 @@ class UserDetails {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is UserDetails &&
-      other.id == id &&
-      other.email == email &&
-      other.name == name &&
-      other.bio == bio &&
-      other.url == url;
+        other.id == id &&
+        other.email == email &&
+        other.name == name &&
+        other.bio == bio &&
+        other.url == url;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      email.hashCode ^
-      name.hashCode ^
-      bio.hashCode ^
-      url.hashCode;
+        email.hashCode ^
+        name.hashCode ^
+        bio.hashCode ^
+        url.hashCode;
   }
 }
 
-
 class UserPerson {
   final String id;
-  final String email; 
+  final String email;
   final String name;
   final String bio;
   final Uint8List? image;
@@ -99,6 +96,4 @@ class UserPerson {
     required this.bio,
     this.image,
   });
-
- 
-} 
+}
