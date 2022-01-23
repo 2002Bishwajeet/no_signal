@@ -7,7 +7,7 @@ import 'pages/chat_page.dart';
 import 'pages/home_page.dart';
 import 'pages/loading_page.dart';
 import 'pages/login/login_page.dart';
-import 'pages/login/signup_page.dart';
+import 'pages/login/create_profile.dart';
 import 'pages/popup/settings.dart';
 import 'pages/userslist_page.dart';
 import 'pages/welcome_page.dart';

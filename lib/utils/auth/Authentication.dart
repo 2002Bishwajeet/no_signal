@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:no_signal/pages/home_page.dart';
 import 'package:no_signal/pages/login/login_page.dart';
 
-import 'package:no_signal/pages/login/signup_page.dart';
+import 'package:no_signal/pages/login/create_profile.dart';
 
 //  We have created a class named Authentication which contains all
 //  the methods that we need to perform the authentication process.
@@ -12,7 +14,7 @@ import 'package:no_signal/pages/login/signup_page.dart';
 class Authentication {
   //  Client is a class provided by the Appwrite SDK.
   //  It is used to communicate with the Appwrite API.
-  //  We will be receving this object from the constructor
+  //  We will be receiving this object from the constructor
   final Client client;
 
   //  Account is also a class provided by the Appwrite SDK.
@@ -51,10 +53,9 @@ class Authentication {
   Future<User?> getAccount() async {
     try {
       return await account.get();
-    } on AppwriteException {
-      rethrow;
-      // print(e);
-
+    } on AppwriteException catch (e) {
+      log(e.toString());
+      return null;
     }
   }
 
@@ -105,7 +106,7 @@ class Authentication {
       //  this is a function provided by the Future class
       //  to perform an operation when its completed
       await account
-          .create(email: email, password: password)
+          .create(email: email, password: password, userId: 'unique()')
           .whenComplete(() async {
         await account.createSession(email: email, password: password);
       });

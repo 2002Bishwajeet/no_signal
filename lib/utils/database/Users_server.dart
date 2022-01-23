@@ -29,10 +29,10 @@ class ServerApi {
       final response =
           await database.listDocuments(collectionId: '613c3298e2a69');
       final List<UserDetails> users = [];
-      final temp = response.data['documents'] as List<dynamic>;
+      final temp = response.documents;
 
       for (var element in temp) {
-        users.add(UserDetails.fromMap(element));
+        users.add(UserDetails.fromMap(element.data));
       }
       return users;
     } on AppwriteException {

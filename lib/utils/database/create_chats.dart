@@ -19,7 +19,8 @@ class Chatting {
   Future<void> sendMessage(Chat chat) async {
     try {
       await database.createDocument(
-        collectionId: '613f6523da871',
+        collectionId: 'chats',
+        documentId: 'unique()',
         read: ['*'],
         write: ['*'],
         data: chat.toMap(),
@@ -32,7 +33,7 @@ class Chatting {
   Future<List<Chat>?> getOldMessages() async {
     try {
       final DocumentList temp =
-          await database.listDocuments(collectionId: '613f6523da871');
+          await database.listDocuments(collectionId: 'chats');
       // print('${temp.data['documents']} temp.data print');
       final List<Chat> _chats = [];
       final response = temp.documents;

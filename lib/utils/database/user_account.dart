@@ -18,12 +18,13 @@ class UserData {
   Future<String?> addProfilePicture(String filePath, String imgName) async {
     try {
       File? result = await storage.createFile(
-          file: await MultipartFile.fromPath('file', filePath,
-              filename: imgName));
+          file:
+              await MultipartFile.fromPath('file', filePath, filename: imgName),
+          fileId: 'unique()');
       return result.$id;
     } catch (e) {
+      print(e);
       rethrow;
-      // print(e);
     }
   }
 
@@ -31,7 +32,8 @@ class UserData {
     User res = await account.get();
 
     try {
-      await database.createDocument(collectionId: '613c3298e2a69', data: {
+      await database
+          .createDocument(collectionId: 'users', documentId: 'unique()', data: {
         'name': name,
         'bio': bio,
         'url': url,
@@ -82,7 +84,7 @@ class UserData {
   Future<Uint8List> getProfilePicturebyuserId(String id) async {
     try {
       final DocumentList response =
-          await database.listDocuments(collectionId: '613c3298e2a69');
+          await database.listDocuments(collectionId: 'users');
       String? pictureId;
       final temp = response.documents;
       for (var element in temp) {
