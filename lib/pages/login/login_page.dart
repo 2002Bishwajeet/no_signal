@@ -36,7 +36,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //  GlobalKey is used to validate the Form
+  //  GlobalKey is used to validate the Form and managing the state of the form
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   //  TextEditingController to get the data from the TextFields
@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
 
   //  This function is used to show a spinning Indicator when the function is ongoing
-  void loading() {
+  void _loading() {
     setState(() {
       _isLoading = !_isLoading;
     });
@@ -66,7 +66,12 @@ class _LoginPageState extends State<LoginPage> {
         type = Status.signUp;
       });
     }
-    // print(type);
+    // log('$type');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -92,14 +97,14 @@ class _LoginPageState extends State<LoginPage> {
             if (!_formKey.currentState!.validate()) {
               return;
             }
-            loading();
+            _loading();
             if (type == Status.login) {
               await auth.login(_email.text, _password.text, context);
             } else {
               await auth.signUp(_email.text, _password.text, context);
             }
 
-            loading();
+            _loading();
           }
 
           return Form(

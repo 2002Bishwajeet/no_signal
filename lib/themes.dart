@@ -9,14 +9,14 @@ import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NoSignalTheme {
-  static ThemeData lightTheme(BuildContext context) => ThemeData(
+  static ThemeData lightTheme() => ThemeData(
         brightness: Brightness.light,
         fontFamily: GoogleFonts.ubuntu().fontFamily,
         //  Will Work on LightTheme in later Future
         // Initally when thought about creating this app, I only thought about dark theme.
       );
 
-  static ThemeData darkTheme(BuildContext context) => ThemeData(
+  static ThemeData darkTheme() => ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: navyblueshade2,
         fontFamily: GoogleFonts.ubuntu().fontFamily,

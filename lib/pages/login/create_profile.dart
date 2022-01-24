@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,10 +17,13 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
+  //  Name Controller
   final TextEditingController _name = TextEditingController();
 
+  //  Bio Controller
   final TextEditingController _bio = TextEditingController();
 
+  //  Form Key to manage state and validate form
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final ImagePicker _picker = ImagePicker();
@@ -31,7 +35,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     setState(() {
       _image = image;
     });
-    // print(_image!.path);
+    log(_image!.path);
   }
 
   bool _isloading = false;
@@ -39,7 +43,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   void dispose() {
     _name.dispose();
     _bio.dispose();
-
     super.dispose();
   }
 
@@ -47,7 +50,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
+        if (FocusScope.of(context).hasFocus) {
+          FocusScope.of(context).unfocus();
+        }
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -73,11 +78,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Text(
                       'Create Your Profile',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          ?.copyWith(fontSize: 24),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: const EdgeInsets.only(top: 10.0),
                     child: Center(
                       child: InkWell(
                         borderRadius: BorderRadius.circular(50),
@@ -177,7 +185,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           width: double.infinity,
                           child: MaterialButton(
                             onPressed: () async {
+                              _isloading = true;
                               if (!_formKey.currentState!.validate()) {
+                                _isloading = false;
                                 return;
                               }
                               _image != null

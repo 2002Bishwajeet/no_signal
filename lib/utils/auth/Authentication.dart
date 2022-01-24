@@ -73,7 +73,6 @@ class Authentication {
       //  nevermind I did that for you😉
       // var data = await account.createSession(email: email, password: password);
       await account.createSession(email: email, password: password);
-      // print(data);
       await Navigator.pushReplacementNamed(context, HomePage.routename);
     } catch (e) {
       // print(e);
@@ -105,16 +104,16 @@ class Authentication {
       //  I try to signIn using .whenComplete()
       //  this is a function provided by the Future class
       //  to perform an operation when its completed
-      await account
-          .create(email: email, password: password, userId: 'unique()')
-          .whenComplete(() async {
-        await account.createSession(email: email, password: password);
-      });
+      await account.create(
+          email: email, password: password, userId: 'unique()');
+      // We will creating a userId as the email id(UNIQUE)
+
+      await account.createSession(email: email, password: password);
 
       await Navigator.pushReplacementNamed(
           context, CreateAccountPage.routeName);
     } catch (e) {
-      // print(e);
+      log(" Sign Up $e");
       await showDialog(
           context: context,
           builder: (BuildContext context) => AlertDialog(

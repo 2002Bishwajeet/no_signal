@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:appwrite/appwrite.dart';
@@ -17,13 +18,15 @@ class UserData {
 
   Future<String?> addProfilePicture(String filePath, String imgName) async {
     try {
+      User res = await account.get();
       File? result = await storage.createFile(
-          file:
-              await MultipartFile.fromPath('file', filePath, filename: imgName),
-          fileId: 'unique()');
+        file: await MultipartFile.fromPath('file', filePath, filename: imgName),
+        fileId: 'unique()',
+        read: ['role:all', 'user:${res.$id}'],
+      );
       return result.$id;
     } catch (e) {
-      print(e);
+      log('$e');
       rethrow;
     }
   }
@@ -32,6 +35,7 @@ class UserData {
     User res = await account.get();
 
     try {
+      await account.updateName(name: name);
       await database
           .createDocument(collectionId: 'users', documentId: 'unique()', data: {
         'name': name,
@@ -39,17 +43,18 @@ class UserData {
         'url': url,
         'email': res.email,
         'id': res.$id,
-      });
+      }, read: [
+        'role:all',
+        'user:${res.$id}'
+      ]);
     } catch (e) {
       rethrow;
-      // print(e);
     }
   }
 
   Future<List<UserPerson>?> getUsersList() async {
     try {
-      final response =
-          await database.listDocuments(collectionId: '613c3298e2a69');
+      final response = await database.listDocuments(collectionId: 'users');
       final List<UserDetails> users = [];
       final temp = response.documents;
       final List<UserPerson> _users = [];
@@ -57,7 +62,7 @@ class UserData {
       for (var element in temp) {
         users.add(UserDetails.fromMap(element.data));
       }
-      users.forEach((element) async {
+      for (var element in users) {
         final imgurl = await getProfilePicture(element.url as String);
         _users.add(UserPerson(
             name: element.name,
@@ -65,7 +70,7 @@ class UserData {
             id: element.id,
             email: element.email,
             image: imgurl));
-      });
+      }
       return _users;
     } on AppwriteException {
       rethrow;

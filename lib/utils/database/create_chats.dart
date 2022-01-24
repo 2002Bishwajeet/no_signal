@@ -21,8 +21,8 @@ class Chatting {
       await database.createDocument(
         collectionId: 'chats',
         documentId: 'unique()',
-        read: ['*'],
-        write: ['*'],
+        read: ['role:all'],
+        write: ['role:all'],
         data: chat.toMap(),
       );
     } on AppwriteException {
@@ -50,7 +50,7 @@ class Chatting {
   Future<RealtimeSubscription?> receiveMessage() async {
     try {
       RealtimeSubscription data =
-          realtime.subscribe(['collections.613f6523da871.documents']);
+          realtime.subscribe(['collections.chats.documents']);
 
       return data;
     } on AppwriteException {

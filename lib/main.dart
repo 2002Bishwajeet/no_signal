@@ -53,8 +53,8 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       title: 'No Signal',
       themeMode: ThemeMode.dark,
-      darkTheme: NoSignalTheme.darkTheme(context),
-      theme: NoSignalTheme.lightTheme(context),
+      darkTheme: NoSignalTheme.darkTheme(),
+      theme: NoSignalTheme.lightTheme(),
       debugShowCheckedModeBanner: false,
       home: const AuthChecker(),
       routes: {
