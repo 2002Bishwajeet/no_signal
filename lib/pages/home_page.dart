@@ -87,9 +87,33 @@ class HomePage extends ConsumerWidget {
                       ])
             ],
           ),
-          const SliverToBoxAdapter(
-            child: ChatTileWidget(),
+          SliverFillRemaining(
+            child: Center(
+              child: RichText(
+                text: TextSpan(
+                    style: Theme.of(context).textTheme.subtitle1,
+                    children: const [
+                      TextSpan(
+                        text: 'Press ',
+                      ),
+                      WidgetSpan(
+                          child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 2.0),
+                        child: FaIcon(
+                          FontAwesomeIcons.pen,
+                          size: 16,
+                        ),
+                      )),
+                      TextSpan(
+                        text: ' Icon to chat ',
+                      ),
+                    ]),
+              ),
+            ),
           )
+          // const SliverToBoxAdapter(
+          //   child: ChatTileWidget(),
+          // )
         ],
       ),
       floatingActionButton: FloatingActionButton(

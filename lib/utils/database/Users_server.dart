@@ -26,8 +26,7 @@ class ServerApi {
 
   Future<List<UserDetails>?> getUsersList() async {
     try {
-      final response =
-          await database.listDocuments(collectionId: '613c3298e2a69');
+      final response = await database.listDocuments(collectionId: 'chats');
       final List<UserDetails> users = [];
       final temp = response.documents;
 
