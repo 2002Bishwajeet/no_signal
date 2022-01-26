@@ -17,12 +17,12 @@ class ChatPage extends ConsumerWidget {
   ChatPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final List<ChatBubble> _chatBubbles = [];
-    final oldChats = watch(oldChatsProvider).data?.value;
-    final user = watch(userLoggedProvider).state;
+    final oldChats = ref.watch(oldChatsProvider).data?.value;
+    final user = ref.watch(userLoggedProvider.state).state;
 
-    final realtimeChats = watch(chatsProvider).data?.value;
+    final realtimeChats = ref.watch(chatsProvider).data?.value;
 
     oldChats?.forEach((chat) {
       // print(user!.$id == chat.senderid);

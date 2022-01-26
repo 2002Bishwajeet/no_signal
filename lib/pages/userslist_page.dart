@@ -24,10 +24,10 @@ class UsersListPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     List<ListTile> _users = [];
-    final users = watch(usersListProvider).data?.value;
-    final curUser = watch(userLoggedProvider).state;
+    final users = ref.watch(usersListProvider).data?.value;
+    final curUser = ref.watch(userLoggedProvider.state).state;
 
     users?.forEach((user) async {
       if (curUser!.$id != user.id) {

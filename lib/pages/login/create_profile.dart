@@ -74,8 +74,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
-          child: Consumer(builder: (context, watch, _) {
-            final _createUser = watch(userDataClassProvider);
+          child: Consumer(builder: (context, ref, _) {
+            final _createUser = ref.watch(userDataClassProvider);
             return Form(
               key: _formKey,
               child: Column(

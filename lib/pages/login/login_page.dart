@@ -79,13 +79,13 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Consumer(builder: (context, watch, _) {
+        child: Consumer(builder: (context, ref, _) {
           //  Consuming a provider using watch method and storing it in a variable
           //  Now we will use this variable to access all the functions of the
           //  authentication
           //  I will show these providers in the upcoming gist
 
-          final auth = watch(authProvider);
+          final auth = ref.watch(authProvider);
           //  The above provider is used to access authentication class
 
           //  Instead of creating a clutter on the onPressed Function

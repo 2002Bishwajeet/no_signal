@@ -24,8 +24,8 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final userData = watch(userLoggedProvider).state;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userData = ref.watch(userLoggedProvider.state).state;
     final Uint8List? argument =
         ModalRoute.of(context)?.settings.arguments as Uint8List;
     return Scaffold(
@@ -110,7 +110,7 @@ class SettingsScreen extends ConsumerWidget {
               title: const Text('Link to repo'),
               trailing: const Icon(Icons.link),
               leading: const FaIcon(FontAwesomeIcons.github),
-              onTap: () => _launchURL(context.read(githubUrlProvider)),
+              onTap: () => _launchURL(ref.read(githubUrlProvider)),
             ),
           ],
         ),

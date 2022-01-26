@@ -22,30 +22,30 @@ void main() {
 //  I used a stateful widget so that I can use the initState method
 //  to check if the user is logged in or not
 //  and then decide the course of action
-class MainApp extends StatefulWidget {
+class MainApp extends ConsumerStatefulWidget {
   const MainApp({Key? key}) : super(key: key);
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  MainAppState createState() => MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
-  Future<void> _init() async {
+class MainAppState extends ConsumerState<MainApp> {
+  Future<void> _init(WidgetRef ref) async {
     //  This is how you can access providers in stateful widgets
-    final user = await context.read(authProvider).getAccount();
+    final user = await ref.read(authProvider).getAccount();
     if (user != null) {
       //  This is how you can modify the state of the providers
-      context.read(userLoggedProvider).state = user;
-      context.read(userLoggedInProvider).state = true;
+      ref.read(userLoggedProvider.state).state = user;
+      ref.read(userLoggedInProvider.state).state = true;
     } else {
-      context.read(userLoggedInProvider).state = false;
+      ref.read(userLoggedInProvider.state).state = false;
     }
   }
 
   @override
   void initState() {
     super.initState();
-    _init();
+    _init(ref);
   }
 
   @override
@@ -80,8 +80,8 @@ class AuthChecker extends ConsumerWidget {
 //  if false we will go to Welcome Page
 // and if the user is null we will show a Loading screen
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final _isLoggedIn = watch(userLoggedInProvider).state;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _isLoggedIn = ref.watch(userLoggedInProvider.state).state;
     if (_isLoggedIn == true) {
       return const HomePage(); // It's asimple basic screen showing the home page with welcome message
     } else if (_isLoggedIn == false) {

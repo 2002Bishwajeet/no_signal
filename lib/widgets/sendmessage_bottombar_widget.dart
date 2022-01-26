@@ -17,9 +17,9 @@ class SendMessageWidget extends ConsumerWidget {
   final TextEditingController _textController;
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final Chatting chat = watch(chatProvider);
-    final user = watch(userLoggedProvider).state;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final Chatting chat = ref.watch(chatProvider);
+    final user = ref.watch(userLoggedProvider.state).state;
 
     Future<void> _sendMessage(String message) async {
       if (message.isEmpty) return;

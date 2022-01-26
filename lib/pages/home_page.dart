@@ -19,10 +19,10 @@ class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader ref) {
-    final auth = ref(authProvider);
-    final user = ref(userLoggedProvider).state!.$id;
-    final img = ref(imageUrlProvider(user)).data?.value;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final auth = ref.watch(authProvider);
+    final user = ref.watch(userLoggedProvider)!.$id;
+    final img = ref.watch(imageUrlProvider(user)).asData?.value;
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
