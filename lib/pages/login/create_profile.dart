@@ -8,7 +8,17 @@ import 'package:no_signal/themes.dart';
 
 import '../home_page.dart';
 
+//
+/// [CreateAccountPage]
+/// We will be redirected to this page after a user successfully signups i.e
+/// create a new account and login.
+/// If a user just simply login, we will be redirected to [HomePage]
+///
+/// In this page, we will take some basic details like name, bio and profile pic
+/// and then we will be redirected to [HomePage].
+
 class CreateAccountPage extends StatefulWidget {
+  // For routing purposes
   static const routeName = '/create-account';
   const CreateAccountPage({Key? key}) : super(key: key);
 
@@ -30,6 +40,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   XFile? _image;
 
+  // A simple function to pick an Image from the galary
+  /// We are using [Image_picker] library 0.8.4+5
+  /// Make sure to follow their installation correctly for your dev platform
+  ///
+
   Future<void> pickImage(ImagePicker picker) async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -38,9 +53,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     log(_image!.path);
   }
 
+  //  Show a loading spinner when submitting function
   bool _isloading = false;
   @override
   void dispose() {
+    //  Always remebmer to dispose the controller to avoid memory leaks
     _name.dispose();
     _bio.dispose();
     super.dispose();
@@ -206,7 +223,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               'Create User',
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
-                            // textColor: TwitterTheme.blueTColor,
                             textTheme: ButtonTextTheme.primary,
                             minWidth: 100,
                             padding: const EdgeInsets.all(18),
