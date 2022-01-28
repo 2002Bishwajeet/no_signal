@@ -17,16 +17,17 @@ import '../home_page.dart';
 /// In this page, we will take some basic details like name, bio and profile pic
 /// and then we will be redirected to [HomePage].
 
-class CreateAccountPage extends StatefulWidget {
+class CreateAccountPage extends ConsumerStatefulWidget {
   // For routing purposes
   static const routeName = '/create-account';
   const CreateAccountPage({Key? key}) : super(key: key);
 
   @override
-  State<CreateAccountPage> createState() => _CreateAccountPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CreateAccountPageState();
 }
 
-class _CreateAccountPageState extends State<CreateAccountPage> {
+class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
   //  Name Controller
   final TextEditingController _name = TextEditingController();
 
@@ -57,7 +58,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   bool _isloading = false;
   @override
   void dispose() {
-    //  Always remebmer to dispose the controller to avoid memory leaks
+    //  Always remember to dispose the controller to avoid memory leaks
     _name.dispose();
     _bio.dispose();
     super.dispose();
@@ -65,6 +66,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _createUser = ref.watch(userDataClassProvider);
     return GestureDetector(
       onTap: () {
         if (FocusScope.of(context).hasFocus) {
@@ -74,9 +76,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
-          child: Consumer(builder: (context, ref, _) {
-            final _createUser = ref.watch(userDataClassProvider);
-            return Form(
+          child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -237,9 +237,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     flex: 3,
                   ),
                 ],
-              ),
-            );
-          }),
+              )),
         ),
       ),
     );

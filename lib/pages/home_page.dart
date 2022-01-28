@@ -6,8 +6,8 @@ import 'package:no_signal/Pages/userslist_page.dart';
 import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
-import 'package:no_signal/widgets/chatlist_widget.dart';
 
+// PopupItems
 enum PopupItem {
   group,
   settings,
@@ -20,9 +20,16 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Authentication variable to implement logout functionality
     final auth = ref.watch(authProvider);
+
+    // User data variable to get user $id to get the image preview
     final user = ref.watch(userLoggedProvider)!.$id;
+
+    //  Final Image to display in the appBar
     final img = ref.watch(imageUrlProvider(user)).asData?.value;
+
+    //  This time I decided to work with [SLIVERS] instead of [LIST]
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -35,11 +42,11 @@ class HomePage extends ConsumerWidget {
               padding: const EdgeInsets.all(10.0),
               child: InkWell(
                 onTap: () {
+                  // Open Settings screen
                   Navigator.of(context)
                       .pushNamed(SettingsScreen.routename, arguments: img);
                 },
                 child: CircleAvatar(
-                  // backgroundColor: NoSignalTheme.whiteShade1,
                   backgroundImage: img != null
                       ? MemoryImage(img) as ImageProvider
                       : const AssetImage('assets/images/avatar.png'),
@@ -58,9 +65,11 @@ class HomePage extends ConsumerWidget {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text('Wait '),
+                          // Will Implement later
                         ));
                         break;
                       case PopupItem.settings:
+                      // Open settings screen
                         Navigator.of(context).pushNamed(
                             SettingsScreen.routename,
                             arguments: img);
@@ -87,6 +96,8 @@ class HomePage extends ConsumerWidget {
                       ])
             ],
           ),
+          // We will implement more logic later
+          //  Currently we are using cause the Home Page has no chat list
           SliverFillRemaining(
             child: Center(
               child: RichText(

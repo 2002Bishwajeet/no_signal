@@ -26,10 +26,10 @@ class MainApp extends ConsumerStatefulWidget {
   const MainApp({Key? key}) : super(key: key);
 
   @override
-  MainAppState createState() => MainAppState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MainAppState();
 }
 
-class MainAppState extends ConsumerState<MainApp> {
+class _MainAppState extends ConsumerState<MainApp> {
   Future<void> _init(WidgetRef ref) async {
     //  This is how you can access providers in stateful widgets
     final user = await ref.read(authProvider).getAccount();
@@ -90,3 +90,5 @@ class AuthChecker extends ConsumerWidget {
     return const LoadingPage(); // It's a plain screen with a circular progress indicator in Center
   }
 }
+
+
