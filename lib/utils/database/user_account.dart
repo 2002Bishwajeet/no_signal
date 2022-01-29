@@ -90,7 +90,7 @@ class UserData {
     }
   }
 
-  Future<List<UserPerson>?> getUsersList() async {
+  Future<List<UserPerson>?> getUsersList(String id) async {
     try {
       final response = await database.listDocuments(collectionId: 'users');
       final List<UserDetails> users = [];
@@ -133,14 +133,24 @@ class UserData {
   /// [getProfilePicturebyId]
   /// This method is used to get the profile picture of the user
   /// It takes the unique id of the user as a parameter
-  /// It traverses the entire collection and finds for the Id
+  /// For finding the [userId] quicker we are using Queries
+  /// For making a [Query] we need to create a index of type [unique]
+  /// For Index Key, I have set the name id but you can change it to any other name
   Future<Uint8List> getProfilePicturebyuserId(String id) async {
     try {
-      final DocumentList response = await database.listDocuments(
-          collectionId: 'users', queries: [Query.equal('id', [id])]);
+      final DocumentList response =
+          await database.listDocuments(collectionId: 'users', queries: [
+        Query.equal('id', id) // We want the exact id to match
+        //  That's why equal method is called
+        // To know what more query we can do check the documentation
+        // https://appwrite.io/docs/database#querying-documents
+      ]);
       String? pictureId;
+      // response is a list of documents. We are only interested in the first document
+      //  And we are fully sure that the result we would receive contains a single document
       final temp = response.documents;
 
+      // So here comes using the data - the first and foremost document
       pictureId = temp[0].data['imgId'];
 
       final data = await storage.getFilePreview(fileId: pictureId as String);
