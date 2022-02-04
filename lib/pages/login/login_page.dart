@@ -22,10 +22,10 @@ enum Status {
 
 Status type = Status.login;
 
-//  I have used stateful widget to use setstate functions in LoginPage
-//  we could also managed the state using Riverpod but I am not using it here
-//  Remember Stateful widgets are made for a reason. If it would be bad
-//  flutter developer would not think of it in the first place.
+///  I have used [StatefulWidget] to use [SetState] functions in [LoginPage]
+///  we could also have managed the state using Riverpod but I am not using it here
+///  Remember Stateful widgets are made for a reason. If it would be bad
+///  Flutter developers would not think of it in the first place.
 
 class LoginPage extends StatefulWidget {
   static const routename = '/LoginPage';
@@ -36,12 +36,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //  GlobalKey is used to validate the Form and managing the state of the form
+  ///  [GlobalKey] is used to validate the [Form] and managing the state of the form
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  //  TextEditingController to get the data from the TextFields
-  //  we can also use Riverpod to manage the state of the TextFields
-  //  but again I am not using it here
+  ///  [TextEditingController] to get the data from the TextFields
+  ///  we can also use Riverpod to manage the state of the TextFields
+  ///  but again I am not using it here
   final _email = TextEditingController();
   final _password = TextEditingController();
 

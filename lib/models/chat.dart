@@ -17,7 +17,7 @@ class Chat {
       'senderName': senderName,
       'senderid': senderid,
       'message': message,
-      'time': time.millisecondsSinceEpoch * 1000,
+      'time': time.millisecondsSinceEpoch,
     };
   }
 

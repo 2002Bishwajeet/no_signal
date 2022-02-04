@@ -8,18 +8,18 @@ import 'package:no_signal/pages/login/login_page.dart';
 
 import 'package:no_signal/pages/login/create_profile.dart';
 
-//  We have created a class named Authentication which contains all
-//  the methods that we need to perform the authentication process.
-//  ofc You are free to use any name you want
+///  We have created a class named [Authentication] which contains all
+///  the methods that we need to perform the authentication process.
+///  ofc You are free to use any name you want
 class Authentication {
-  //  Client is a class provided by the Appwrite SDK.
-  //  It is used to communicate with the Appwrite API.
-  //  We will be receiving this object from the constructor
+  ///  [Client] is a class provided by the Appwrite SDK.
+  ///  It is used to communicate with the Appwrite API.
+  ///  We will be receiving this object from the constructor
   final Client client;
 
-  //  Account is also a class provided by the Appwrite SDK.
-  //  It is to access the all the account related methods. like get account
-  //  or create account , update account etc
+  ///  [Account] is also a class provided by the Appwrite SDK.
+  ///  It is to access the all the account related methods. like get account
+  ///  or create account , update account etc
   late Account account;
   //  late keyowrd due to Null Safety
   //  to know more about Null Safety visit https://dart.dev/null-safety/understanding-null-safety
@@ -43,10 +43,10 @@ class Authentication {
   //  When I started this project I had manually implemented those models
   //  But this blog uses latest version of appwrite so we are going to skip that part
 
-//  This is a function getaccount which will return a User object containing the data
-//  of the user if the user is authenticated. Otherwise it will throw an exception
-//  SO we don't want the program to stop in between so we are returning NULL if
-//  it throws exception
+  ///  This is a function [getAccount] which will return a [User] object containing the data
+  ///  of the user if the user is authenticated. Otherwise it will throw an exception
+  ///  SO we don't want the program to stop in between so we are returning NULL if
+  ///  it throws exception
 
 //  To know more about User Model Ctrl+click on User to go to the User model
 //  It's a nice practice to see these stuffs and explore them
@@ -63,15 +63,15 @@ class Authentication {
   Future<void> login(
       String email, String password, BuildContext context) async {
     try {
-      //  here account is the object of Account class and create session
-      //  is a method of Account class which signs in the current user.
-      //  We are using try catch block so that if there is any error we can
-      //  show the user a proper message
-      //  if the try is successful we would be actually checking which type of
-      //  data we are receving from the server
-      //  if you don't want to see you can comment it out.
-      //  nevermind I did that for you😉
-      // var data = await account.createSession(email: email, password: password);
+      ///  here account is the object of Account class and create session
+      ///  is a method of Account class which signs in the current user.
+      ///  We are using try catch block so that if there is any error we can
+      ///  show the user a proper message
+      ///  if the try is successful we would be actually checking which type of
+      ///  data we are receving from the server
+      ///  if you don't want to see you can comment it out.
+      ///  nevermind I did that for you😉
+      /// var data = await account.createSession(email: email, password: password);
       await account.createSession(email: email, password: password);
       await Navigator.pushReplacementNamed(context, HomePage.routename);
     } catch (e) {

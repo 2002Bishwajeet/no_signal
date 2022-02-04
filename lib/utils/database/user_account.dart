@@ -90,7 +90,7 @@ class UserData {
     }
   }
 
-  Future<List<UserPerson>?> getUsersList(String id) async {
+  Future<List<UserPerson>?> getUsersList() async {
     try {
       final response = await database.listDocuments(collectionId: 'users');
       final List<UserDetails> users = [];

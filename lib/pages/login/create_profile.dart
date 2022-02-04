@@ -8,7 +8,7 @@ import 'package:no_signal/themes.dart';
 
 import '../home_page.dart';
 
-//
+///
 /// [CreateAccountPage]
 /// We will be redirected to this page after a user successfully signups i.e
 /// create a new account and login.
@@ -42,10 +42,9 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
   XFile? _image;
 
   // A simple function to pick an Image from the galary
-  /// We are using [Image_picker] library 0.8.4+5
+  /// We are using [ImagePicker] library 0.8.4+5
   /// Make sure to follow their installation correctly for your dev platform
   ///
-
   Future<void> pickImage(ImagePicker picker) async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {

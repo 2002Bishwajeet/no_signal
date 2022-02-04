@@ -22,7 +22,7 @@ import 'package:dart_appwrite/dart_appwrite.dart' as appwrite;
 //then suffix it with the portnumber
 
 //  Okay if you are unsure that thing you copied is right or wrong
-// here's a small tip to debug
+//  here's a small tip to debug
 //  If I were you I would goto my phone's browser and type the custom Endpoint
 //  in the url bar and see if it works.
 //  if you get a signIn panel then voila it works. Now DON'T TOUCH IT.

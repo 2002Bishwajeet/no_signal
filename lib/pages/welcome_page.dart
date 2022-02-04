@@ -11,16 +11,16 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  Introduction Screen is actually a package that I have used from Pub.dev
-    // Link for the Inroduction Screen: https://pub.dev/packages/introduction_screen
+    ///  [IntroductionScreen] is actually a package that I have used from Pub.dev
+    /// Link for the Inroduction Screen: https://pub.dev/packages/introduction_screen
 
     return IntroductionScreen(
       isTopSafeArea: true, // Safe Area to avoid overlaps with the status bar
       showDoneButton: true,
       done: Text('Done', style: TextStyle(color: NoSignalTheme.whiteShade1)),
 
-      // OnDone takes an anonymous function. So when all the slides are completed
-      //we are navigating the user to Login Page
+      /// [OnDone] takes an void function. So when all the slides are completed
+      /// We are navigate to [LoginPage]
       onDone: () =>
           Navigator.of(context).pushReplacementNamed(LoginPage.routename),
       next: Text('Next', style: TextStyle(color: NoSignalTheme.whiteShade1)),
