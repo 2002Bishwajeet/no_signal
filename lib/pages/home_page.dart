@@ -3,26 +3,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/Pages/popup/settings.dart';
 import 'package:no_signal/Pages/userslist_page.dart';
-import 'package:no_signal/providers/Auth.dart';
+import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
 import '../common/popup.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   static const routename = '/home';
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // Authentication variable to implement logout functionality
     final auth = ref.watch(authProvider);
 
-    // User data variable to get user $id to get the image preview
-    final user = ref.watch(userLoggedProvider)!.$id;
-
-    //  Final Image to display in the appBar
-    final img = ref.watch(imageUrlProvider(user)).asData?.value;
+    final currUser = ref.watch(currentLoggedUserProvider);
 
     //  This time I decided to work with [SLIVERS] instead of [LIST]
     return Scaffold(
@@ -39,11 +45,11 @@ class HomePage extends ConsumerWidget {
                 onTap: () {
                   // Open Settings screen
                   Navigator.of(context)
-                      .pushNamed(SettingsScreen.routename, arguments: img);
+                      .pushNamed(SettingsScreen.routename);
                 },
                 child: CircleAvatar(
-                  backgroundImage: img != null
-                      ? MemoryImage(img) as ImageProvider
+                  backgroundImage: currUser?.image != null
+                      ? MemoryImage(currUser!.image!) as ImageProvider
                       : const AssetImage('assets/images/avatar.png'),
                 ),
               ),
@@ -66,8 +72,8 @@ class HomePage extends ConsumerWidget {
                       case PopupItem.settings:
                         // Open settings screen
                         Navigator.of(context).pushNamed(
-                            SettingsScreen.routename,
-                            arguments: img);
+                            SettingsScreen.routename
+                            );
                         break;
                       case PopupItem.logout:
                         auth.logout(context);

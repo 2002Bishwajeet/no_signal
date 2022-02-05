@@ -1,9 +1,7 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:no_signal/providers/Auth.dart';
+import 'package:no_signal/providers/user_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //  Link for the GitHub repo
@@ -25,9 +23,7 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userData = ref.watch(userLoggedProvider.state).state;
-    final Uint8List? argument =
-        ModalRoute.of(context)?.settings.arguments as Uint8List;
+    final userData = ref.watch(currentLoggedUserProvider);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -45,8 +41,8 @@ class SettingsScreen extends ConsumerWidget {
                 children: [
                   CircleAvatar(
                     radius: 36,
-                    backgroundImage: argument != null
-                        ? MemoryImage(argument) as ImageProvider
+                    backgroundImage: userData?.image != null
+                        ? MemoryImage(userData!.image!) as ImageProvider
                         : const AssetImage('assets/images/avatar.png'),
                   ),
                   Expanded(

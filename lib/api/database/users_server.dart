@@ -15,14 +15,14 @@ class ServerApi {
     // _getAccount();
   }
 
-  Future<List<UserDetails>?> getUsersList() async {
+  Future<List<ServerUser>?> getUsersList() async {
     try {
       final response = await database.listDocuments(collectionId: 'chats');
-      final List<UserDetails> users = [];
+      final List<ServerUser> users = [];
       final temp = response.documents;
 
       for (var element in temp) {
-        users.add(UserDetails.fromMap(element.data));
+        users.add(ServerUser.fromMap(element.data));
       }
       return users;
     } on AppwriteException {

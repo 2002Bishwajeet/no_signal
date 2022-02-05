@@ -92,7 +92,7 @@ class Authentication {
     }
   }
 
-  //  A function to signup the user with email and password
+  ///  A function to signup the user with email and password
   Future<void> signUp(
       String email, String password, BuildContext context) async {
     try {
@@ -130,7 +130,7 @@ class Authentication {
     }
   }
 
-  //  A function to signout the user
+  ///  A function to logout the current user
   Future<void> logout(BuildContext context) async {
     try {
       //  Delete session is the method to logout the user
@@ -139,6 +139,7 @@ class Authentication {
       await account.deleteSession(sessionId: 'current');
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Logged out Successfully"),
+        duration: Duration(seconds: 2),
       ));
       await Navigator.of(context).pushReplacementNamed(LoginPage.routename);
     } catch (e) {

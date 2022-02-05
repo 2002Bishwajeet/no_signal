@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:no_signal/providers/Auth.dart';
+import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/themes.dart';
 
 //  Instead of creating Two Screens, I have Added both Login and Signup Screen in one Screen

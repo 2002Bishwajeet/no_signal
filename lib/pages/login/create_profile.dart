@@ -208,7 +208,7 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                               }
                               _image != null
                                   ? await _createUser
-                                      .addProfilePicture(
+                                      .uploadProfilePicture(
                                           _image!.path, _image!.name)
                                       .then((url) => _createUser.addUser(
                                           _name.text, _bio.text, url ?? ''))

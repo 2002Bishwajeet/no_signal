@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 
 class UsersListPage extends ConsumerWidget {
@@ -27,10 +26,10 @@ class UsersListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<ListTile> _users = [];
     final users = ref.watch(usersListProvider).asData?.value;
-    final curUser = ref.watch(userLoggedProvider.state).state;
+    final curUser = ref.watch(currentLoggedUserProvider);
 
     users?.forEach((user) async {
-      if (curUser!.$id != user.id) {
+      if (curUser!.id != user.id) {
         _users.add(usersTile(
             name: user.name, bio: user.bio, imageUrl: user.image as Uint8List));
       }

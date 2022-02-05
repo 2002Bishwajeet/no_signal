@@ -4,8 +4,8 @@ import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/models/chat.dart';
-import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/providers/chat.dart';
+import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 import 'package:no_signal/widgets/sendmessage_bottombar_widget.dart';
 
@@ -19,24 +19,24 @@ class ChatPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<ChatBubble> _chatBubbles = [];
-    final oldChats = ref.watch(oldChatsProvider).data?.value;
-    final user = ref.watch(userLoggedProvider.state).state;
+    final oldChats = ref.watch(oldChatsProvider).asData?.value;
+    final user = ref.watch(currentLoggedUserProvider.state).state;
 
-    final realtimeChats = ref.watch(chatsProvider).data?.value;
+    final realtimeChats = ref.watch(chatsProvider).asData?.value;
 
     oldChats?.forEach((chat) {
-      // print(user!.$id == chat.senderid);
+      // print(user!.id == chat.senderid);
       _chatBubbles.add(ChatBubble(
         margin: const EdgeInsets.only(top: 10),
         child: Text(chat.message),
         alignment:
-            user!.$id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
+            user!.id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
         shadowColor: Colors.transparent,
-        backGroundColor: user.$id != chat.senderid
+        backGroundColor: user.id != chat.senderid
             ? Colors.grey
             : NoSignalTheme.lightBlueShade,
         clipper: ChatBubbleClipper1(
-            type: user.$id == chat.senderid
+            type: user.id == chat.senderid
                 ? BubbleType.sendBubble
                 : BubbleType.receiverBubble),
       ));
@@ -48,13 +48,13 @@ class ChatPage extends ConsumerWidget {
         margin: const EdgeInsets.only(top: 10),
         child: Text(data.message),
         alignment:
-            user!.$id == data.senderid ? Alignment.topRight : Alignment.topLeft,
+            user!.id == data.senderid ? Alignment.topRight : Alignment.topLeft,
         shadowColor: Colors.transparent,
-        backGroundColor: user.$id != data.senderid
+        backGroundColor: user.id != data.senderid
             ? Colors.grey
             : NoSignalTheme.lightBlueShade,
         clipper: ChatBubbleClipper1(
-            type: user.$id == data.senderid
+            type: user.id == data.senderid
                 ? BubbleType.sendBubble
                 : BubbleType.receiverBubble),
       ));

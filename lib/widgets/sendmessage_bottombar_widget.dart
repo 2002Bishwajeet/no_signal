@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/models/chat.dart';
-import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/providers/chat.dart';
+import 'package:no_signal/providers/user_data.dart';
 
 import '../api/database/create_chats.dart';
 import '../themes.dart';
@@ -19,14 +19,14 @@ class SendMessageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Chatting chat = ref.watch(chatProvider);
-    final user = ref.watch(userLoggedProvider.state).state;
+    final user = ref.watch(currentLoggedUserProvider);
 
     Future<void> _sendMessage(String message) async {
       if (message.isEmpty) return;
 
       Chat data = Chat(
-          senderName: user!.name,
-          senderid: user.$id,
+          senderName: user!.name!,
+          senderid: user.id!,
           message: message,
           time: DateTime.now());
 

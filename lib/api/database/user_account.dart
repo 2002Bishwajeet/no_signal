@@ -32,7 +32,7 @@ class UserData {
     database = Database(client);
   }
 
-  /// [addProfilePicture]
+  /// [uploadProfilePicture]
   /// This method is used to add profile picture to the user
   /// It takes the filepath of the image and the imgName as parameters
   /// After successful upload of the image it returns the unique id of the image
@@ -40,7 +40,7 @@ class UserData {
   /// But here we don't need for that
   ///
   ///
-  Future<String?> addProfilePicture(String filePath, String imgName) async {
+  Future<String?> uploadProfilePicture(String filePath, String imgName) async {
     try {
       User res = await account.get();
       File? result = await storage.createFile(
@@ -68,7 +68,7 @@ class UserData {
   ///
   ///
   Future<void> addUser(String name, String bio, String imgId) async {
-    // get the details about the current logged in user
+    // Get the details about the current logged in user
     User res = await account.get();
 
     try {
@@ -76,7 +76,7 @@ class UserData {
       await account.updateName(name: name);
       // Additional data of the user will be written in the collection
       await database
-          .createDocument(collectionId: 'users', documentId: 'unique()', data: {
+          .createDocument(collectionId: 'users', documentId: res.$id, data: {
         'name': name,
         'bio': bio,
         'imgId': imgId,
@@ -91,19 +91,35 @@ class UserData {
     }
   }
 
-  Future<List<UserPerson>?> getUsersList() async {
+  /// [getCurrentUser]
+  /// This method is used to get the current user details
+  /// It returns the [NoSignalUser] object which contains all the details of the user
+  ///  We will use this object to display the user details in the [HomePage] and [SettingsPage]
+  Future<NoSignalUser?> getCurrentUser() async {
+    try {
+      final user = await account.get();
+      final data = await database.getDocument(
+          collectionId: 'users', documentId: user.$id);
+      final img = await _getProfilePicture(data.data['imgId']);
+      return NoSignalUser.fromMap(data.data).copyWith(image: img);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<LocalUser>?> getUsersList() async {
     try {
       final response = await database.listDocuments(collectionId: 'users');
-      final List<UserDetails> users = [];
+      final List<ServerUser> users = [];
       final temp = response.documents;
-      final List<UserPerson> _users = [];
+      final List<LocalUser> _users = [];
 
       for (var element in temp) {
-        users.add(UserDetails.fromMap(element.data));
+        users.add(ServerUser.fromMap(element.data));
       }
       for (var element in users) {
-        final imgurl = await getProfilePicture(element.url as String);
-        _users.add(UserPerson(
+        final imgurl = await _getProfilePicture(element.imgId as String);
+        _users.add(LocalUser(
             name: element.name,
             bio: element.bio,
             id: element.id,
@@ -122,7 +138,7 @@ class UserData {
   /// It returns the image in the form of a [Uint8List]
   ///
   ///
-  Future<Uint8List> getProfilePicture(String fileId) async {
+  Future<Uint8List> _getProfilePicture(String fileId) async {
     try {
       final data = await storage.getFilePreview(fileId: fileId);
       return data;
@@ -139,20 +155,12 @@ class UserData {
   /// For Index Key, I have set the name id but you can change it to any other name
   Future<Uint8List> getProfilePicturebyuserId(String id) async {
     try {
-      final DocumentList response =
-          await database.listDocuments(collectionId: 'users', queries: [
-        Query.equal('id', id) // We want the exact id to match
-        //  That's why equal method is called
-        // To know what more query we can do check the documentation
-        // https://appwrite.io/docs/database#querying-documents
-      ]);
+      final response =
+          await database.getDocument(collectionId: 'users', documentId: id);
       String? pictureId;
-      // response is a list of documents. We are only interested in the first document
-      //  And we are fully sure that the result we would receive contains a single document
-      final temp = response.documents;
 
       // So here comes using the data - the first and foremost document
-      pictureId = temp[0].data['imgId'];
+      pictureId = response.data['imgId'];
 
       final data = await storage.getFilePreview(fileId: pictureId as String);
       return data;

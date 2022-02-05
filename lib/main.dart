@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:no_signal/providers/Auth.dart';
+import 'package:no_signal/providers/auth.dart';
+import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
 import 'pages/chat_page.dart';
@@ -34,10 +35,14 @@ class MainApp extends ConsumerStatefulWidget {
 class _MainAppState extends ConsumerState<MainApp> {
   Future<void> _init(WidgetRef ref) async {
     //  This is how you can access providers in stateful widgets
-    final user = await ref.read(authProvider).getAccount();
+    final user = await ref.read(userProvider.future);
     if (user != null) {
       //  This is how you can modify the state of the providers
-      ref.read(userLoggedProvider.state).state = user;
+      final userData = await ref.read(userDataClassProvider).getCurrentUser();
+      ref
+          .read(currentLoggedUserProvider.state)
+          .update((user) => user = userData);
+     
       ref.read(userLoggedInProvider.state).state = true;
     } else {
       ref.read(userLoggedInProvider.state).state = false;

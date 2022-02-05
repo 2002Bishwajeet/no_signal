@@ -14,7 +14,10 @@ final userDataClassProvider = Provider<UserData>((ref) {
   return UserData(ref.watch(clientProvider));
 });
 
-final usersListProvider = FutureProvider<List<UserPerson>?>((ref) {
+/// Provider for the [UserData] class.
+/// This provider is used to get the List of  all the [User] from the database.
+/// Since this invloves a Future, a FutureProvider is used.
+final usersListProvider = FutureProvider<List<LocalUser>?>((ref) {
   return ref.watch(userDataClassProvider).getUsersList();
 });
 
@@ -25,4 +28,8 @@ final usersListProvider = FutureProvider<List<UserPerson>?>((ref) {
 final imageUrlProvider =
     FutureProvider.family<Uint8List, String>((ref, id) async {
   return ref.watch(userDataClassProvider).getProfilePicturebyuserId(id);
+});
+
+final currentLoggedUserProvider = StateProvider<NoSignalUser?>((ref) {
+  return null;
 });
