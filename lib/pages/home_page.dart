@@ -7,12 +7,7 @@ import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
-// PopupItems
-enum PopupItem {
-  group,
-  settings,
-  logout,
-}
+import '../common/popup.dart';
 
 class HomePage extends ConsumerWidget {
   static const routename = '/home';
@@ -69,7 +64,7 @@ class HomePage extends ConsumerWidget {
                         ));
                         break;
                       case PopupItem.settings:
-                      // Open settings screen
+                        // Open settings screen
                         Navigator.of(context).pushNamed(
                             SettingsScreen.routename,
                             arguments: img);

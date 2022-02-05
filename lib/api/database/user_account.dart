@@ -46,9 +46,10 @@ class UserData {
       File? result = await storage.createFile(
         file: await MultipartFile.fromPath('file', filePath, filename: imgName),
         fileId: 'unique()',
-        read: ['role:all', 'user:${res.$id}'], // Make sure to give [role:all]
+        read: ['role:all', 'user:${res.$id}'],
+        // Make sure to give [role:all]
         // So that every authenticated user can access it
-        //  If you don't give any read permissions, by default the sole user
+        // If you don't give any read permissions, by default the sole user
         // can access it.
         // We are keeping write function blank. It by defaults gives write permissions
         // to the user only and that's what we only want.
@@ -85,7 +86,7 @@ class UserData {
         'role:all',
         'user:${res.$id}'
       ]);
-    } catch (e) {
+    } catch (_) {
       rethrow;
     }
   }
@@ -130,7 +131,7 @@ class UserData {
     }
   }
 
-  /// [getProfilePicturebyId]
+  /// [getProfilePicturebyuserId]
   /// This method is used to get the profile picture of the user
   /// It takes the unique id of the user as a parameter
   /// For finding the [userId] quicker we are using Queries
@@ -155,7 +156,8 @@ class UserData {
 
       final data = await storage.getFilePreview(fileId: pictureId as String);
       return data;
-    } on AppwriteException {
+    } on AppwriteException catch (e) {
+      log('$e');
       rethrow;
     }
   }

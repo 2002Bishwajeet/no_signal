@@ -15,15 +15,6 @@ class ServerApi {
     // _getAccount();
   }
 
-  // Future<void> _getAccount() async {
-  //   try {
-  //     final response = await account.get();
-  //     user = User.fromMap(response.data);
-  //   } on AppwriteException catch (e) {
-  //     throw e;
-  //   }
-  // }
-
   Future<List<UserDetails>?> getUsersList() async {
     try {
       final response = await database.listDocuments(collectionId: 'chats');

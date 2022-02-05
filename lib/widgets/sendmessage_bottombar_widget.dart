@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/models/chat.dart';
 import 'package:no_signal/providers/Auth.dart';
 import 'package:no_signal/providers/chat.dart';
-import 'package:no_signal/utils/database/create_chats.dart';
 
+import '../api/database/create_chats.dart';
 import '../themes.dart';
 
 class SendMessageWidget extends ConsumerWidget {

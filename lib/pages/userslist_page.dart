@@ -26,7 +26,7 @@ class UsersListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<ListTile> _users = [];
-    final users = ref.watch(usersListProvider).data?.value;
+    final users = ref.watch(usersListProvider).asData?.value;
     final curUser = ref.watch(userLoggedProvider.state).state;
 
     users?.forEach((user) async {

@@ -1,7 +1,8 @@
 import 'package:appwrite/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/providers/client.dart';
-import 'package:no_signal/utils/auth/authentication.dart';
+
+import '../api/auth/authentication.dart';
 
 //  So this is where we defined auth providers
 
