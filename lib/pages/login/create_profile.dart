@@ -8,7 +8,6 @@ import 'package:no_signal/themes.dart';
 
 import '../home_page.dart';
 
-///
 /// [CreateAccountPage]
 /// We will be redirected to this page after a user successfully signups i.e
 /// create a new account and login.
@@ -53,6 +52,29 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
     log(_image!.path);
   }
 
+  /// provider for UserData class
+  late final _userData = ref.watch(userDataClassProvider);
+
+  /// This is the main function that will be called when the user clicks on the
+  /// create User Button.
+  /// We will validate the form and then create a new user updating its contents
+  Future<void> createUser() async {
+    _isloading = true;
+    if (!_formKey.currentState!.validate()) {
+      _isloading = false;
+      return;
+    }
+    _image != null
+        ? await _userData.uploadProfilePicture(_image!.path, _image!.name).then(
+            (imgId) => _userData.addUser(_name.text, _bio.text, imgId ?? ''))
+        : _userData.addUser(_name.text, _bio.text, 'assets/images/profile.png');
+
+    ref.watch(currentLoggedUserProvider.state).state =
+        await _userData.getCurrentUser();
+
+    await Navigator.of(context).pushReplacementNamed(HomePage.routename);
+  }
+
   //  Show a loading spinner when submitting function
   bool _isloading = false;
   @override
@@ -65,7 +87,6 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _createUser = ref.watch(userDataClassProvider);
     return GestureDetector(
       onTap: () {
         if (FocusScope.of(context).hasFocus) {
@@ -200,24 +221,7 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                           margin: const EdgeInsets.symmetric(horizontal: 16),
                           width: double.infinity,
                           child: MaterialButton(
-                            onPressed: () async {
-                              _isloading = true;
-                              if (!_formKey.currentState!.validate()) {
-                                _isloading = false;
-                                return;
-                              }
-                              _image != null
-                                  ? await _createUser
-                                      .uploadProfilePicture(
-                                          _image!.path, _image!.name)
-                                      .then((url) => _createUser.addUser(
-                                          _name.text, _bio.text, url ?? ''))
-                                  : _createUser.addUser(_name.text, _bio.text,
-                                      'assets/images/profile.png');
-
-                              await Navigator.of(context)
-                                  .pushReplacementNamed(HomePage.routename);
-                            },
+                            onPressed: createUser,
                             child: const Text(
                               'Create User',
                               style: TextStyle(fontWeight: FontWeight.w600),
