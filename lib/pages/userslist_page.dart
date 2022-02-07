@@ -28,6 +28,7 @@ class UsersListPage extends ConsumerWidget {
     final users = ref.watch(usersListProvider).asData?.value;
     final curUser = ref.watch(currentLoggedUserProvider);
 
+    users?.sort((a, b) => a.name.compareTo(b.name));
     users?.forEach((user) async {
       if (curUser!.id != user.id) {
         _users.add(usersTile(

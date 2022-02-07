@@ -6,8 +6,8 @@ import 'package:no_signal/providers/client.dart';
 import '../api/database/create_chats.dart';
 
 
-final chatProvider = Provider<Chatting>((ref) {
-  return Chatting(client: ref.watch(clientProvider));
+final chatProvider = Provider<ChatServices>((ref) {
+  return ChatServices(client: ref.watch(clientProvider));
 });
 
 final chatsProvider = FutureProvider<RealtimeSubscription?>((ref) {

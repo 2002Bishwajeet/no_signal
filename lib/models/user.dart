@@ -52,7 +52,6 @@ class ServerUser {
     );
   }
 
-
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -89,7 +88,6 @@ class LocalUser {
     this.image,
   });
 }
-
 
 /// [NoSignalUser]
 ///  A normal user model containing all the neccessary data to be used in the app
