@@ -8,7 +8,7 @@ import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
 import '../common/popup.dart';
-import '../widgets/chatlist_widget.dart';
+import '../widgets/chat_tile.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   static const routename = '/home';
@@ -19,6 +19,11 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  // Authentication variable to implement logout functionality
+  late final auth = ref.watch(authProvider);
+
+  late final currUser = ref.watch(currentLoggedUserProvider);
+
   @override
   void initState() {
     super.initState();
@@ -26,11 +31,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Authentication variable to implement logout functionality
-    final auth = ref.watch(authProvider);
-
-    final currUser = ref.watch(currentLoggedUserProvider);
-
     //  This time I decided to work with [SLIVERS] instead of [LIST]
     return Scaffold(
       body: CustomScrollView(

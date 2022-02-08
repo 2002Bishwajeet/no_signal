@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/models/user.dart';
 import 'package:no_signal/providers/client.dart';
 
-import '../api/database/user_account.dart';
+import '../api/database/user_data.dart';
 
 /// Provider for the [UserData] class.
 /// This provider is used to access all the [UserData] methods.

@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:no_signal/models/chat.dart';
-import 'package:no_signal/providers/chat.dart';
-import 'package:no_signal/providers/user_data.dart';
 
-import '../api/database/create_chats.dart';
 import '../themes.dart';
 
-class SendMessageWidget extends ConsumerWidget {
+class SendMessageWidget extends StatelessWidget {
+  final VoidCallback? onSend;
   const SendMessageWidget({
     Key? key,
+    this.onSend,
     required TextEditingController textController,
   })  : _textController = textController,
         super(key: key);
@@ -17,27 +14,7 @@ class SendMessageWidget extends ConsumerWidget {
   final TextEditingController _textController;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final Chatting chat = ref.watch(chatProvider);
-    final user = ref.watch(currentLoggedUserProvider);
-
-    Future<void> _sendMessage(String message) async {
-      if (message.isEmpty) return;
-
-      Chat data = Chat(
-          senderName: user!.name!,
-          senderid: user.id!,
-          message: message,
-          time: DateTime.now());
-
-      try {
-        await chat.sendMessage(data);
-        _textController.clear();
-      } catch (e) {
-        // print(e);
-      }
-    }
-
+  Widget build(BuildContext context) {
     return BottomAppBar(
       child: Row(
         children: [
@@ -73,9 +50,7 @@ class SendMessageWidget extends ConsumerWidget {
             ),
           ),
           InkWell(
-            onTap: () {
-              _sendMessage(_textController.text);
-            },
+            onTap: onSend,
             child: CircleAvatar(
                 backgroundColor: NoSignalTheme.lightBlueShade,
                 radius: 22.0,

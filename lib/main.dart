@@ -4,11 +4,11 @@ import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
-import 'pages/chat_page.dart';
+import 'pages/chat/chat_page.dart';
 import 'pages/home_page.dart';
 import 'pages/loading_page.dart';
-import 'pages/login/login_page.dart';
 import 'pages/login/create_profile.dart';
+import 'pages/login/login_page.dart';
 import 'pages/popup/settings.dart';
 import 'pages/userslist_page.dart';
 import 'pages/welcome_page.dart';
@@ -38,12 +38,12 @@ class _MainAppState extends ConsumerState<MainApp> {
     final user = await ref.read(userProvider.future);
     if (user != null) {
       //  This is how you can modify the state of the providers
-      // **Note:** This would be called only when user was already logged in. 
+      // **Note:** This would be called only when user was already logged in.
       final userData = await ref.read(userDataClassProvider).getCurrentUser();
       ref
           .read(currentLoggedUserProvider.state)
           .update((user) => user = userData);
-     
+
       ref.read(userLoggedInProvider.state).state = true;
     } else {
       ref.read(userLoggedInProvider.state).state = false;
