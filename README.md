@@ -31,9 +31,9 @@ The easiest way to start running your Appwrite server is by running our docker-c
 ```bash
 docker run -it --rm \
     --volume /var/run/docker.sock:/var/run/docker.sock \
-    --volume "$(pwd)"/appwrite:/install/appwrite:rw \
-    -e version=0.6.2 \
-    appwrite/install
+    --volume "$(pwd)"/appwrite:/usr/src/code/appwrite:rw \
+    --entrypoint="install" \
+    appwrite/appwrite:0.12.1
 ```
 
 ### Windows
@@ -43,9 +43,9 @@ docker run -it --rm \
 ```cmd
 docker run -it --rm ^
     --volume //var/run/docker.sock:/var/run/docker.sock ^
-    --volume "%cd%"/appwrite:/install/appwrite:rw ^
-    -e version=0.6.2 ^
-    appwrite/install
+    --volume "%cd%"/appwrite:/usr/src/code/appwrite:rw ^
+    --entrypoint="install" ^
+    appwrite/appwrite:0.12.1
 ```
 
 #### PowerShell
@@ -53,9 +53,9 @@ docker run -it --rm ^
 ```powershell
 docker run -it --rm ,
     --volume /var/run/docker.sock:/var/run/docker.sock ,
-    --volume ${pwd}/appwrite:/install/appwrite:rw ,
-    -e version=0.6.2 ,
-    appwrite/install
+    --volume ${pwd}/appwrite:/usr/src/code/appwrite:rw ,
+    --entrypoint="install" ,
+    appwrite/appwrite:0.12.1
 ```
 
 Once the Docker installation completes, go to <http://localhost> to access the Appwrite console from your browser. Please note that on non-linux native hosts, the server might take a few minutes to start after installation completes.
@@ -74,4 +74,3 @@ To build and run this project:
 4. run `flutter run-android` or `flutter run-ios` to build the app
 
 (Please note that a Mac with XCode is required to build for iOS)
-
