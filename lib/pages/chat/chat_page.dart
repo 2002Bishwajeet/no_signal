@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_bubble/bubble_type.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/models/user.dart';
 import 'package:no_signal/providers/chat.dart';
@@ -15,66 +12,12 @@ class ChatPage extends ConsumerWidget {
   static const String routeName = '/chat';
   ChatPage({Key? key}) : super(key: key);
 
-//   @override
-//   ConsumerState<ConsumerStatefulWidget> createState() => _ChatPageState();
-// }
-
-// class _ChatPageState extends ConsumerState<ChatPage> {
   final TextEditingController _textController = TextEditingController();
-
-  final List<ChatBubble> _chatBubbles = [];
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
-  // @override
-  // void dispose() {
-  //   _textController.dispose();
-  //   ref.read(chatProvider.notifier).dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     NoSignalUser? user = ref.watch(currentLoggedUserProvider);
     final chatList = ref.watch(chatProvider);
-    for (var chat in chatList) {
-      // print(user!.id == chat.senderid);
-      _chatBubbles.add(ChatBubble(
-        margin: const EdgeInsets.only(top: 10),
-        child: Text(chat.message),
-        alignment:
-            user!.id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
-        shadowColor: Colors.transparent,
-        backGroundColor: user.id != chat.senderid
-            ? Colors.grey
-            : NoSignalTheme.lightBlueShade,
-        clipper: ChatBubbleClipper1(
-            type: user.id == chat.senderid
-                ? BubbleType.sendBubble
-                : BubbleType.receiverBubble),
-      ));
-    }
-
-    // realtimeChats?.stream.listen((chat) {
-    //   Chat data = Chat.fromMap(chat.payload);
-    //   _chatBubbles.add(ChatBubble(
-    //     margin: const EdgeInsets.only(top: 10),
-    //     child: Text(data.message),
-    //     alignment:
-    //         user!.id == data.senderid ? Alignment.topRight : Alignment.topLeft,
-    //     shadowColor: Colors.transparent,
-    //     backGroundColor: user.id != data.senderid
-    //         ? Colors.grey
-    //         : NoSignalTheme.lightBlueShade,
-    //     clipper: ChatBubbleClipper1(
-    //         type: user.id == data.senderid
-    //             ? BubbleType.sendBubble
-    //             : BubbleType.receiverBubble),
-    //   ));
-    // });
 
     Future<void> _sendMessage(String message) async {
       if (message.isEmpty) return;
@@ -123,7 +66,9 @@ class ChatPage extends ConsumerWidget {
       ),
       body: Scaffold(
         body: ListView(
-          children: _chatBubbles,
+          children: [
+            ...chatList.chatBubbles,
+          ],
         ),
         bottomNavigationBar: SendMessageWidget(
             textController: _textController,
