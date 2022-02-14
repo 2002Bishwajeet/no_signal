@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/models/user.dart';
@@ -50,7 +51,7 @@ class ChatPage extends ConsumerWidget {
         elevation: 0,
         title: const ListTile(
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(
+            backgroundImage: CachedNetworkImageProvider(
               'https://images.pexels.com/photos/9226510/pexels-photo-9226510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
             ),
           ),
@@ -67,7 +68,7 @@ class ChatPage extends ConsumerWidget {
       body: Scaffold(
         body: ListView(
           children: [
-            ...chatList.chatBubbles,
+            ...chatList,
           ],
         ),
         bottomNavigationBar: SendMessageWidget(
