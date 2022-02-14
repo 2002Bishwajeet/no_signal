@@ -29,7 +29,7 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   final List<Chat> _chats = [];
 
   /// Current LoggedIn [User] to be obtained from Constructor
-  NoSignalUser? user;
+  final NoSignalUser? user;
 
   /// getter for _chats
   List<Chat> get chats => _chats;
@@ -52,20 +52,13 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
     );
   }
 
-  /// Function to add [Chat] then parse it to [ChatBubble]
-  void addChats(Chat chat) {
-    _chats.add(chat);
-    state.add(_parseChat(chat));
-  }
-
   ChatServicesNotifier({required this.client, this.user}) : super([]) {
     database = Database(client);
     account = Account(client);
     realtime = Realtime(client);
     subscription = realtime.subscribe(['collections.chats.documents']);
     getOldMessages(user);
-
-    getNewMessages();
+    getRealtimeMessages();
   }
 
   /// Send a new message to the user.
@@ -88,34 +81,44 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   /// Function to receive the old messages from the database.
   /// This will be a one time call for this function.
   ///
-  /// It will update the [ChatState]
+  /// It will update the of [state] - List<ChatBubbles>
   Future<void> getOldMessages(NoSignalUser? user) async {
     try {
       final DocumentList temp =
           await database.listDocuments(collectionId: 'chats');
-      // print('${temp.data['documents']} temp.data print');
       final response = temp.documents;
-      // print(response);
+
+      /// Adding the List of [Chat]s to the [_chats]
       for (var element in response) {
         _chats.add(Chat.fromMap(element.data));
       }
-      // state(_chats.map((e) => _parseChat(e)));
+
+      /// Updating the [state]
+      /// NOTE: Don't update state by calling List methods like `add()`
+      /// This does not actually modify the state.
+      /// Update the state as below when you want to completely modify the list
+      /// or use [...state, newState] to add a new element to the existing list
+      /// Using any of the List methods will not trigger rebuilds
       state = _chats.map((e) => _parseChat(e)).toList();
     } on AppwriteException catch (_) {
       rethrow;
     }
   }
 
-  /// [getNewMessages]
+  /// [getRealtimeMessages]
   ///
   /// A realtime function to receive new messages from the database.
   /// Appwrite Realtime API only notifies new document changes in the collection.
   /// So we would need to listen to the collection and get the new messages.
   /// That's why we made a function to [getOldMessages].
-  void getNewMessages() {
+  void getRealtimeMessages() {
     subscription.stream.listen((chat) {
       Chat data = Chat.fromMap(chat.payload);
       _chats.add(data);
+
+      /// Note: We used spread operator to keep the existing state as well as
+      /// add the new element to the list.
+      /// This will trigger a rebuild of the widget.
       state = [...state, _parseChat(data)];
     });
   }
@@ -124,6 +127,7 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   ///
   /// Close the realtime stream
   /// Will be called when the user backs from chat Screen
+  /// Closing the stream to avoid memory leaks and unnecessary calls
   @override
   void dispose() {
     subscription.close();
