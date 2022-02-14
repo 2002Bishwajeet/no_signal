@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
-import 'package:no_signal/pages/home_page.dart';
+import 'package:no_signal/pages/home/home_page.dart';
 import 'package:no_signal/pages/login/login_page.dart';
 
 import 'package:no_signal/pages/login/create_profile.dart';

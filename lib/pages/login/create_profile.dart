@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
-import '../home_page.dart';
+import '../home/home_page.dart';
 
 /// [CreateAccountPage]
 /// We will be redirected to this page after a user successfully signups i.e

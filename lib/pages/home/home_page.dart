@@ -7,8 +7,8 @@ import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
-import '../models/popup.dart';
-import '../widgets/chat_tile.dart';
+import '../../models/popup.dart';
+import '../../widgets/chat_tile.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   static const routename = '/home';

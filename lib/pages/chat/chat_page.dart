@@ -43,7 +43,6 @@ class ChatPage extends ConsumerWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
-            // realtimeChats?.close();
           },
         ),
         backgroundColor: NoSignalTheme.navyblueshade4,
