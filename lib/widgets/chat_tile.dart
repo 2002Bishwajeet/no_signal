@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:no_signal/pages/chat/chat_page.dart';
 
 /// [ChatTileWidget]
 ///
@@ -11,23 +10,14 @@ class ChatTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const CircleAvatar(
+    return const ListTile(
+      leading: CircleAvatar(
         backgroundImage: CachedNetworkImageProvider(
             'https://images.pexels.com/photos/9226510/pexels-photo-9226510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
       ),
-      title: const Text('Aishwarya'),
-      subtitle: const Text('Hey, how are you?'),
-      trailing: const Text('11:01 AM'),
-      onTap: () {
-        Navigator.of(context).pushNamed('/chat');
-      },
-      onLongPress: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ChatPage(
-                  collectionId: 'chats',
-                )));
-      },
+      title: Text('Aishwarya'),
+      subtitle: Text('Hey, how are you?'),
+      trailing: Text('11:01 AM'),
     );
   }
 }

@@ -50,27 +50,25 @@ class ServerApi {
     // Check if the collection exists or not
     try {
       // We will try to get the collection in the first try
-
       collection = await database.getCollection(
           collectionId:
-              '${curruserId.splitByLength((curruserId.length) ~/ 2)[0]}_${otheruserId.splitByLength((curruserId.length) ~/ 2)[0]}');
+              '${curruserId.splitByLength((curruserId.length) ~/ 2)[0]}_${otheruserId.splitByLength((otheruserId.length) ~/ 2)[0]}');
     } on AppwriteException catch (e) {
       // If the collection doesn't exist, we will try with another id
       if (e.code == 404) {
         try {
           collection = await database.getCollection(
               collectionId:
-                  '${curruserId.splitByLength((curruserId.length) ~/ 2)[0]}_${otheruserId.splitByLength((curruserId.length) ~/ 2)[0]}');
+                  '${otheruserId.splitByLength((otheruserId.length) ~/ 2)[0]}_${curruserId.splitByLength((curruserId.length) ~/ 2)[0]}');
         } on AppwriteException catch (e) {
           // If it still doesn't exists then we will create a new collection
           if (e.code == 404) {
             // Create a new collection
             collection = await database.createCollection(
-              //TODO: Devise a method to set a generic collection ID.
               collectionId:
-                  '${curruserId.splitByLength((curruserId.length) ~/ 2)[0]}_${otheruserId.splitByLength((curruserId.length) ~/ 2)[0]}',
+                  '${curruserId.splitByLength((curruserId.length) ~/ 2)[0]}_${otheruserId.splitByLength((otheruserId.length) ~/ 2)[0]}',
               name:
-                  '${curruserId.splitByLength((curruserId.length) ~/ 2)[0]}_${otheruserId.splitByLength((curruserId.length) ~/ 2)[0]}',
+                  '${curruserId.splitByLength((curruserId.length) ~/ 2)[0]}_${otheruserId.splitByLength((otheruserId.length) ~/ 2)[0]}',
               read: ["user:$curruserId", "user:$otheruserId"],
               write: ["user:$curruserId", "user:$otheruserId"],
               permission: 'collection',
@@ -113,7 +111,7 @@ class ServerApi {
           collectionId: collectionId, key: "time", size: 255, xrequired: false);
       await database.createEnumAttribute(
           collectionId: collectionId,
-          key: "type",
+          key: "message_type",
           elements: ["IMAGE", "VIDEO", "TEXT"],
           xdefault: "TEXT",
           xrequired: false);

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/models/user.dart';
@@ -11,14 +10,16 @@ import '../../models/chat.dart';
 
 class ChatPage extends ConsumerWidget {
   final String collectionId;
-  ChatPage({required this.collectionId, Key? key}) : super(key: key);
+  final LocalUser localuser;
+  ChatPage({required this.collectionId, required this.localuser, Key? key})
+      : super(key: key);
 
   final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     NoSignalUser? user = ref.watch(currentLoggedUserProvider);
-    final chatList = ref.watch(chatProvider);
+    final chatList = ref.watch(chatProvider(collectionId));
 
     Future<void> _sendMessage(String message) async {
       if (message.isEmpty) return;
@@ -30,7 +31,7 @@ class ChatPage extends ConsumerWidget {
           time: DateTime.now());
 
       try {
-        await ref.watch(chatProvider.notifier).sendMessage(data);
+        await ref.watch(chatProvider(collectionId).notifier).sendMessage(data);
         _textController.clear();
       } catch (e) {
         rethrow;
@@ -48,14 +49,13 @@ class ChatPage extends ConsumerWidget {
         backgroundColor: NoSignalTheme.navyblueshade4,
         leadingWidth: 20,
         elevation: 0,
-        title: const ListTile(
+        title: ListTile(
           leading: CircleAvatar(
-            backgroundImage: CachedNetworkImageProvider(
-              'https://images.pexels.com/photos/9226510/pexels-photo-9226510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            backgroundImage: MemoryImage(
+              localuser.image!,
             ),
           ),
-          title: Text('Aishwarya'),
-          subtitle: Text('Online'),
+          title: Text(localuser.name),
         ),
         actions: [
           IconButton(

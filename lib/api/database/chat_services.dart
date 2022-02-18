@@ -20,6 +20,7 @@ import '../../themes.dart';
 /// Just use [state] to update the state and it will be updated automatically
 class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   final Client client;
+  final String collectionId;
   late final Database database;
   late final Account account;
   late final Realtime realtime;
@@ -52,11 +53,13 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
     );
   }
 
-  ChatServicesNotifier({required this.client, this.user}) : super([]) {
+  ChatServicesNotifier(
+      {required this.client, this.user, required this.collectionId})
+      : super([]) {
     database = Database(client);
     account = Account(client);
     realtime = Realtime(client);
-    subscription = realtime.subscribe(['collections.chats.documents']);
+    subscription = realtime.subscribe(['collections.$collectionId.documents']);
     getOldMessages(user);
     getRealtimeMessages();
   }
@@ -67,7 +70,7 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   Future<void> sendMessage(Chat chat) async {
     try {
       await database.createDocument(
-        collectionId: 'chats',
+        collectionId: collectionId,
         documentId: 'unique()',
         read: ['role:all'],
         write: ['role:all'],
@@ -85,7 +88,7 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   Future<void> getOldMessages(NoSignalUser? user) async {
     try {
       final DocumentList temp =
-          await database.listDocuments(collectionId: 'chats');
+          await database.listDocuments(collectionId: collectionId);
       final response = temp.documents;
 
       /// Adding the List of [Chat]s to the [_chats]

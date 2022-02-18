@@ -9,9 +9,10 @@ import '../api/database/chat_services.dart';
 /// A Provider to access the [ChatServicesNotifier]
 ///
 final chatProvider =
-    StateNotifierProvider.autoDispose<ChatServicesNotifier, List<ChatBubble>>(
-        (ref) {
+    StateNotifierProvider.autoDispose.family<ChatServicesNotifier, List<ChatBubble>,String>(
+        (ref,collectionId) {
   return ChatServicesNotifier(
       client: ref.watch(clientProvider),
+      collectionId: collectionId,
       user: ref.watch(currentLoggedUserProvider));
 });
