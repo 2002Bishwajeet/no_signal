@@ -1,6 +1,6 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dart_appwrite/dart_appwrite.dart' as appwrite;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //  So this is the most important step. Otherwise everystep you done - you would
 //  Thinking that it's waste
@@ -41,6 +41,6 @@ final dartclientProvider = Provider<appwrite.Client>((ref) {
       .setEndpoint('http://192.168.1.26:5000/v1')
       .setProject('nosignal')
       .setKey(
-          '985baaa640bdabeb06c3f11f966fcc5ceab4f16740f5d48ff62e694060119f2213f3489d53cd2108c4a3af27c96d12114dfc137bbfabc3cc35a54550b516f1c359620fadfd4c4511842c89713fcabe234d880741185ef00e8583cfd33f75b90f47bccda97ee9391c5fb80d08bdc339c35dead255db522309bba4979b762a1332')
+          'ee9f0be7efc2c08572ac32ed4c8a7aa88fd0d3005c04f3f49e163484c430a07ce4ee53949779167eff564b19f4cf55ffd623f3e0083708eaa7b7ea1e81e9771fc5ac33f8e8315a094013560caf8195961466843456f0672aca3a12104b9cf71f109da2a4b4269ea17163970970ee6ba34e00aa953d44783a66d1df56ca50ae21')
       .setSelfSigned(status: true);
 });

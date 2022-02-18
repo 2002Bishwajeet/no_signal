@@ -10,8 +10,8 @@ import 'package:no_signal/widgets/send_message.dart';
 import '../../models/chat.dart';
 
 class ChatPage extends ConsumerWidget {
-  static const String routeName = '/chat';
-  ChatPage({Key? key}) : super(key: key);
+  final String collectionId;
+  ChatPage({required this.collectionId, Key? key}) : super(key: key);
 
   final TextEditingController _textController = TextEditingController();
 

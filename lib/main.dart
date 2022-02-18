@@ -4,14 +4,13 @@ import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
-import 'pages/chat/chat_page.dart';
 import 'pages/home/home_page.dart';
+import 'pages/home/userslist_page.dart';
 import 'pages/loading/loading_page.dart';
 import 'pages/login/create_profile.dart';
 import 'pages/login/login_page.dart';
-import 'pages/popup/settings.dart';
-import 'pages/home/userslist_page.dart';
 import 'pages/login/welcome_page.dart';
+import 'pages/popup/settings.dart';
 
 void main() {
   //  To ensure widgets are glued properly
@@ -69,7 +68,6 @@ class _MainAppState extends ConsumerState<MainApp> {
         LoginPage.routename: (context) => const LoginPage(),
         HomePage.routename: (context) => const HomePage(),
         CreateAccountPage.routeName: (context) => const CreateAccountPage(),
-        ChatPage.routeName: (context) => ChatPage(),
         UsersListPage.routeName: (context) => const UsersListPage(),
         SettingsScreen.routename: (context) => const SettingsScreen(),
       },

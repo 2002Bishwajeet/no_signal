@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:no_signal/pages/chat/chat_page.dart';
 
 /// [ChatTileWidget]
 ///
@@ -21,7 +22,12 @@ class ChatTileWidget extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushNamed('/chat');
       },
-      onLongPress: () {},
+      onLongPress: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ChatPage(
+                  collectionId: 'chats',
+                )));
+      },
     );
   }
 }

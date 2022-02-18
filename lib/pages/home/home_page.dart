@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/Pages/popup/settings.dart';
-import 'package:no_signal/Pages/userslist_page.dart';
+import 'package:no_signal/pages/home/userslist_page.dart';
 import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
