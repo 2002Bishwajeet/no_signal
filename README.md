@@ -94,7 +94,7 @@ We need to setup some collections and need to define its attributes so our app w
 
 There are two ways of doing this. First, manually creating a collection from the dashboard and defining the attributes.
 
-Secondly, I have a created a program which does that work for you. All you need is create an API key with all the permissions and replace it in the following `setup_appwrite.dart` files.
+Secondly, I have a created a program which does that work for you. All you need is create an API key with all the permissions and replace it in the  `setup_appwrite.dart` files.
 
 Open your terminal in the project folder and run the following commands to setup the **User Collection** . Make sure to replace all the neccessary fields left blank.
 
