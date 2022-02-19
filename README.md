@@ -63,7 +63,7 @@ Once the Docker installation completes, go to <http://localhost> to access the A
 
 For advanced production and custom installation, check out our Docker [environment variables](docs/tutorials/environment-variables.md) docs. You can also use our public [docker-compose.yml](https://appwrite.io/docker-compose.yml) file to manually set up and environment.
 
-#### Setting up appwrite project
+## Setting up appwrite project
 
 ### Flutter
 
@@ -103,4 +103,49 @@ cd lib/utils
 dart setup_appwrite.dart
 ```
 
+Also in `utils` folder create a file called `api.dart` to store all your details in the following way:
+
+```dart
+class ApiInfo {
+  static const String url = "http://localhost/v1";
+  static const String projectId = "[PROJECT_ID]";
+  static const String secretKey = "[SECRET_KEY]"; // You can get this from your Appwrite dashboard
+}
+
+```
+
 **Now your Project is ready to run.**
+
+## File Structure
+
+```bash
+.
+├── android # android files
+├── assets # assets 
+│   ├── images
+│   └── lottieassets       
+├── ios # android files
+└── lib
+    ├── api 
+    │   ├── auth # Client Authentication
+    │   └── database # Database API
+    ├── models # Custom Models
+    ├── pages
+    │   ├── chat
+    │   ├── error
+    │   ├── home
+    │   ├── loading
+    │   ├── login
+    │   └── settings
+    ├── providers 
+    ├── utils # Misc tools and stuffs
+    └── widgets
+```
+
+### Screenshots
+
+| <img src = ".github\assets\Screenshot_1645287465.png" height = "500">   | <img src = ".github\assets\Screenshot_1645287474.png" height = "500">   |  <img src = ".github\assets\Screenshot_1645287479.png" height = "500">  |
+|:-: |:-: |--- |
+|  <img src = ".github\assets\Screenshot_1645287485.png" height = "500">  |  <img src = ".github\assets\Screenshot_1645287488.png" height = "500">  |   <img src = ".github\assets\Screenshot_1645287604.png" height = "500"> |
+| <img src = ".github\assets\Screenshot_1645287611.png" height = "500">   |  <img src = ".github\assets\Screenshot_1645287619.png" height = "500">  | <img src = ".github\assets\Screenshot_1645287627.png" height = "500">    |
+|    |    |    |

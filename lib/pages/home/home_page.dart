@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:no_signal/Pages/popup/settings.dart';
 import 'package:no_signal/pages/home/users_list_page.dart';
 import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
 import '../../models/popup.dart';
+import '../settings/settings.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   static const routename = '/home';
