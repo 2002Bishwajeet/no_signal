@@ -5,7 +5,6 @@ import 'package:no_signal/providers/user_data.dart';
 
 import '../api/database/chat_services.dart';
 
-///
 /// A Provider to access the [ChatServicesNotifier]
 ///
 final chatProvider =

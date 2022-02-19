@@ -36,6 +36,11 @@ final clientProvider = Provider<Client>((ref) {
               true); // For self signed certificates, only use for development
 });
 
+/// [dartClientProvider]
+/// This provides a [appwrite.Client] object from `dart_appwrite` package.
+/// Since the names of both classes are the same, we are using `as` to the
+/// server client package
+/// Just provide an secret key with all the neccessary permissions and it's ready
 final dartclientProvider = Provider<appwrite.Client>((ref) {
   return appwrite.Client()
       .setEndpoint('http://192.168.1.26:5000/v1')

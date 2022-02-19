@@ -5,12 +5,12 @@ import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
 import 'pages/home/home_page.dart';
-import 'pages/home/userslist_page.dart';
+import 'pages/home/users_list_page.dart';
 import 'pages/loading/loading_page.dart';
 import 'pages/login/create_profile.dart';
 import 'pages/login/login_page.dart';
 import 'pages/login/welcome_page.dart';
-import 'pages/popup/settings.dart';
+import 'pages/settings/settings.dart';
 
 void main() {
   //  To ensure widgets are glued properly

@@ -1,6 +1,8 @@
+// ignore_for_file: constant_identifier_names
+
 // PopupItems
 enum PopupItem {
-  group,
-  settings,
-  logout,
+  GROUP,
+  SETTINGS,
+  LOGOUT,
 }

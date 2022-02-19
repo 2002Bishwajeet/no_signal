@@ -10,7 +10,6 @@ import 'package:no_signal/models/user.dart';
 /// All the related methods to users are here
 /// Say Add Profile Picture, Update Profile, Add User, Update User, Delete User etc
 ///
-///
 class UserData {
   // We will be getting the instance of client through a provider
   final Client client;
@@ -65,8 +64,6 @@ class UserData {
   /// This method is used to add a new user to the database when you signup
   /// It takes all the things which you are supposed to fill in the [CreateAccountPage]
   /// It returns void as we don't want anything to be returned
-  ///
-  ///
   Future<void> addUser(String name, String bio, String imgId) async {
     // Get the details about the current logged in user
     User res = await account.get();
@@ -107,37 +104,36 @@ class UserData {
     }
   }
 
-  Future<List<LocalUser>?> getUsersList() async {
+  /// [getUsersList]
+  /// A function which returns the list of current users in the database
+  /// These are those users who are currently registered in our app
+  Future<List<NoSignalUser>> getUsersList() async {
     try {
       final response = await database.listDocuments(collectionId: 'users');
-      final List<ServerUser> users = [];
+      final List<NoSignalUser> users = [];
       final temp = response.documents;
-      final List<LocalUser> _users = [];
-
+      // If the list is empty, return an empty list
+      if (temp.isEmpty) {
+        return users;
+      }
+      // For loop for converting the data to our [NoSignalUser] object
       for (var element in temp) {
-        users.add(ServerUser.fromMap(element.data));
+        final memImage =
+            await _getProfilePicture(element.data['imgId'] as String);
+        users.add(NoSignalUser.fromMap(element.data).copyWith(image: memImage));
       }
-      for (var element in users) {
-        final imgurl = await _getProfilePicture(element.imgId as String);
-        _users.add(LocalUser(
-            name: element.name,
-            bio: element.bio,
-            id: element.id,
-            email: element.email,
-            image: imgurl));
-      }
-      return _users;
+      return users;
     } on AppwriteException {
       rethrow;
     }
   }
 
-  /// [getProfilePicture]
+  /// [_getProfilePicture]
   /// This method is used to get the profile picture of the user
   /// It takes the unique id of the image as a parameter
   /// It returns the image in the form of a [Uint8List]
   ///
-  ///
+  /// This is a private function and would hardly be used outside this class
   Future<Uint8List> _getProfilePicture(String fileId) async {
     try {
       final data = await storage.getFilePreview(fileId: fileId);

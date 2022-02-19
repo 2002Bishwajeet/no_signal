@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/Pages/popup/settings.dart';
-import 'package:no_signal/pages/home/userslist_page.dart';
+import 'package:no_signal/pages/home/users_list_page.dart';
 import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
 import '../../models/popup.dart';
-import '../../widgets/chat_tile.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   static const routename = '/home';
@@ -22,6 +21,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   // Authentication variable to implement logout functionality
   late final auth = ref.watch(authProvider);
 
+  /// Get the current loggedIn User
   late final currUser = ref.watch(currentLoggedUserProvider);
 
   @override
@@ -63,19 +63,19 @@ class _HomePageState extends ConsumerState<HomePage> {
               PopupMenuButton(
                   onSelected: (PopupItem item) {
                     switch (item) {
-                      case PopupItem.group:
+                      case PopupItem.GROUP:
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text('Wait '),
                           // Will Implement later
                         ));
                         break;
-                      case PopupItem.settings:
+                      case PopupItem.SETTINGS:
                         // Open settings screen
                         Navigator.of(context)
                             .pushNamed(SettingsScreen.routename);
                         break;
-                      case PopupItem.logout:
+                      case PopupItem.LOGOUT:
                         auth.logout(context);
 
                         break;
@@ -83,50 +83,53 @@ class _HomePageState extends ConsumerState<HomePage> {
                   },
                   itemBuilder: (context) => <PopupMenuEntry<PopupItem>>[
                         const PopupMenuItem<PopupItem>(
-                          value: PopupItem.group,
+                          value: PopupItem.GROUP,
                           child: Text('New group'),
                         ),
                         const PopupMenuItem<PopupItem>(
-                          value: PopupItem.settings,
+                          value: PopupItem.SETTINGS,
                           child: Text('Settings'),
                         ),
                         const PopupMenuItem<PopupItem>(
-                          value: PopupItem.logout,
+                          value: PopupItem.LOGOUT,
                           child: Text('Logout'),
                         ),
                       ])
             ],
           ),
           // We will implement more logic later
-          // //  Currently we are using cause the Home Page has no chat list
-          // SliverFillRemaining(
-          //   hasScrollBody: false,
-          //   child: Center(
-          //     child: RichText(
-          //       text: TextSpan(
-          //           style: Theme.of(context).textTheme.subtitle1,
-          //           children: const [
-          //             TextSpan(
-          //               text: 'Press ',
-          //             ),
-          //             WidgetSpan(
-          //                 child: Padding(
-          //               padding: EdgeInsets.symmetric(horizontal: 2.0),
-          //               child: FaIcon(
-          //                 FontAwesomeIcons.pen,
-          //                 size: 16,
-          //               ),
-          //             )),
-          //             TextSpan(
-          //               text: ' Icon to chat ',
-          //             ),
-          //           ]),
-          //     ),
-          //   ),
+          ///  Currently we are using cause the Home Page has no chat list
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Center(
+              child: RichText(
+                text: TextSpan(
+                    style: Theme.of(context).textTheme.subtitle1,
+                    children: const [
+                      TextSpan(
+                        text: 'Press ',
+                      ),
+                      WidgetSpan(
+                          child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 2.0),
+                        child: FaIcon(
+                          FontAwesomeIcons.pen,
+                          size: 16,
+                        ),
+                      )),
+                      TextSpan(
+                        text: ' Icon to chat ',
+                      ),
+                    ]),
+              ),
+            ),
+          ),
+
+          /// This will be shown in a list of the recent convo users
+          /// It still needs to be implemented
+          // const SliverToBoxAdapter(
+          //   child: ChatTileWidget(),
           // )
-          const SliverToBoxAdapter(
-            child: ChatTileWidget(),
-          )
         ],
       ),
       floatingActionButton: FloatingActionButton(

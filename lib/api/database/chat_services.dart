@@ -53,6 +53,7 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
     );
   }
 
+  /// Constructor
   ChatServicesNotifier(
       {required this.client, this.user, required this.collectionId})
       : super([]) {
@@ -60,8 +61,8 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
     account = Account(client);
     realtime = Realtime(client);
     subscription = realtime.subscribe(['collections.$collectionId.documents']);
-    getOldMessages(user);
-    getRealtimeMessages();
+    _getOldMessages(user);
+    _getRealtimeMessages();
   }
 
   /// Send a new message to the user.
@@ -72,8 +73,6 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
       await database.createDocument(
         collectionId: collectionId,
         documentId: 'unique()',
-        read: ['role:all'],
-        write: ['role:all'],
         data: chat.toMap(),
       );
     } catch (e) {
@@ -85,7 +84,9 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   /// This will be a one time call for this function.
   ///
   /// It will update the of [state] - List<ChatBubbles>
-  Future<void> getOldMessages(NoSignalUser? user) async {
+  /// Since its not required outside of this class,
+  /// it is private
+  Future<void> _getOldMessages(NoSignalUser? user) async {
     try {
       final DocumentList temp =
           await database.listDocuments(collectionId: collectionId);
@@ -108,13 +109,13 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
     }
   }
 
-  /// [getRealtimeMessages]
+  /// [_getRealtimeMessages]
   ///
   /// A realtime function to receive new messages from the database.
   /// Appwrite Realtime API only notifies new document changes in the collection.
   /// So we would need to listen to the collection and get the new messages.
   /// That's why we made a function to [getOldMessages].
-  void getRealtimeMessages() {
+  void _getRealtimeMessages() {
     subscription.stream.listen((chat) {
       Chat data = Chat.fromMap(chat.payload);
       _chats.add(data);

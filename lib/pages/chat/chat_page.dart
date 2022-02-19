@@ -8,30 +8,45 @@ import 'package:no_signal/widgets/send_message.dart';
 
 import '../../models/chat.dart';
 
+/// [ChatPage]
+///
+/// This is the chat page.
 class ChatPage extends ConsumerWidget {
+  /// CollectionId for the current convo
   final String collectionId;
-  final LocalUser localuser;
-  ChatPage({required this.collectionId, required this.localuser, Key? key})
+
+  /// Data of the user whom the current user is chaating with
+  /// The data is required to display the name and photo of the user
+  final NoSignalUser chatUser;
+  ChatPage({required this.collectionId, required this.chatUser, Key? key})
       : super(key: key);
 
+  /// TextFieldController for the message input
   final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    /// Get Data for the currentLoggedInUser
     NoSignalUser? user = ref.watch(currentLoggedUserProvider);
+
+    /// Get the list of ChatData
     final chatList = ref.watch(chatProvider(collectionId));
 
     Future<void> _sendMessage(String message) async {
       if (message.isEmpty) return;
 
+      /// Parse the data into a proper model
       Chat data = Chat(
-          senderName: user!.name!,
-          senderid: user.id!,
+          senderName: user!.name,
+          senderid: user.id,
           message: message,
           time: DateTime.now());
 
       try {
+        /// Send the message
         await ref.watch(chatProvider(collectionId).notifier).sendMessage(data);
+
+        /// Clear the text field after sending
         _textController.clear();
       } catch (e) {
         rethrow;
@@ -52,10 +67,10 @@ class ChatPage extends ConsumerWidget {
         title: ListTile(
           leading: CircleAvatar(
             backgroundImage: MemoryImage(
-              localuser.image!,
+              chatUser.image!,
             ),
           ),
-          title: Text(localuser.name),
+          title: Text(chatUser.name),
         ),
         actions: [
           IconButton(
@@ -72,7 +87,7 @@ class ChatPage extends ConsumerWidget {
         ),
         bottomNavigationBar: SendMessageWidget(
             textController: _textController,
-            onSend: () async => _sendMessage(_textController.text)),
+            onSend: () async => await _sendMessage(_textController.text)),
       ),
     );
   }

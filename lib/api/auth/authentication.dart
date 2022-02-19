@@ -4,9 +4,8 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:no_signal/pages/home/home_page.dart';
-import 'package:no_signal/pages/login/login_page.dart';
-
 import 'package:no_signal/pages/login/create_profile.dart';
+import 'package:no_signal/pages/login/login_page.dart';
 
 ///  We have created a class named [Authentication] which contains all
 ///  the methods that we need to perform the authentication process.
@@ -48,8 +47,9 @@ class Authentication {
   ///  SO we don't want the program to stop in between so we are returning NULL if
   ///  it throws exception
 
-//  To know more about User Model Ctrl+click on User to go to the User model
-//  It's a nice practice to see these stuffs and explore them
+  ///  To know more about User Model `Ctrl+click` or `command + click`
+  ///  on User to go to the User model
+  ///  It's a nice practice to see these stuffs and explore them
   Future<User?> getAccount() async {
     try {
       return await account.get();
@@ -133,9 +133,9 @@ class Authentication {
   ///  A function to logout the current user
   Future<void> logout(BuildContext context) async {
     try {
-      //  Delete session is the method to logout the user
-      //  it expects sessionID but by passing 'current' it redirects to
-      //  current loggedIn user in this application
+      ///  Delete session is the method to logout the user
+      ///  it expects sessionID but by passing 'current' it redirects to
+      ///  current loggedIn user in this application
       await account.deleteSession(sessionId: 'current');
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Logged out Successfully"),

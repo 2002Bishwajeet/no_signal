@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../themes.dart';
 
+/// [SendMessageWidget]
+///
+/// A Custom widget with TextField and Send Button
 class SendMessageWidget extends StatelessWidget {
   final VoidCallback? onSend;
   const SendMessageWidget({

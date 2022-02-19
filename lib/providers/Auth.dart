@@ -14,29 +14,20 @@ final authProvider = Provider<Authentication>((ref) {
   return Authentication(ref.watch(clientProvider));
 });
 
-//  This is a future Provider which ofc involves a future
-//  we are accessing getAccount here which will either return a User object
-//  if it's logged In and null if it's not
+///  This is a future Provider which ofc involves a future
+///  we are accessing getAccount here which will either return a User object
+///  if it's logged In and null if it's not
 final userProvider = FutureProvider<User?>((ref) async {
   return ref.watch(authProvider).getAccount();
 });
 
-//  This is a state provider which is a bit different from the other providers
-// I would be using this provider to keep the data of the user which is logged in
-//  and I can access this data anywhere within the context. Like to show some details
-//  of the user like name and email or to access its unique Id for other purposes
-//  Keep in mind this User Class is provided by the appwrite sdk
-// final userLoggedProvider = StateProvider<User?>((ref) {
-//   return null;
-// });
-
-//  This is also another state provider. Pardon me for giving bad names. Couldn't think
-//  of new unique ones at that time.
-//  So this  is a provider which decides which widget to show, either welcome screen
-//  or Home Screen
-//  so think of this like a switch. If the user is logged in show one screen
-//  otherwise show other screen
-//  Keep it null so that we would be able to show the loading screen
+/// This is a state provider which is a bit different from the other providers
+///  So this  is a provider which decides which widget to show, either welcome screen
+///  or Home Screen
+///  so think of this like a switch. If the user is logged in show one screen
+///  otherwise show other screen
+/// When the state changes the widget is rebuilt automatically
+///  Keep it null so that we would be able to show the loading screen
 final userLoggedInProvider = StateProvider<bool?>((ref) {
   return null;
 });
