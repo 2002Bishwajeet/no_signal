@@ -5,7 +5,8 @@
 
 # NO Signal
 
-A functional replica of Signal(Chatting App) made using Flutter and Appwrite.
+A functional replica of [_Signal_](https://github.com/signalapp/Signal-Android) (chatting app) made using Flutter and Appwrite.
+To know more about it - how it was built and how it works, I have written some detailed blogs on it. Know more about it here: [Part 1](https://bishwajeet-parhi.medium.com/building-no-signal-app-using-flutter-and-appwrite-8b31358b5975) | [Part 2](https://bishwajeet-parhi.medium.com/building-no-signal-using-flutter-and-appwrite-part-2-565c5eb3b484).
 
 ## What is Appwrite?
 
@@ -15,7 +16,7 @@ A functional replica of Signal(Chatting App) made using Flutter and Appwrite.
 
 - Built on [RiverPod](https://pub.dev/packages/flutter_riverpod) Architecture Pattern
 - Authentication using OAuth and OAuth 2.0
-- Users can send text, images and Videos to other users
+- Users can send text to users
 - Users can view other Profiles(See their bio and picture)
 
 ## Installation
@@ -68,9 +69,38 @@ For advanced production and custom installation, check out our Docker [environme
 
 To build and run this project:
 
-1. Get Flutter [here](https://flutter.dev) if you don't already have it
+1. Get Flutter [here](https://docs.flutter.dev/get-started/install) if you don't already have it
 2. Clone this repository
 3. `cd` into the repo folder
-4. run `flutter run-android` or `flutter run-ios` to build the app
+4. Run `flutter pub get` to get the dependencies
+5. Run `flutter run-android` or `flutter run-ios` to build the app
 
 (Please note that a Mac with XCode is required to build for iOS)
+
+### Appwrite
+
+To setup your Appwrite project:
+
+1. Open your browser and go to your <http://localhost>
+2. Create your account and login.
+3. Click on `Create Project`.
+4. Enter a Name and custom Project ID for your project and click create.
+
+At this moment your Dashboard is ready to use.
+
+### Setup Project Dashboard
+
+We need to setup some collections and need to define its attributes so our app will be ready to use.
+
+There are two ways of doing this. First, manually creating a collection from the dashboard and defining the attributes.
+
+Secondly, I have a created a program which does that work for you. All you need is create an API key with all the permissions and replace it in the following `setup_appwrite.dart` files.
+
+Open your terminal in the project folder and run the following commands to setup the **User Collection** . Make sure to replace all the neccessary fields left blank.
+
+```bash
+cd lib/utils
+dart setup_appwrite.dart
+```
+
+**Now your Project is ready to run.**
