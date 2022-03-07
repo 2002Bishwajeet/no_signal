@@ -73,6 +73,7 @@ class Authentication {
       ///  nevermind I did that for you😉
       /// var data = await account.createSession(email: email, password: password);
       await account.createSession(email: email, password: password);
+
       await Navigator.pushReplacementNamed(context, HomePage.routename);
     } catch (e) {
       // print(e);

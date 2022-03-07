@@ -11,13 +11,11 @@ class ServerApi {
   final Client client;
   late final Account account;
   late final Database database;
-  late final Storage storage;
 
   /// Constructor to initialize the client and other api services
   ServerApi(this.client) {
     account = Account(client);
     database = Database(client);
-    storage = Storage(client);
   }
 
   /// Get the list of all the documents of users you had convo with
