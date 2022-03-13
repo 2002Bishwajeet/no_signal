@@ -15,7 +15,7 @@ class ChatPage extends ConsumerWidget {
   /// CollectionId for the current convo
   final String collectionId;
 
-  /// Data of the user whom the current user is chaating with
+  /// Data of the user whom the current user is chatting with
   /// The data is required to display the name and photo of the user
   final NoSignalUser chatUser;
   ChatPage({required this.collectionId, required this.chatUser, Key? key})

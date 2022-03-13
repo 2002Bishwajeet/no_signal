@@ -3,34 +3,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/pages/home/users_list_page.dart';
 import 'package:no_signal/providers/auth.dart';
+import 'package:no_signal/providers/chat.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
 
 import '../../models/popup.dart';
+import '../../widgets/chat_tile.dart';
 import '../settings/settings.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   static const routename = '/home';
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Authentication variable to implement logout functionality
+    final auth = ref.watch(authProvider);
 
-class _HomePageState extends ConsumerState<HomePage> {
-  // Authentication variable to implement logout functionality
-  late final auth = ref.watch(authProvider);
+    /// Get the current loggedIn User
+    final currUser = ref.watch(currentLoggedUserProvider);
 
-  /// Get the current loggedIn User
-  late final currUser = ref.watch(currentLoggedUserProvider);
+    /// Get the ChatList
+    final chatList = ref.watch(chatListProvider);
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     //  This time I decided to work with [SLIVERS] instead of [LIST]
     return Scaffold(
       body: CustomScrollView(
@@ -99,37 +94,36 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
           // We will implement more logic later
           ///  Currently we are using cause the Home Page has no chat list
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Center(
-              child: RichText(
-                text: TextSpan(
-                    style: Theme.of(context).textTheme.subtitle1,
-                    children: const [
-                      TextSpan(
-                        text: 'Press ',
-                      ),
-                      WidgetSpan(
-                          child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 2.0),
-                        child: FaIcon(
-                          FontAwesomeIcons.pen,
-                          size: 16,
-                        ),
-                      )),
-                      TextSpan(
-                        text: ' Icon to chat ',
-                      ),
-                    ]),
-              ),
-            ),
-          ),
+          chatList.isEmpty
+              ? SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(
+                    child: RichText(
+                      text: TextSpan(
+                          style: Theme.of(context).textTheme.subtitle1,
+                          children: const [
+                            TextSpan(
+                              text: 'Press ',
+                            ),
+                            WidgetSpan(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 2.0),
+                              child: FaIcon(
+                                FontAwesomeIcons.pen,
+                                size: 16,
+                              ),
+                            )),
+                            TextSpan(
+                              text: ' Icon to chat ',
+                            ),
+                          ]),
+                    ),
+                  ),
+                )
+              :
 
-          /// This will be shown in a list of the recent convo users
-          /// It still needs to be implemented
-          // const SliverToBoxAdapter(
-          //   child: ChatTileWidget(),
-          // )
+              /// This will be shown in a list of the recent convo users
+              const SliverToBoxAdapter(child: ChatTileWidget())
         ],
       ),
       floatingActionButton: FloatingActionButton(
