@@ -23,7 +23,8 @@ enum Status {
 
 Status type = Status.login;
 
-///  I have used [StatefulWidget] to use [SetState] functions in [LoginPage]
+///  I have used [ConsumerStatefulWidget] to use [setState] functions in [LoginPage]
+///  and declare the providers outside the [build] method
 ///  we could also have managed the state using Riverpod but I am not using it here
 ///  Remember Stateful widgets are made for a reason. If it would be bad
 ///  Flutter developers would not think of it in the first place.

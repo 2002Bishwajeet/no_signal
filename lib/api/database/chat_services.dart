@@ -86,7 +86,7 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   /// It will update the of [state] - List<ChatBubbles>
   /// Since its not required outside of this class,
   /// it is private
-  Future<void> _getOldMessages(NoSignalUser? user) async {
+  void _getOldMessages(NoSignalUser? user) async {
     try {
       final DocumentList temp =
           await database.listDocuments(collectionId: collectionId);

@@ -147,8 +147,7 @@ class UserData {
   /// This method is used to get the profile picture of the user
   /// It takes the unique id of the user as a parameter
   /// For finding the [userId] quicker we are using Queries
-  /// For making a [Query] we need to create a index of type [unique]
-  /// For Index Key, I have set the name id but you can change it to any other name
+  @Deprecated("This method is deprecated. Use _getProfilePicture instead")
   Future<Uint8List> getProfilePicturebyuserId(String id) async {
     try {
       final response =
