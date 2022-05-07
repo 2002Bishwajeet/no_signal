@@ -6,7 +6,7 @@
 # NO Signal
 
 A functional replica of [_Signal_](https://github.com/signalapp/Signal-Android) (chatting app) made using Flutter and Appwrite.
-To know more about it - how it was built and how it works, I have written some detailed blogs on it. Know more about it here: [Part 1](https://bishwajeet-parhi.medium.com/building-no-signal-app-using-flutter-and-appwrite-8b31358b5975) | [Part 2](https://bishwajeet-parhi.medium.com/building-no-signal-using-flutter-and-appwrite-part-2-565c5eb3b484).
+To know more about it - how it was built and how it works, I have written some detailed blogs on it. Know more about it here: [Part 1](https://bishwajeet-parhi.medium.com/building-no-signal-app-using-flutter-and-appwrite-8b31358b5975) | [Part 2](https://bishwajeet-parhi.medium.com/building-no-signal-using-flutter-and-appwrite-part-2-565c5eb3b484) | [Part 3](https://bishwajeet-parhi.medium.com/building-no-signal-using-flutter-and-appwrite-part-3-90b08db16ec).
 
 ## What is Appwrite?
 
@@ -141,6 +141,11 @@ class ApiInfo {
     ├── utils # Misc tools and stuffs
     └── widgets
 ```
+### App Flow
+![app flow](assets/architecture.drawio.png)
+
+### Chat architecture
+![chat arch](assets/chat_architecture.drawio.png)
 
 ### Screenshots
 
