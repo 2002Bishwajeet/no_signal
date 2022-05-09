@@ -6,11 +6,12 @@ import 'package:dart_appwrite/dart_appwrite.dart';
 /// Just run this function setting your endpoint, ProjectID and APIKey
 void main() async {
   Client client = Client()
-      .setEndpoint('http://appwrite.io/v1') // Replace with the endpoint 
+      .setEndpoint('http://appwrite.io/v1') // Replace with the endpoint
       .setProject('[YOUR_PROJECT_ID]') // Replace with your Project ID
       .setKey('[YOUR_SECRET_API_KEY]') // Replace with your API Key
       .setSelfSigned(status: true);
   Database db = Database(client);
+  Storage storage = Storage(client);
   await db.createCollection(
     collectionId: 'users',
     name: 'Users',
@@ -28,6 +29,10 @@ void main() async {
       collectionId: 'users', key: 'email', xrequired: true);
   await db.createStringAttribute(
       collectionId: 'users', key: 'id', size: 256, xrequired: true);
-
   print("Collection created");
+
+  // Creating a new Bucket to store Profile Photos
+  await storage.createBucket(
+      bucketId: 'default', name: 'Profile Photos', permission: 'file');
+  print('Bucket Created');
 }
