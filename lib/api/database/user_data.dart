@@ -43,7 +43,15 @@ class UserData {
     try {
       User res = await account.get();
       File? result = await storage.createFile(
-        file: await MultipartFile.fromPath('file', filePath, filename: imgName),
+        bucketId: 'default',
+        file: InputFile(
+            file: await MultipartFile.fromPath(
+              'file',
+              filePath,
+              filename: imgName,
+            ),
+            filename: imgName,
+            path: filePath),
         fileId: 'unique()',
         read: ['role:all', 'user:${res.$id}'],
         // Make sure to give [role:all]
@@ -136,7 +144,8 @@ class UserData {
   /// This is a private function and would hardly be used outside this class
   Future<Uint8List> _getProfilePicture(String fileId) async {
     try {
-      final data = await storage.getFilePreview(fileId: fileId);
+      final data =
+          await storage.getFilePreview(bucketId: 'default', fileId: fileId);
       return data;
     } on AppwriteException {
       rethrow;
@@ -157,7 +166,10 @@ class UserData {
       // So here comes using the data - the first and foremost document
       pictureId = response.data['imgId'];
 
-      final data = await storage.getFilePreview(fileId: pictureId as String);
+      final data = await storage.getFilePreview(
+        bucketId: 'default',
+        fileId: pictureId as String,
+      );
       return data;
     } on AppwriteException catch (e) {
       log('$e');
