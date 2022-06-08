@@ -34,7 +34,7 @@ docker run -it --rm \
     --volume /var/run/docker.sock:/var/run/docker.sock \
     --volume "$(pwd)"/appwrite:/usr/src/code/appwrite:rw \
     --entrypoint="install" \
-    appwrite/appwrite:0.12.1
+    appwrite/appwrite:0.14.2
 ```
 
 ### Windows
@@ -46,7 +46,7 @@ docker run -it --rm ^
     --volume //var/run/docker.sock:/var/run/docker.sock ^
     --volume "%cd%"/appwrite:/usr/src/code/appwrite:rw ^
     --entrypoint="install" ^
-    appwrite/appwrite:0.12.1
+    appwrite/appwrite:0.14.2
 ```
 
 #### PowerShell
