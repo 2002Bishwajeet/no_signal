@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -64,9 +67,14 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
       _isloading = false;
       return;
     }
+
+    Uint8List? imageBytes = _image == null ? null : await _image!.readAsBytes();
+
     _image != null
-        ? await _userData.uploadProfilePicture(_image!.path, _image!.name).then(
-            (imgId) => _userData.addUser(_name.text, _bio.text, imgId ?? ''))
+        ? await _userData
+            .uploadProfilePicture(_image!.path, _image!.name, imageBytes!)
+            .then((imgId) =>
+                _userData.addUser(_name.text, _bio.text, imgId ?? ''))
         : _userData.addUser(_name.text, _bio.text, 'assets/images/profile.png');
 
     ref.watch(currentLoggedUserProvider.state).state =

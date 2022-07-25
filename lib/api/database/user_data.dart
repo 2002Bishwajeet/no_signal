@@ -15,7 +15,7 @@ class UserData {
   final Client client;
 
   //  Database object to connect with the database and perform CRUD operations
-  late Database database;
+  late Databases database;
 
   // Storage object to connect with the storage to upload profile picture
   late Storage storage;
@@ -28,7 +28,7 @@ class UserData {
   UserData(this.client) {
     account = Account(client);
     storage = Storage(client);
-    database = Database(client);
+    database = Databases(client, databaseId: 'YOUR DATABASE ID');
   }
 
   /// [uploadProfilePicture]
@@ -39,19 +39,18 @@ class UserData {
   /// But here we don't need for that
   ///
   ///
-  Future<String?> uploadProfilePicture(String filePath, String imgName) async {
+  Future<String?> uploadProfilePicture(
+      String filePath, String imgName, Uint8List imageBytes) async {
     try {
       User res = await account.get();
+
+      final bytes = imageBytes.map((e) => e).toList();
+
       File? result = await storage.createFile(
         bucketId: 'default',
         file: InputFile(
-            file: await MultipartFile.fromPath(
-              'file',
-              filePath,
-              filename: imgName,
-            ),
             filename: imgName,
-            path: filePath),
+            path: filePath, bytes: bytes),
         fileId: 'unique()',
         read: ['role:all', 'user:${res.$id}'],
         // Make sure to give [role:all]
