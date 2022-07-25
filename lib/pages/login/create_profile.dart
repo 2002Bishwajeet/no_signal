@@ -230,10 +230,6 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                           width: double.infinity,
                           child: MaterialButton(
                             onPressed: createUser,
-                            child: const Text(
-                              'Create User',
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
                             textTheme: ButtonTextTheme.primary,
                             minWidth: 100,
                             padding: const EdgeInsets.all(18),
@@ -241,6 +237,10 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                               borderRadius: BorderRadius.circular(25),
                               side:
                                   BorderSide(color: NoSignalTheme.whiteShade1),
+                            ),
+                            child: const Text(
+                              'Create User',
+                              style: TextStyle(fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),

@@ -253,13 +253,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                           child: CircularProgressIndicator())
                                       : MaterialButton(
                                           onPressed: _onPressedFunction,
-                                          child: Text(
-                                            type == Status.login
-                                                ? 'Log in'
-                                                : 'Sign up',
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600),
-                                          ),
                                           textColor: Colors.blue.shade700,
                                           textTheme: ButtonTextTheme.primary,
                                           minWidth: 100,
@@ -269,6 +262,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                                 BorderRadius.circular(25),
                                             side: BorderSide(
                                                 color: Colors.blue.shade700),
+                                          ),
+                                          child: Text(
+                                            type == Status.login
+                                                ? 'Log in'
+                                                : 'Sign up',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ),
                                 ),
@@ -299,6 +299,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                                     const Text('Haha Noob Lol'))
                                           ]));
                                     },
+                                    color: Colors.blue.shade200,
+                                    textColor: Colors.blue.shade700,
+                                    textTheme: ButtonTextTheme.primary,
+                                    minWidth: 100,
+                                    padding: const EdgeInsets.all(18),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      side: BorderSide(
+                                          color: Colors.blue.shade700),
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -317,16 +327,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                               fontWeight: FontWeight.w600),
                                         ),
                                       ],
-                                    ),
-                                    color: Colors.blue.shade200,
-                                    textColor: Colors.blue.shade700,
-                                    textTheme: ButtonTextTheme.primary,
-                                    minWidth: 100,
-                                    padding: const EdgeInsets.all(18),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                      side: BorderSide(
-                                          color: Colors.blue.shade700),
                                     ),
                                   ),
                                 ),
