@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
@@ -72,7 +74,7 @@ class Authentication {
       ///  if you don't want to see you can comment it out.
       ///  nevermind I did that for you😉
       /// var data = await account.createSession(email: email, password: password);
-      await account.createSession(email: email, password: password);
+      await account.createEmailSession(email: email, password: password);
 
       await Navigator.pushReplacementNamed(context, HomePage.routename);
     } catch (e) {
@@ -109,7 +111,7 @@ class Authentication {
           email: email, password: password, userId: 'unique()');
       // We will creating a userId as the email id(UNIQUE)
 
-      await account.createSession(email: email, password: password);
+      await account.createEmailSession(email: email, password: password);
 
       await Navigator.pushReplacementNamed(
           context, CreateAccountPage.routeName);
