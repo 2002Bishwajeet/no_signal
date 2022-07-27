@@ -87,10 +87,10 @@ class AuthChecker extends ConsumerWidget {
   /// and if the user is null we will show a [LoadingPage]
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _isLoggedIn = ref.watch(userLoggedInProvider.state).state;
-    if (_isLoggedIn == true) {
+    final isLoggedIn = ref.watch(userLoggedInProvider.state).state;
+    if (isLoggedIn == true) {
       return const HomePage(); // It's a simple basic screen showing the home page
-    } else if (_isLoggedIn == false) {
+    } else if (isLoggedIn == false) {
       return const WelcomePage(); // It's the intro screen we made
     }
     return const LoadingPage(); // It's a plain screen with a circular progress indicator in Center

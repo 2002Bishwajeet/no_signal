@@ -31,7 +31,7 @@ class UsersListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<ListTile> _users = [];
+    List<ListTile> userList = [];
 
     /// Get the list of users from the server
     final users = ref.watch(usersListProvider).asData?.value;
@@ -59,7 +59,7 @@ class UsersListPage extends ConsumerWidget {
     /// Adding the users in the list then
     users?.forEach((user) async {
       if (curUser!.id != user.id) {
-        _users.add(usersTile(
+        userList.add(usersTile(
             name: user.name,
             bio: user.bio,
             imageUrl: user.image as Uint8List,
@@ -74,7 +74,7 @@ class UsersListPage extends ConsumerWidget {
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        children: _users,
+        children: userList,
       ),
     );
   }
