@@ -68,19 +68,29 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
       return;
     }
 
-    Uint8List? imageBytes = _image == null ? null : await _image!.readAsBytes();
+    try {
+      //
+      Uint8List? imageBytes =
+          _image == null ? null : await _image!.readAsBytes();
 
-    _image != null
-        ? await _userData
-            .uploadProfilePicture(_image!.path, _image!.name, imageBytes!)
-            .then((imgId) =>
-                _userData.addUser(_name.text, _bio.text, imgId ?? ''))
-        : _userData.addUser(_name.text, _bio.text, 'assets/images/profile.png');
+      _image != null
+          ? await _userData
+              .uploadProfilePicture(_image!.path, _image!.name, imageBytes!)
+              .then((imgId) =>
+                  _userData.addUser(_name.text, _bio.text, imgId ?? ''))
+          : _userData.addUser(
+              _name.text, _bio.text, 'assets/images/profile.png');
 
-    ref.watch(currentLoggedUserProvider.state).state =
-        await _userData.getCurrentUser();
+      ref.watch(currentLoggedUserProvider.state).state =
+          await _userData.getCurrentUser();
 
-    await Navigator.of(context).pushReplacementNamed(HomePage.routename);
+      await Navigator.of(context).pushReplacementNamed(HomePage.routename);
+      //
+    } on Exception {
+      //
+      _isloading = false;
+      //
+    }
   }
 
   //  Show a loading spinner when submitting function
