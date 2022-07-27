@@ -46,11 +46,15 @@ class UsersListPage extends ConsumerWidget {
       final id = await ref
           .watch(serverProvider)
           .createConversation(curUser!.id, userId);
-      Navigator.of(context).push(MaterialPageRoute(
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
           builder: (context) => ChatPage(
-                collectionId: id!,
-                chatUser: user,
-              )));
+            collectionId: id!,
+            chatUser: user,
+          ),
+        ),
+      );
     }
 
     /// Sort the users in alphabetical order
