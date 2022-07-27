@@ -15,7 +15,7 @@ class ServerApi {
   /// Constructor to initialize the client and other api services
   ServerApi(this.client) {
     account = Account(client);
-    database = Databases(client, databaseId: 'YOUR DATABASE ID');
+    database = Databases(client, databaseId: ApiInfo.databaseId);
   }
 
   /// Get the list of all the documents of users you had convo with

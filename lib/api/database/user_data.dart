@@ -28,7 +28,7 @@ class UserData {
   UserData(this.client) {
     account = Account(client);
     storage = Storage(client);
-    database = Databases(client, databaseId: 'YOUR DATABASE ID');
+    database = Databases(client, databaseId: ApiInfo.databaseId);
   }
 
   /// [uploadProfilePicture]
