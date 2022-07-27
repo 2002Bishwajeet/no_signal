@@ -110,6 +110,7 @@ class ApiInfo {
   static const String url = "http://localhost/v1";
   static const String projectId = "[PROJECT_ID]";
   static const String secretKey = "[SECRET_KEY]"; // You can get this from your Appwrite dashboard
+  static const String databaseId = "[YOUR_DATABASE_ID]";
 }
 
 ```
