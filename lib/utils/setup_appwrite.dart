@@ -10,7 +10,11 @@ void main() async {
       .setProject('[YOUR_PROJECT_ID]') // Replace with your Project ID
       .setKey('[YOUR_SECRET_API_KEY]') // Replace with your API Key
       .setSelfSigned(status: true);
-  Databases db = Databases(client, databaseId: '[YOUR_DATABASE_ID]');
+
+  Databases db = Databases(client, databaseId: 'unique()');
+
+  db.create(name: '[YOUR_DATABASE_ID]');
+
   Storage storage = Storage(client);
   await db.createCollection(
     collectionId: 'users',
