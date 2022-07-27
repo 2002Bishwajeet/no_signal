@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
@@ -84,6 +82,8 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
       ref.watch(currentLoggedUserProvider.state).state =
           await _userData.getCurrentUser();
 
+      if (!mounted) return;
+      
       await Navigator.of(context).pushReplacementNamed(HomePage.routename);
       //
     } on Exception {
