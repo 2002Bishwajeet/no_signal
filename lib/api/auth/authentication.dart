@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/foundation.dart';
 
 ///  We have created a class named [Authentication] which contains all
 ///  the methods that we need to perform the authentication process.
@@ -66,7 +67,14 @@ class Authentication {
     ///  if you don't want to see you can comment it out.
     ///  nevermind I did that for you😉
     /// var data = await account.createSession(email: email, password: password);
-    await account.createEmailSession(email: email, password: password);
+    try {
+      //
+      await account.createEmailSession(email: email, password: password);
+      //
+    } on Exception catch (e) {
+      //
+      debugPrint('Logged Error\n${e.toString()}');
+    }
   }
 
   ///  A function to signup the user with email and password
@@ -79,14 +87,21 @@ class Authentication {
     //  I try to signIn using .whenComplete()
     //  this is a function provided by the Future class
     //  to perform an operation when its completed
-    await account.create(
-      email: email,
-      password: password,
-      userId: 'unique()',
-    );
-    // We will creating a userId as the email id(UNIQUE)
+    try {
+      //
+      await account.create(
+        email: email,
+        password: password,
+        userId: 'unique()',
+      );
+      // We will creating a userId as the email id(UNIQUE)
 
-    await account.createEmailSession(email: email, password: password);
+      await account.createEmailSession(email: email, password: password);
+      //
+    } on Exception catch (e) {
+      //
+      debugPrint('Logged Error\n${e.toString()}');
+    }
   }
 
   ///  A function to logout the current user
@@ -94,6 +109,13 @@ class Authentication {
     ///  Delete session is the method to logout the user
     ///  it expects sessionID but by passing 'current' it redirects to
     ///  current loggedIn user in this application
-    await account.deleteSession(sessionId: 'current');
+    try {
+      //
+      await account.deleteSession(sessionId: 'current');
+      //
+    } on Exception catch (e) {
+      //
+      debugPrint('Logged Error\n${e.toString()}');
+    }
   }
 }
