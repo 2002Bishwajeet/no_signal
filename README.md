@@ -165,7 +165,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/kekavc24"><img src="https://avatars.githubusercontent.com/u/68240897?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kelvin kavisi</b></sub></a><br /><a href="https://github.com/2002Bishwajeet/no_signal/commits?author=kekavc24" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/kekavc24"><img src="https://avatars.githubusercontent.com/u/68240897?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kelvin kavisi</b></sub></a><br /><a href="https://github.com/2002Bishwajeet/no_signal/commits?author=kekavc24" title="Code">💻</a> <a href="https://github.com/2002Bishwajeet/no_signal/commits?author=kekavc24" title="Documentation">📖</a></td>
   </tr>
 </table>
 
