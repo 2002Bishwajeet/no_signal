@@ -10,10 +10,15 @@ import 'package:no_signal/providers/user_data.dart';
 /// [UsersListPage]
 ///
 /// This page is used to display a list of users who are using our app
-class UsersListPage extends ConsumerWidget {
+class UsersListPage extends ConsumerStatefulWidget {
   static const String routeName = '/usersListPage';
   const UsersListPage({Key? key}) : super(key: key);
 
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _UsersListPageState();
+}
+
+class _UsersListPageState extends ConsumerState<UsersListPage> {
   ListTile usersTile(
       {required String name,
       String? bio,
@@ -30,7 +35,7 @@ class UsersListPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     List<ListTile> userList = [];
 
     /// Get the list of users from the server
@@ -46,6 +51,8 @@ class UsersListPage extends ConsumerWidget {
       final id = await ref
           .watch(serverProvider)
           .createConversation(curUser!.id, userId);
+
+      if (!mounted) return; // Converted to ConsumerStateful to access this 
 
       Navigator.of(context).push(
         MaterialPageRoute(
