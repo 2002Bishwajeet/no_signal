@@ -58,11 +58,11 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   ChatServicesNotifier(
       {required this.client, this.user, required this.collectionId})
       : super([]) {
-    database = Databases(client, databaseId: 'YOUR DATABASE ID');
+    database = Databases(client, databaseId: ApiInfo.databaseId);
     account = Account(client);
     realtime = Realtime(client);
     subscription = realtime.subscribe(
-      ['databases.DATABASE ID.collections.$collectionId.documents'],
+      ['databases.${ApiInfo.databaseId}.collections.$collectionId.documents'],
     );
     _getOldMessages(user);
     _getRealtimeMessages();
