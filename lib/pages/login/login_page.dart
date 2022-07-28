@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/api/auth/authentication.dart';
 import 'package:no_signal/pages/home/home_page.dart';
+import 'package:no_signal/pages/login/create_profile.dart';
 import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/themes.dart';
 
@@ -115,22 +116,33 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       if (type == Status.login) {
         //
         await auth.login(_email.text, _password.text);
+
+        if (!mounted) return;
+
+        await Navigator.pushReplacementNamed(context, HomePage.routename);
+
         //
       } else {
         //
         await auth.signUp(_email.text, _password.text);
+
+        if (!mounted) return;
+
+        await Navigator.pushReplacementNamed(
+          context,
+          CreateAccountPage.routeName,
+        );
+
         //
       }
 
       _loading(); // stop loader
 
-      if (!mounted) return;
-      await Navigator.pushReplacementNamed(context, HomePage.routename);
       //
     } on AppwriteException catch (e) {
       //
       _showError(e.message!);
-      
+
       _loading();
       //
     }
