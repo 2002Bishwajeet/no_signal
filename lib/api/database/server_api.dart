@@ -10,12 +10,12 @@ class ServerApi {
   // So there are more functionalities and features than the client side package
   final Client client;
   late final Account account;
-  late final Database database;
+  late final Databases database;
 
   /// Constructor to initialize the client and other api services
   ServerApi(this.client) {
     account = Account(client);
-    database = Database(client);
+    database = Databases(client, databaseId: ApiInfo.databaseId);
   }
 
   /// Get the list of all the documents of users you had convo with

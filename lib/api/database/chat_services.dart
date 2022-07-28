@@ -21,7 +21,7 @@ import '../../themes.dart';
 class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   final Client client;
   final String collectionId;
-  late final Database database;
+  late final Databases database;
   late final Account account;
   late final Realtime realtime;
   late RealtimeSubscription subscription;
@@ -39,7 +39,6 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   ChatBubble _parseChat(Chat chat) {
     return ChatBubble(
       margin: const EdgeInsets.only(top: 10),
-      child: Text(chat.message),
       alignment:
           user!.id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
       shadowColor: Colors.transparent,
@@ -47,9 +46,11 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
           ? Colors.grey
           : NoSignalTheme.lightBlueShade,
       clipper: ChatBubbleClipper1(
-          type: user!.id == chat.senderid
-              ? BubbleType.sendBubble
-              : BubbleType.receiverBubble),
+        type: user!.id == chat.senderid
+            ? BubbleType.sendBubble
+            : BubbleType.receiverBubble,
+      ),
+      child: Text(chat.message),
     );
   }
 
@@ -57,10 +58,12 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   ChatServicesNotifier(
       {required this.client, this.user, required this.collectionId})
       : super([]) {
-    database = Database(client);
+    database = Databases(client, databaseId: ApiInfo.databaseId);
     account = Account(client);
     realtime = Realtime(client);
-    subscription = realtime.subscribe(['collections.$collectionId.documents']);
+    subscription = realtime.subscribe(
+      ['databases.${ApiInfo.databaseId}.collections.$collectionId.documents'],
+    );
     _getOldMessages(user);
     _getRealtimeMessages();
   }

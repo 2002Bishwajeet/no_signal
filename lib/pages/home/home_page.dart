@@ -1,7 +1,10 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:no_signal/api/auth/authentication.dart';
 import 'package:no_signal/pages/home/users_list_page.dart';
+import 'package:no_signal/pages/login/login_page.dart';
 import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/providers/user_data.dart';
 import 'package:no_signal/themes.dart';
@@ -9,18 +12,65 @@ import 'package:no_signal/themes.dart';
 import '../../models/popup.dart';
 import '../settings/settings.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   static const routename = '/home';
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Authentication variable to implement logout functionality
-    final auth = ref.watch(authProvider);
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+}
 
+class _HomePageState extends ConsumerState<HomePage> {
+  //
+  // Authentication variable to implement logout functionality
+  late final Authentication auth = ref.watch(authProvider);
+
+  /// This function show errors caught by api
+  void _showError(String error) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Something went wrong'),
+        content: Text(error),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Ok"))
+        ],
+      ),
+    );
+  }
+
+  /// Logout current user
+  Future<void> _userLogout() async {
+    //
+    try {
+      //
+      await auth.logout();
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Logged out Successfully"),
+        duration: Duration(seconds: 2),
+      ));
+
+      await Navigator.of(context).pushReplacementNamed(LoginPage.routename);
+      //
+    } on AppwriteException catch (e) {
+      //
+      _showError(e.message!);
+    }
+    //
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //
     /// Get the current loggedIn User
     final currUser = ref.watch(currentLoggedUserProvider);
-
     //  This time I decided to work with [SLIVERS] instead of [LIST]
     return Scaffold(
       body: CustomScrollView(
@@ -51,40 +101,39 @@ class HomePage extends ConsumerWidget {
                 onPressed: () {},
               ),
               PopupMenuButton(
-                  onSelected: (PopupItem item) {
-                    switch (item) {
-                      case PopupItem.GROUP:
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text('Wait '),
-                          // Will Implement later
-                        ));
-                        break;
-                      case PopupItem.SETTINGS:
-                        // Open settings screen
-                        Navigator.of(context)
-                            .pushNamed(SettingsScreen.routename);
-                        break;
-                      case PopupItem.LOGOUT:
-                        auth.logout(context);
+                onSelected: (PopupItem item) {
+                  switch (item) {
+                    case PopupItem.GROUP:
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Wait '),
+                        // Will Implement later
+                      ));
+                      break;
+                    case PopupItem.SETTINGS:
+                      // Open settings screen
+                      Navigator.of(context).pushNamed(SettingsScreen.routename);
+                      break;
+                    case PopupItem.LOGOUT:
+                      _userLogout();
 
-                        break;
-                    }
-                  },
-                  itemBuilder: (context) => <PopupMenuEntry<PopupItem>>[
-                        const PopupMenuItem<PopupItem>(
-                          value: PopupItem.GROUP,
-                          child: Text('New group'),
-                        ),
-                        const PopupMenuItem<PopupItem>(
-                          value: PopupItem.SETTINGS,
-                          child: Text('Settings'),
-                        ),
-                        const PopupMenuItem<PopupItem>(
-                          value: PopupItem.LOGOUT,
-                          child: Text('Logout'),
-                        ),
-                      ])
+                      break;
+                  }
+                },
+                itemBuilder: (context) => <PopupMenuEntry<PopupItem>>[
+                  const PopupMenuItem<PopupItem>(
+                    value: PopupItem.GROUP,
+                    child: Text('New group'),
+                  ),
+                  const PopupMenuItem<PopupItem>(
+                    value: PopupItem.SETTINGS,
+                    child: Text('Settings'),
+                  ),
+                  const PopupMenuItem<PopupItem>(
+                    value: PopupItem.LOGOUT,
+                    child: Text('Logout'),
+                  ),
+                ],
+              )
             ],
           ),
           // We will implement more logic later

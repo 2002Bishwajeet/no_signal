@@ -1,9 +1,12 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:no_signal/api/auth/authentication.dart';
+import 'package:no_signal/pages/home/home_page.dart';
+import 'package:no_signal/pages/login/create_profile.dart';
 import 'package:no_signal/providers/auth.dart';
 import 'package:no_signal/themes.dart';
 
@@ -71,6 +74,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     // log('$type');
   }
 
+  /// This function show errors caught by api
+  void _showError(String error) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Error Occured'),
+        content: Text(error),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Ok"))
+        ],
+      ),
+    );
+  }
+
   //  Consuming a provider using watch method and storing it in a variable
   //  Now we will use this variable to access all the functions of the
   //  authentication
@@ -89,13 +110,42 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       return;
     }
     _loading();
-    if (type == Status.login) {
-      await auth.login(_email.text, _password.text, context);
-    } else {
-      await auth.signUp(_email.text, _password.text, context);
-    }
 
-    _loading();
+    try {
+      //
+      if (type == Status.login) {
+        //
+        await auth.login(_email.text, _password.text);
+
+        if (!mounted) return;
+
+        await Navigator.pushReplacementNamed(context, HomePage.routename);
+
+        //
+      } else {
+        //
+        await auth.signUp(_email.text, _password.text);
+
+        if (!mounted) return;
+
+        await Navigator.pushReplacementNamed(
+          context,
+          CreateAccountPage.routeName,
+        );
+
+        //
+      }
+
+      _loading(); // stop loader
+
+      //
+    } on AppwriteException catch (e) {
+      //
+      _showError(e.message!);
+
+      _loading();
+      //
+    }
   }
 
   @override
@@ -253,13 +303,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                           child: CircularProgressIndicator())
                                       : MaterialButton(
                                           onPressed: _onPressedFunction,
-                                          child: Text(
-                                            type == Status.login
-                                                ? 'Log in'
-                                                : 'Sign up',
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600),
-                                          ),
                                           textColor: Colors.blue.shade700,
                                           textTheme: ButtonTextTheme.primary,
                                           minWidth: 100,
@@ -269,6 +312,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                                 BorderRadius.circular(25),
                                             side: BorderSide(
                                                 color: Colors.blue.shade700),
+                                          ),
+                                          child: Text(
+                                            type == Status.login
+                                                ? 'Log in'
+                                                : 'Sign up',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ),
                                 ),
@@ -299,6 +349,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                                     const Text('Haha Noob Lol'))
                                           ]));
                                     },
+                                    color: Colors.blue.shade200,
+                                    textColor: Colors.blue.shade700,
+                                    textTheme: ButtonTextTheme.primary,
+                                    minWidth: 100,
+                                    padding: const EdgeInsets.all(18),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      side: BorderSide(
+                                          color: Colors.blue.shade700),
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -317,16 +377,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                               fontWeight: FontWeight.w600),
                                         ),
                                       ],
-                                    ),
-                                    color: Colors.blue.shade200,
-                                    textColor: Colors.blue.shade700,
-                                    textTheme: ButtonTextTheme.primary,
-                                    minWidth: 100,
-                                    padding: const EdgeInsets.all(18),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                      side: BorderSide(
-                                          color: Colors.blue.shade700),
                                     ),
                                   ),
                                 ),

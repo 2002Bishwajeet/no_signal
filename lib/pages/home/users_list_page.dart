@@ -10,10 +10,15 @@ import 'package:no_signal/providers/user_data.dart';
 /// [UsersListPage]
 ///
 /// This page is used to display a list of users who are using our app
-class UsersListPage extends ConsumerWidget {
+class UsersListPage extends ConsumerStatefulWidget {
   static const String routeName = '/usersListPage';
   const UsersListPage({Key? key}) : super(key: key);
 
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _UsersListPageState();
+}
+
+class _UsersListPageState extends ConsumerState<UsersListPage> {
   ListTile usersTile(
       {required String name,
       String? bio,
@@ -30,8 +35,8 @@ class UsersListPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    List<ListTile> _users = [];
+  Widget build(BuildContext context) {
+    List<ListTile> userList = [];
 
     /// Get the list of users from the server
     final users = ref.watch(usersListProvider).asData?.value;
@@ -46,11 +51,17 @@ class UsersListPage extends ConsumerWidget {
       final id = await ref
           .watch(serverProvider)
           .createConversation(curUser!.id, userId);
-      Navigator.of(context).push(MaterialPageRoute(
+
+      if (!mounted) return; // Converted to ConsumerStateful to access this 
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
           builder: (context) => ChatPage(
-                collectionId: id!,
-                chatUser: user,
-              )));
+            collectionId: id!,
+            chatUser: user,
+          ),
+        ),
+      );
     }
 
     /// Sort the users in alphabetical order
@@ -59,7 +70,7 @@ class UsersListPage extends ConsumerWidget {
     /// Adding the users in the list then
     users?.forEach((user) async {
       if (curUser!.id != user.id) {
-        _users.add(usersTile(
+        userList.add(usersTile(
             name: user.name,
             bio: user.bio,
             imageUrl: user.image as Uint8List,
@@ -74,7 +85,7 @@ class UsersListPage extends ConsumerWidget {
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        children: _users,
+        children: userList,
       ),
     );
   }
