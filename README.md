@@ -1,4 +1,5 @@
 <p  align="center">
+
 <a  href="https://flutter.dev"  target="_blank"><img  height="39"  src="https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png"  alt="Flutter Logo"></a> <a>&nbsp;&nbsp;&nbsp;</a>
 <a  href="https://appwrite.io"  target="_blank"><img  width="260"  height="39"  src="https://appwrite.io/images/github-logo.png"  alt="Appwrite Logo"></a>
 </p>
@@ -155,3 +156,23 @@ class ApiInfo {
 |  <img src = ".github\assets\Screenshot_1645287485.png" height = "500">  |  <img src = ".github\assets\Screenshot_1645287488.png" height = "500">  |   <img src = ".github\assets\Screenshot_1645287604.png" height = "500"> |
 | <img src = ".github\assets\Screenshot_1645287611.png" height = "500">   |  <img src = ".github\assets\Screenshot_1645287619.png" height = "500">  | <img src = ".github\assets\Screenshot_1645287627.png" height = "500">    |
 |    |    |    |
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/kekavc24"><img src="https://avatars.githubusercontent.com/u/68240897?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kelvin kavisi</b></sub></a><br /><a href="https://github.com/2002Bishwajeet/no_signal/commits?author=kekavc24" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
