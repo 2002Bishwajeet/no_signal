@@ -30,6 +30,7 @@ dependencies:
     sdk: flutter
   flutter_chat_bubble: ^2.0.0
   flutter_hex_color: ^2.0.0
+  msix: ^3.6.2
   flutter_lints: ^2.0.1
   flutter_riverpod: ^1.0.3
   font_awesome_flutter: ^10.1.0
@@ -43,6 +44,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -80,3 +82,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+msix_config:
+  display_name: YouChat App
+  publisher_display_name: You foundation
+  identity_name: com.you.chat-app
+  msix_version: 1.0.0.0
+  capabilities: internetClient, location
+  publisher: CN=YouFoundation, O=Msix Testing... # required
+  sign_msix: false
