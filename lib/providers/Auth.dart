@@ -17,7 +17,7 @@ final authProvider = Provider<Authentication>((ref) {
 ///  This is a future Provider which ofc involves a future
 ///  we are accessing getAccount here which will either return a User object
 ///  if it's logged In and null if it's not
-final userProvider = FutureProvider<User?>((ref) async {
+final userProvider = FutureProvider<Account?>((ref) async {
   return ref.watch(authProvider).getAccount();
 });
 

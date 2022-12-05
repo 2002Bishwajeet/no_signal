@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
+import 'package:appwrite/models.dart' as models;
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
@@ -9,6 +9,7 @@ import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:no_signal/models/chat.dart';
 import 'package:no_signal/models/user.dart';
+import 'package:no_signal/utils/api.dart';
 
 import '../../themes.dart';
 
@@ -39,26 +40,19 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   ChatBubble _parseChat(Chat chat) {
     return ChatBubble(
       margin: const EdgeInsets.only(top: 10),
-      alignment:
-          user!.id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
+      alignment: user!.id == chat.senderid ? Alignment.topRight : Alignment.topLeft,
       shadowColor: Colors.transparent,
-      backGroundColor: user!.id != chat.senderid
-          ? Colors.grey
-          : NoSignalTheme.lightBlueShade,
+      backGroundColor: user!.id != chat.senderid ? Colors.grey : NoSignalTheme.lightBlueShade,
       clipper: ChatBubbleClipper1(
-        type: user!.id == chat.senderid
-            ? BubbleType.sendBubble
-            : BubbleType.receiverBubble,
+        type: user!.id == chat.senderid ? BubbleType.sendBubble : BubbleType.receiverBubble,
       ),
       child: Text(chat.message),
     );
   }
 
   /// Constructor
-  ChatServicesNotifier(
-      {required this.client, this.user, required this.collectionId})
-      : super([]) {
-    database = Databases(client, databaseId: ApiInfo.databaseId);
+  ChatServicesNotifier({required this.client, this.user, required this.collectionId}) : super([]) {
+    database = Databases(client);
     account = Account(client);
     realtime = Realtime(client);
     subscription = realtime.subscribe(
@@ -74,6 +68,7 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   Future<void> sendMessage(Chat chat) async {
     try {
       await database.createDocument(
+        databaseId: ApiInfo.databaseId,
         collectionId: collectionId,
         documentId: 'unique()',
         data: chat.toMap(),
@@ -91,8 +86,8 @@ class ChatServicesNotifier extends StateNotifier<List<ChatBubble>> {
   /// it is private
   void _getOldMessages(NoSignalUser? user) async {
     try {
-      final DocumentList temp =
-          await database.listDocuments(collectionId: collectionId);
+      final models.DocumentList temp =
+          await database.listDocuments(databaseId: ApiInfo.databaseId, collectionId: collectionId);
       final response = temp.documents;
 
       /// Adding the List of [Chat]s to the [_chats]

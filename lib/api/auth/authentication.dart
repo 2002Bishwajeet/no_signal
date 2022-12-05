@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
+import 'package:appwrite/models.dart' as models;
 import 'package:flutter/foundation.dart';
 
 ///  We have created a class named [Authentication] which contains all
@@ -47,7 +47,7 @@ class Authentication {
   ///  To know more about User Model `Ctrl+click` or `command + click`
   ///  on User to go to the User model
   ///  It's a nice practice to see these stuffs and explore them
-  Future<User?> getAccount() async {
+  Future<models.Account?> getAccount() async {
     try {
       return await account.get();
     } on AppwriteException catch (e) {

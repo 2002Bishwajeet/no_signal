@@ -18,8 +18,7 @@ class ChatPage extends ConsumerWidget {
   /// Data of the user whom the current user is chatting with
   /// The data is required to display the name and photo of the user
   final NoSignalUser chatUser;
-  ChatPage({required this.collectionId, required this.chatUser, Key? key})
-      : super(key: key);
+  ChatPage({required this.collectionId, required this.chatUser, Key? key}) : super(key: key);
 
   /// TextFieldController for the message input
   final TextEditingController _textController = TextEditingController();
@@ -32,15 +31,11 @@ class ChatPage extends ConsumerWidget {
     /// Get the list of ChatData
     final chatList = ref.watch(chatProvider(collectionId));
 
-    Future<void> _sendMessage(String message) async {
+    Future<void> sendMessage(String message) async {
       if (message.isEmpty) return;
 
       /// Parse the data into a proper model
-      Chat data = Chat(
-          senderName: user!.name,
-          senderid: user.id,
-          message: message,
-          time: DateTime.now());
+      Chat data = Chat(senderName: user!.name, senderid: user.id, message: message, time: DateTime.now());
 
       try {
         /// Send the message
@@ -86,8 +81,7 @@ class ChatPage extends ConsumerWidget {
           ],
         ),
         bottomNavigationBar: SendMessageWidget(
-            textController: _textController,
-            onSend: () async => await _sendMessage(_textController.text)),
+            textController: _textController, onSend: () async => await sendMessage(_textController.text)),
       ),
     );
   }

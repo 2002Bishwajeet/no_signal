@@ -11,32 +11,27 @@ void main() async {
       .setKey('[YOUR_SECRET_API_KEY]') // Replace with your API Key
       .setSelfSigned(status: true);
 
-  Databases db = Databases(client, databaseId: 'unique()');
+  Databases db = Databases(client);
 
-  db.create(name: '[YOUR_DATABASE_ID]');
+  db.create(name: 'No Signal', databaseId: 'nosignal');
 
   Storage storage = Storage(client);
   await db.createCollection(
-    collectionId: 'users',
-    name: 'Users',
-    permission: 'document',
-    read: ["role:all"],
-    write: [],
-  );
+      databaseId: 'nosignal', collectionId: 'users', name: 'Users', permissions: [Permission.read(Role.any())]);
   await db.createStringAttribute(
-      collectionId: 'users', key: 'name', size: 256, xrequired: true);
+      databaseId: 'nosignal', collectionId: 'users', key: 'name', size: 256, xrequired: true);
   await db.createStringAttribute(
-      collectionId: 'users', key: 'bio', size: 256, xrequired: false);
+      databaseId: 'nosignal', collectionId: 'users', key: 'bio', size: 256, xrequired: false);
   await db.createStringAttribute(
-      collectionId: 'users', key: 'imgId', size: 256, xrequired: false);
-  await db.createEmailAttribute(
-      collectionId: 'users', key: 'email', xrequired: true);
-  await db.createStringAttribute(
-      collectionId: 'users', key: 'id', size: 256, xrequired: true);
+      databaseId: 'nosignal', collectionId: 'users', key: 'imgId', size: 256, xrequired: false);
+  await db.createEmailAttribute(databaseId: 'nosignal', collectionId: 'users', key: 'email', xrequired: true);
+  await db.createStringAttribute(databaseId: 'nosignal', collectionId: 'users', key: 'id', size: 256, xrequired: true);
   print("Collection created");
 
   // Creating a new Bucket to store Profile Photos
   await storage.createBucket(
-      bucketId: 'default', name: 'Profile Photos', permission: 'file');
+      bucketId: 'profile-photos',
+      name: 'Profile Photos',
+      permissions: [Permission.read(Role.any()), Permission.write(Role.users())]);
   print('Bucket Created');
 }

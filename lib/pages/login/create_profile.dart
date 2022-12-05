@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,8 +24,7 @@ class CreateAccountPage extends ConsumerStatefulWidget {
   const CreateAccountPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _CreateAccountPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CreateAccountPageState();
 }
 
 class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
@@ -68,22 +68,20 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
 
     try {
       //
-      Uint8List? imageBytes =
-          _image == null ? null : await _image!.readAsBytes();
+      Uint8List? imageBytes = _image == null ? null : await _image!.readAsBytes();
 
       _image != null
           ? await _userData
               .uploadProfilePicture(_image!.path, _image!.name, imageBytes!)
-              .then((imgId) =>
-                  _userData.addUser(_name.text, _bio.text, imgId ?? ''))
-          : _userData.addUser(
-              _name.text, _bio.text, 'assets/images/profile.png');
+              .then((imgId) => _userData.addUser(_name.text, _bio.text, imgId ?? ''))
+          : _userData.addUser(_name.text, _bio.text, 'assets/images/profile.png');
 
-      ref.watch(currentLoggedUserProvider.state).state =
-          await _userData.getCurrentUser();
+      final userdata = await _userData.getCurrentUser();
+
+      ref.watch(currentLoggedUserProvider.notifier).update((state) => userdata);
 
       if (!mounted) return;
-      
+
       await Navigator.of(context).pushReplacementNamed(HomePage.routename);
       //
     } on Exception {
@@ -121,22 +119,17 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       child: Image.asset(
                         'assets/images/logo.png',
                         height: 50,
                         color: Colors.white,
                       )),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Text(
                       'Create Your Profile',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          ?.copyWith(fontSize: 24),
+                      style: Theme.of(context).textTheme.headline4?.copyWith(fontSize: 24),
                     ),
                   ),
                   Padding(
@@ -154,9 +147,7 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                                 child: CircleAvatar(
                                   radius: 52,
                                   backgroundImage: _image == null
-                                      ? const AssetImage(
-                                              'assets/images/avatar.png')
-                                          as ImageProvider<Object>
+                                      ? const AssetImage('assets/images/avatar.png') as ImageProvider<Object>
                                       : FileImage(File(_image!.path)),
                                 )),
                             Positioned(
@@ -178,10 +169,8 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 16),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                     child: TextFormField(
                       autocorrect: true,
                       enableSuggestions: true,
@@ -202,10 +191,8 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 16),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                     decoration: BoxDecoration(
                       border: Border.all(color: NoSignalTheme.whiteShade1),
                       borderRadius: BorderRadius.circular(8),
@@ -245,8 +232,7 @@ class _CreateAccountPageState extends ConsumerState<CreateAccountPage> {
                             padding: const EdgeInsets.all(18),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
-                              side:
-                                  BorderSide(color: NoSignalTheme.whiteShade1),
+                              side: BorderSide(color: NoSignalTheme.whiteShade1),
                             ),
                             child: const Text(
                               'Create User',

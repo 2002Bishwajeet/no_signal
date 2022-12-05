@@ -39,13 +39,11 @@ class _MainAppState extends ConsumerState<MainApp> {
       //  This is how you can modify the state of the providers
       // **Note:** This would be called only when user was already logged in.
       final userData = await ref.read(userDataClassProvider).getCurrentUser();
-      ref
-          .read(currentLoggedUserProvider.state)
-          .update((user) => user = userData);
+      ref.read(currentLoggedUserProvider.notifier).update((user) => user = userData);
 
-      ref.read(userLoggedInProvider.state).state = true;
+      ref.read(userLoggedInProvider.notifier).update((state) => true);
     } else {
-      ref.read(userLoggedInProvider.state).state = false;
+      ref.read(userLoggedInProvider.notifier).update((state) => false);
     }
   }
 
@@ -87,7 +85,7 @@ class AuthChecker extends ConsumerWidget {
   /// and if the user is null we will show a [LoadingPage]
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoggedIn = ref.watch(userLoggedInProvider.state).state;
+    final isLoggedIn = ref.watch(userLoggedInProvider);
     if (isLoggedIn == true) {
       return const HomePage(); // It's a simple basic screen showing the home page
     } else if (isLoggedIn == false) {
