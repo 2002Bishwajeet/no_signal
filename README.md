@@ -34,7 +34,7 @@ docker run -it --rm \
     --volume /var/run/docker.sock:/var/run/docker.sock \
     --volume "$(pwd)"/appwrite:/usr/src/code/appwrite:rw \
     --entrypoint="install" \
-    appwrite/appwrite:0.14.2
+    appwrite/appwrite:1.1.1
 ```
 
 ### Windows
@@ -46,7 +46,7 @@ docker run -it --rm ^
     --volume //var/run/docker.sock:/var/run/docker.sock ^
     --volume "%cd%"/appwrite:/usr/src/code/appwrite:rw ^
     --entrypoint="install" ^
-    appwrite/appwrite:0.14.2
+    appwrite/appwrite:1.1.1
 ```
 
 #### PowerShell
@@ -56,7 +56,7 @@ docker run -it --rm ,
     --volume /var/run/docker.sock:/var/run/docker.sock ,
     --volume ${pwd}/appwrite:/usr/src/code/appwrite:rw ,
     --entrypoint="install" ,
-    appwrite/appwrite:0.12.1
+    appwrite/appwrite:1.1.1
 ```
 
 Once the Docker installation completes, go to <http://localhost> to access the Appwrite console from your browser. Please note that on non-linux native hosts, the server might take a few minutes to start after installation completes.
@@ -107,10 +107,14 @@ Also in `utils` folder create a file called `api.dart` to store all your details
 
 ```dart
 class ApiInfo {
+  ApiInfo._();
   static const String url = "http://localhost/v1";
   static const String projectId = "[PROJECT_ID]";
   static const String secretKey = "[SECRET_KEY]"; // You can get this from your Appwrite dashboard
   static const String databaseId = "[YOUR_DATABASE_ID]";
+  static const String userCollectionId = '[USER_COLLECTION_ID]';
+  static const String storagebucketId = '[STORAGE_BUCKET_ID]';
+}
 }
 
 ```
