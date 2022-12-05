@@ -22,22 +22,22 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  appwrite: ^6.0.0
+  appwrite: ^8.1.0
   cached_network_image: ^3.1.0
   cupertino_icons: ^1.0.2
-  dart_appwrite: ^6.0.0
+  dart_appwrite: ^7.1.0
   flutter:
     sdk: flutter
   flutter_chat_bubble: ^2.0.0
   flutter_hex_color: ^2.0.0
   msix: ^3.6.2
   flutter_lints: ^2.0.1
-  flutter_riverpod: ^1.0.3
+  flutter_riverpod: ^2.1.1
   font_awesome_flutter: ^10.1.0
   google_fonts: ^3.0.1
   image_picker: ^0.8.4
   introduction_screen: ^3.0.2
-  lottie: ^1.1.0
+  lottie: ^2.0.0
   permission_handler: ^10.0.0
   url_launcher: ^6.0.12
 

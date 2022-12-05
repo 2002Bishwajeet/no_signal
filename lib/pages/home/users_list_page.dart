@@ -47,7 +47,7 @@ class _UsersListPageState extends ConsumerState<UsersListPage> {
     /// Manage onTap function for each user
     ///
     /// So what it does, if the user taps on the tile it opens the [ChatPage]
-    void _onTap(String userId, NoSignalUser user) async {
+    void onTap(String userId, NoSignalUser user) async {
       final id = await ref
           .watch(serverProvider)
           .createConversation(curUser!.id, userId);
@@ -74,7 +74,7 @@ class _UsersListPageState extends ConsumerState<UsersListPage> {
             name: user.name,
             bio: user.bio,
             imageUrl: user.image as Uint8List,
-            onTap: () => _onTap(user.id, user)));
+            onTap: () => onTap(user.id, user)));
       }
     });
     return Scaffold(
