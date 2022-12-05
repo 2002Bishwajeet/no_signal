@@ -1,23 +1,23 @@
-# name: Tests
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
+name: Tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
-# jobs:
-#   flutter_test:
-#     name: Run Flutter tests and analayze
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: actions/setup-java@v1
-#         with:
-#           java-version: "11.x"
-#       - uses: subosito/flutter-action@v1
-#         with:
-#           channel: "stable"
-#       - run: flutter pub get
-#       - run: flutter analyze
-#       - run: flutter format .
-#       # - run: flutter test
+jobs:
+  flutter_test:
+    name: Run Flutter tests and analayze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "11.x"
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter format .
+      # - run: flutter test
